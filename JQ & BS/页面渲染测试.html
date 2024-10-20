@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul
+        {
+            display: flex;
+            width: 400px;
+            list-style: none;
+
+            margin: 0 auto;
+            flex-wrap: wrap;
+
+        }
+        ul li
+        {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin:10px 10px ;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 100px;
+        }
+        .btn
+        {
+            display: block;
+            width: 200px;
+            height: 100px;
+            border: 1px solid #000;
+            cursor: pointer;
+            margin: 20px auto;
+            font-size: 20px;
+            background-color: white;
+            transition: .5s;
+        }
+        .btn:hover
+        {
+            background-color: black;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <ul>
+       
+    </ul>
+    <button class="btn">
+        开始查询
+    </button>
+
+
+    <script src="./js/jquery-3.7.1.min.js"></script>
+    <!-- 使用 jquery 获取数据（从指定位置） -->
+    <script>
+    $(".btn").click(function(){
+        $.ajax({
+    type: "get",
+    url: "https://api.allorigins.win/get?url=https://github.com/kasahuki/jsondata_set/raw/main/database.txt",
+    success: function(data) {
+        console.log(data)// data.contents 包含了实际的文件内容
+        const obj=JSON.parse(data.contents)//将json字符串转化为json对象！
+    //查询完毕后
+    for(let i=0;i<obj.length;i++)
+     $("ul").append("<li>"+obj[i].id+"</li>")
+   
+      
+    
+    for(let i=0;i<obj.length;i++)
+    $("ul").append(`<li>${obj[i].userName}</li>`) 
+
+    $(".btn").prop("disabled",true)//only for once try
+
+    }
+   
+})    
+    })
+    //问题就是不知道如何渲染！！
+     
+    </script>
+</body>
+</html>
