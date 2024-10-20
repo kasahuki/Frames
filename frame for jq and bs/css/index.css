@@ -1,0 +1,22 @@
+.box
+{
+    width: 200px;
+    height: 200px;
+    background-color: blue;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 22px;
+    line-height: 200px;
+    color: red;
+    border-radius: 50%;
+}
+.box-son1
+{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+.new
+{
+    background-color: green;
+}
