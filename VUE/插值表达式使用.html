@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+        <div class="app">
+           <a href="">{{ msg }}</a>
+          <a href="">{{ text }}</a> 
+          <h1>{{age>18? "成年":"未成年"}}</h1>
+          <a href="">{{text.toUpperCase()}}</a>
+          <h2>{{person.name+" " + person.age+" "+person.gender}}</h2>
+          <!-- 也可书写对象 . 方法 -->
+          <!-- 有返回值或是结果的表达式 -->
+           <!-- 不能使用 语句 如if for这样的不行 -->
+          <!-- 使用 插值表达式 -->
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+            const app =new Vue({//大写
+                el:'.app',//指名作用域
+                //逗号分隔
+                //但凡是多个语句或是类似对象属性都要使用 逗号分割
+                data:
+                {
+                    msg:'hello',
+                    text:'world!',
+                    age:19,
+                    person:
+                    {
+                        name:'senjay',
+                        age:'19',
+                        gender:'male',
+                        height:'180cm'
+
+                    }
+                }
+            })
+    </script>
+
+</body>
+</html>     

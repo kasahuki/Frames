@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box1
+        {
+            width: 150px;
+            height: 150px;
+            background-color: red;
+        }
+        .box2
+        {
+            width: 150px;
+            height: 150px;
+            background-color: blue;
+        }
+        .box3
+        {
+            width: 150px;
+            height: 150px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="box1" v-if="age>17&&age<20">
+            dfs bfs 二分 前缀和 最短路(?) dp(?) 数论(?) 贪心 (?)
+        </div>
+        <div class="box2" v-else-if="age<40">
+            <!-- 注意属性名要使用 - 来连接 -->
+            测试2
+        </div>
+        <div class="box3" v-else 
+            测试3
+        </div>
+
+        <!-- v-if 后写bool 判断 -->
+         <!-- 流程控制的使用  -->
+          <!-- for循环 -->
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const app = new Vue({
+            el:'.app',
+            data:{
+                name:'senjay',
+                age:19,
+                gender:'male'
+            }
+        })
+    </script>
+</body>
+</html>

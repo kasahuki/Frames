@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container
+        {
+            width: 500px;
+            height: 500px;
+         
+            margin: 0 auto;
+            position: relative;
+           
+        }
+        .previous
+        {
+            position: absolute;
+            top: 200px;
+
+        }
+        .next
+        {
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="container">
+            <button class="previous" @click="previous" v-show="index>0">上一页</button>
+           <!-- <ul>
+            <li v-for="(item,index) in list">
+                <img :src="list[index]" alt="" :width="wid">
+            </li>
+           </ul> -->
+           <!-- <ul>
+            <li v-for="(item,index) in list(数组名)"></li>
+           </ul> -->
+           <!-- 渲染部分 -->
+            <img :src="list[index]" alt="" :width="wid" :height="hei">
+            <button class="next" @click="next" v-show="index<list.length-1">下一页</button>
+           
+        </div>
+      
+    </div>
+    
+
+    <!-- ----------------------------------------------------------------------------------- -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:'.app',
+            data:
+            {
+                list:['./image/图片01.jpg','./image/图片02.jpg','./image/图片03.jpg'],
+                wid:200, 
+                hei:200,    
+                index:0   
+            },
+            methods:
+            {
+                next()
+                {
+                    this.index++;
+                },
+                previous()
+                {
+                    this.index--;
+                }
+            }
+          
+        })
+    </script>
+</body>
+</html>
