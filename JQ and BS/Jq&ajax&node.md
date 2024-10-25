@@ -322,7 +322,31 @@ toggl**er** **触发器**
 
 
 
-# nodeJS (?)
+# nodeJS 
+
+**安装node.js**
+
+
+
+**使用npm安装包安装 json-server**
+
+
+
+**npm install -g json-server**  -g 参数 global 全局
+
+安装json-server 方便传json文件
+
+**在当前项目中创建 db.json 文件~！！**
+
+
+
+**json-server --watch db.json**
+
+**查看当前json文件（或是查看当前端口是否被占用！）**
+
+
+
+
 
 
 

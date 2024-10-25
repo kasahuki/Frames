@@ -1,0 +1,76 @@
+<template>
+    <div>
+        <h1>翻译文本</h1>
+        <textarea v-model="textToTranslate" placeholder="请输入要翻译的文本"></textarea>
+        <select v-model="targetLanguage">
+            <option value="en">英语</option>
+            <option value="es">西班牙语</option>
+            <option value="fr">法语</option>
+            <option value="de">德语</option>
+            <option value="zh">中文</option>
+            <!-- 可以添加更多语言选项 -->
+        </select>
+        <button @click="translateText">翻译</button>
+        <div v-if="translatedText">
+            <h2>翻译结果:</h2>
+            <p>{{ translatedText }}</p>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+            textToTranslate: '', // 用户输入的文本
+            targetLanguage: 'en', // 默认目标语言
+            translatedText: '' // 存储翻译结果
+        };
+    },
+    methods: {
+        translateText() {
+            // 使用完整的 axios 语法进行 API 请求
+            const apiUrl = 'https://targum.com/api/translate'; // Targum API 地址
+
+            // 创建请求体
+            const requestBody = {
+                text: this.textToTranslate // 要翻译的文本
+            };
+
+            // 发送 POST 请求，同时使用 params 传递目标语言
+            axios.post(apiUrl, requestBody, {
+                params: {
+                    target: this.targetLanguage // 目标语言作为查询参数
+                }
+            })
+            .then(function(response) {
+                // 请求成功，处理响应数据
+                this.translatedText = response.data.translatedText; // 更新翻译结果
+            }.bind(this)) // 绑定 this 以确保可以访问组件实例
+            .catch(function(error) {
+                // 请求失败，处理错误
+                console.error('翻译失败:', error); // 在控制台打印错误信息
+            });
+        }
+    }
+};
+</script>
+
+<style scoped>
+/* 样式部分 */
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+select {
+    margin-bottom: 10px;
+}
+
+button {
+    margin-bottom: 20px;
+}
+</style>

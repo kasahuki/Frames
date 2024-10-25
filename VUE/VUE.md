@@ -170,7 +170,88 @@ array.filter(item => item>2)
 
 ![image-20241022220746085](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241022220746085.png)
 
+# watch 监听
 
 
-# axios 前后端交互
 
+![image-20241025155534394](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241025155534394.png)
+
+![image-20241025162217704](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241025162217704.png)
+
+接口代码:https://applet-base-api-t.itheima.net/api/translate
+
+**实现防抖 : 防止频繁提交任务导致服务器卡顿**
+
+**重要逻辑：设置延时器和清除延时器！**
+
+**！！！重点:调整async的位置 要保证在 await 上一个函数前面**
+
+![image-20241025173330536](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241025173330536.png)
+
+![image-20241025172709166](C:/Users/33813/AppData/Roaming/Typora/typora-user-images/image-20241025172709166.png)
+
+
+
+## 完整watch监听
+
+
+
+![image-20241025173039803](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241025173039803.png)
+
+**但这样只能监听一个值的变化，如果要多个的话写相同的逻辑太麻烦了！！**
+
+**handler : 声明监听到数据变化后的处理函数！！**
+
+selcet 表单 v-model 内容对应的是option中的value 值 
+
+review ：表单中的value值
+
+![image-20241025185220290](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241025185220290.png)
+
+![image-20241025185320019](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241025185320019.png)
+
+**参数直接传newValue对象过去**
+
+
+
+# 生命周期
+
+
+
+
+
+# `axios 前后端交互`
+
+
+
+ <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.7.2/axios.js"></script>
+
+**导入axios脚本**
+
+
+
+
+
+![image-20241023223834428](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241023223834428.png)
+
+**详细见其他辅助框架md**
+
+**以下是json文件！！**
+
+![image-20241023223906155](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241023223906155.png)
+
+**内有两个对象数组**！！！！s
+
+![image-20241023224526838](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241023224526838.png)
+
+## get和post 操作
+
+
+
+![image-20241023224927955](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241023224927955.png)
+
+## 修改与删除
+
+![image-20241023235730069](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241023235730069.png)
+
+**后面写id**

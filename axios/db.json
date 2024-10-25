@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "张三",
+      "age": 25,
+      "email": "zhangsan@example.com"
+    },
+    {
+      "id": "2",
+      "name": "SenJay",
+      "age": 20,
+      "email": "senjay@example.com"
+    },
+    {
+      "id": "3",
+      "name": "王五",
+      "age": 28,
+      "email": "wangwu@example.com"
+    },
+    {
+      "id": "4",
+      "name": "kasahuki"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "iPhone 13",
+      "price": 5999,
+      "stock": 100
+    },
+    {
+      "id": "2",
+      "name": "MacBook Pro",
+      "price": 12999,
+      "stock": 50
+    }
+  ]
+}
