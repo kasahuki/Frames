@@ -2,6 +2,25 @@
   <div class="box" v-loading="isloading">
     <CloseWindow :visible.sync="isShow"> 
       <!-- 父组件传递给子组件的自定义属性 -->
+       <template v-slot:title>
+         温馨提示
+       </template>
+       <template v-slot:content>
+          确定吗
+
+       </template>
+    
+    </CloseWindow>
+    <CloseWindow :visible.sync="isShow"> 
+      <!-- 父组件传递给子组件的自定义属性 -->
+      <template v-slot:title>
+          
+        hahaha
+      </template>
+      <template v-slot:content>
+          真的要关闭吗？
+
+      </template>
     </CloseWindow>
     <div class="click">
       <button @click="isShow='true'">点击</button>

@@ -124,9 +124,15 @@ array.filter(item => item>2)
 
 **<font size=6>事件冒泡 : 比如点击儿子，如果父亲也设置了事件监听 的话父亲也会触发事件</font>**
 
+![image-20241028213012741](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028213012741.png)
 
+![image-20241028212819663](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028212819663.png)
 
 # v-model（重要）
+
+![d2414fc82bbd01ae4d42e1ad2409150](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/d2414fc82bbd01ae4d42e1ad2409150.jpg)
+
+**sync update 类似 双向绑定 !!!**
 
 ![image-20241022172113459](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241022172113459.png)
 
@@ -494,7 +500,7 @@ required 规定不为空 --》 true
 
 **可以mysql类比**
 
-**validator 类似函数 判断value是否合法**
+**validator （验证器）类似函数 判断value是否合法**
 
 ### data 和prop区别（父组件的porp单向数据流）
 
@@ -576,6 +582,8 @@ this.$emit('事件名（父组件监听这个事件）','传的参数')
 # .sync 修饰符
 
 [update注意坑点，牢记单词拼写问题](#注意坑点 上面的不是 updated 而是 update)
+
+![image-20241028212403448](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028212403448.png)
 
 ## 父子属性双向绑定
 
@@ -662,7 +670,9 @@ export default {
 
 
 
-# ref 和 $ref 
+# ref 和 $ref (更精确地获取dom元素)
+
+`ref` 是一个 Vue 模板中的指令（attribute），用于标识一个 DOM 元素或子组件，允许在 Vue 实例中引用它。通过 `ref`，你可以在 Vue 组件的 JavaScript 部分访问这些元素或组件
 
  ![image-20241027100142918](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027100142918.png)
 
@@ -672,15 +682,11 @@ export default {
 
 **子组件中：**
 
-return {
-
-}
-
-返回一个对象
-
 
 
 ## ![image-20241027101127146](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027101127146.png)
+
+**函数可返回一个对象**
 
 父组件中：
 
@@ -692,13 +698,21 @@ return {
 
 
 
-![image-20241027101512489](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027101512489.png)
+![image-20241027101512489](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027101512489.png)、
+
+### **可以拿到组件或者标签（dom）然后使用 它的method（其内部封装的）**
 
 ==**也可用于获取组件**==
 
 ## Vue ==异步更新== 和 $nextTick
 
+![image-20241028214922338](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028214922338.png)
+
+
+
 ![image-20241027102930719](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027102930719.png)
+
+![image-20241028214933286](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028214933286.png)
 
 所以在显示 dom（输入框）时其实并没有获取到dom元素！！！！
 
@@ -716,6 +730,8 @@ return {
 
 **自己定义的指令 可以封装一些dom操作 扩展额外操作！**
 
+`inserted` 是一个生命周期钩子，用于指令被插入到父节点时调用。
+
 ![image-20241027135621941](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027135621941.png)
 
 ![](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027140608759.png)
@@ -724,17 +740,11 @@ return {
 
 在main.js中定义 
 
-**el就是指令所绑定的元素！**
+**el就是指令所绑定的元素（标签）！**
 
 在所有组件中均可使用 ！
 
 inserted是个钩子函数 
-
-### 
-
-
-
-
 
 ## 局部注册指令 
 
@@ -746,7 +756,9 @@ inserted是个钩子函数
 
 ![](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027142538173.png)
 
-## 注意坑点 上面的不是 updated 而是 update
+**binding.value 就是 这个 传过来的参数！！**
+
+## ==注意坑点 上面的不是 updated 而是 update==
 
 ![image-20241027154326778](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027154326778.png)
 
@@ -762,7 +774,7 @@ inserted是个钩子函数
 
 **==蒙层== 和控制 类的==dom操作==review**
 
-为什么要before
+**为什么要before**
 
 如何居中定位图
 
@@ -802,6 +814,50 @@ inserted钩子函数只是 进行初始的
 
 **如果数据变化就要用update钩子函数**
 
+~~~js
+  <div class="box" v-loading="isloading">
+    <CloseWindow :visible.sync="isShow"> 
+      <!-- 父组件传递给子组件的自定义属性 -->
+    </CloseWindow>
+    <div class="click">
+      <button @click="isShow='true'">点击</button>
+    </div>
+   
+   <input v-focus type="text">
+   <h1 v-color="color1">指令的值</h1>
+   <h1 v-color="color2">指令的值</h1>
+  </div>
+~~~
+
+~~~js
+ loading:{
+      inserted(el,binding) {
+        
+      binding.value?el.classList.add('loading'): el.classList.remove('loading')
+    },
+    update(el,binding) {
+      binding.value?el.classList.add('loading'): el.classList.remove('loading')
+      //就是看值的变化，然后添加或移除loading类(操作dom)
+      
+    }
+  }
+~~~
+
+~~~js
+  async created() {
+       
+        const res =await axios.get('https://jsonplaceholder.typicode.com/todos/1')
+        setTimeout(() => {
+          //this.list = res.data.data; //更新数据也要一定时间，这里用setTimeout模拟
+          //用于页面v-for渲染数据
+          this.isloading = false
+        }, 300)
+        console.log(res.data)
+      },
+~~~
+
+**如果创建的变量 就一定要使用 console .log 打印出来即可**
+
 # 注意点 
 
 **每个组件都只能有一个根元素 也就是一个div 如果要多个的话就拿一个更大的包住即可**
@@ -810,16 +866,17 @@ inserted钩子函数只是 进行初始的
 
 作用 ： 让 组件内部 一些 提示==结构== 支持==自定义==
 
-## 默认插槽
+## 默认插槽--一个
 
 
 
 ![image-20241027155132747](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027155132747.png)
 
-在slot中书写内容 （也可以是标记语言（标签））就是==后备内容==也就是默认值！！
+在slot中书写内容 （也可以是**标记语言（标签**））就是==后备内容==也就是默认值！！
 
+## 具名插槽--多个
 
-## 具名插槽
+**问题就是区分 所以要取名字**
 
 **多处结构需要外部传入标签进行地址**
 
@@ -831,15 +888,102 @@ inserted钩子函数只是 进行初始的
 
 **v-slot:head 简写为 #head**
 
+**本质就是 子组件 可以进行 复用 根据 父组件的参数 在子组件中渲染**
+
 ## 作用域插槽
+
+在 Vue.js 中，**作用域插槽（Scoped Slots）** 是一种强大的功能，允许父组件在子组件中使用数据。这种机制使得父组件能够在子组件的上下文中渲染内容，从而实现更灵活和可复用的组件设计。
+
+### 作用域插槽的主要用途
+
+1. **动态内容渲染**：
+   - 允许父组件根据子组件提供的数据动态渲染内容。父组件可以访问子组件的状态，并根据这些状态决定如何显示内容。
+2. **增强的组件复用性**：
+   - 子组件可以提供一个通用的接口，父组件可以根据自己的需求使用这些接口，做到更高的复用性。相同的子组件可以在不同的父组件中有不同的表现。
+3. **解耦合**：
+   - 子组件不需要知道父组件的具体实现细节，只需提供数据接口。这样，父组件可以灵活地决定如何使用子组件提供的数据，增强了组件之间的解耦。
+4. **灵活的布局**：
+   - 通过作用域插槽，父组件可以决定如何渲染子组件的内容，包括添加额外的样式、结构或逻辑。
 
 插槽分类只有两类：
 
 ![image-20241027160236112](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027160236112.png)
 
+![image-20241028215911850](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028215911850.png)
+
+在父组件中使用 这个组件时可以使用 这个插槽带回来的数据 （相当于是父传子的逆过程）
+
+![image-20241028215918397](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028215918397.png)
+
+**如果是具名插槽 就是 #具名插槽name**
+
+**传值就是 直接传属性（自定义也可）**
+
+案例：
+
+![image-20241028221302192](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028221302192.png)
+
+**接收一个数组** 
+使用组件传参数 渲染子组件时 -- > 多态！
+
+![image-20241028222232473](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028222232473.png)
+
+![image-20241028232256529](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028232256529.png)
+
+**通过slot 传到父组件的值会被打包成一个对象** 
+
+**接收时 obj.row   obj.msg**                   
+
+~~~C++
+<template>
+    <div class="app">
+        <StableComponent :persons="persons1">
+            <template #default="obj">
+                <button @click="del(obj.row.id)">删除</button>
+                <!-- 体会下为什么能一一对应 -->
+            </template>
+           <!-- 父组件接受到子组件的值 -->
+        </StableComponent>
+        <br>
+        <br>
+         <StableComponent :persons="persons2">
+            <template #default="obj">
+                <button @click="view(obj.row)">查看</button>
+            </template>
+                
+          
+            
+        </StableComponent>
+    </div>
+</template>
+
+~~~
+
+
+
+![image-20241029000539686](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029000539686.png)
+
 
 
 # 路由入门
+
+![image-20241028221842159](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028221842159.png)
+
+---
+
+
+
+![image-20241028221852372](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028221852372.png)
+
+![image-20241028221904532](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028221904532.png)
+
+---
+
+
+
+![image-20241028221923475](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028221923475.png)
+
+
 
 
 

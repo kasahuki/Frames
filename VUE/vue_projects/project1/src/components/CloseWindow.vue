@@ -1,11 +1,12 @@
 <template>
   <div v-show="visible" class="box">
     <div class="header">
-        <h2>温馨提示</h2>
+        <slot name="title"><h2></h2></slot>
+        
         <button @click="handleClose">X</button>
     </div>
     <div class="content">
-       <p>你确定要关闭当前窗口吗？</p>
+       <slot name="content"><p></p></slot>
     </div>
     <div class="btn">
         <button>确认</button>
@@ -52,12 +53,12 @@ export default {
     }
     .header button
     {
-        height: 40%;
+        height: 70%;
     }
    .btn button
     {
         font-size: 15px;
-        width: 100px;
+        width: 200px;
         height: 30px;
         
     }
