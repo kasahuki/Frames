@@ -10,22 +10,19 @@
 
 <script>
 export default {
-  
+
 
 }
 </script>
 
 <style scoped>
-  .container
-  {
-    background-color: gainsboro;
-  }
+
   .wrapper
   {
  
     width: 1000px;
-    height: 1300px;
-    padding-bottom:100px ;
+    height: 900px;
+    padding-bottom:60px ;
     margin: 0 auto;
     background-color: white;
 

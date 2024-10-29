@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LayOut from '@/views/LayOut.vue' 
 import ArticleDetails from '@/views/ArticleDetails.vue'
-import ArticleItems from '@/views/ArticleItems.vue'
 import NotFound from '@/views/NotFound.vue'
 import PersonCenter from '@/views/PersonCenter.vue'
 import UserLike from '@/views/UserLike.vue'
+import ArticleItems from '@/views/ArticleItems.vue'
 
 // 导入路由组件
 Vue.use(VueRouter)
@@ -17,10 +17,11 @@ Vue.use(VueRouter)
 const router =new VueRouter({
     //配置路由规则
     routes:[
-        {path:'/',redirect:'/LayOut'},
+       {path:'/',redirect:'/ArticleItems'},
        {path:'/LayOut',
         component:LayOut,
         children:[
+            {path:'/ArticleItems',component:ArticleItems},
             {path:'/PersonCenter',component:PersonCenter},
             {path:'/UserLike',component:UserLike}
         ],
@@ -28,7 +29,7 @@ const router =new VueRouter({
 
        },
        {path:'/ArticleDetails',component:ArticleDetails},
-       {path:'/ArticleItems',component:ArticleItems},
+    
        {path:'*',component:NotFound}
        
     ]

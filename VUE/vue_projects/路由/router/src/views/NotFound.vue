@@ -16,15 +16,16 @@ export default {
 <style scoped>
     .box
     {
+      width: 100%;
+      height: 100%;
         text-align: center;
         padding: 50px;
         font-size: 24px;
         color: #333;
-        background-color: #f5f5f5;
         border-radius: 10px;
         margin-top: 50px;
         margin-bottom: 50px;
-        box-shadow: 0 0 10px #ccc;
+       
         
     }
 

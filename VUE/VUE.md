@@ -934,11 +934,11 @@ inserted钩子函数只是 进行初始的
 
 **接收时 obj.row   obj.msg**                   
 
-~~~C++
+~~~vue
 <template>
     <div class="app">
-        <StableComponent :persons="persons1">
-            <template #default="obj">
+        <StableComponent :persons="persons1"> //决定 传什么参数进去 
+            <template #default="obj"> 接受到参数 (对象 )
                 <button @click="del(obj.row.id)">删除</button>
                 <!-- 体会下为什么能一一对应 -->
             </template>
@@ -983,9 +983,232 @@ inserted钩子函数只是 进行初始的
 
 ![image-20241028221923475](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241028221923475.png)
 
+**在index.js中 ！！**
+
+~~~C++
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import LayOut from '@/views/LayOut.vue' 
+import ArticleDetails from '@/views/ArticleDetails.vue'
+import ArticleItems from '@/views/ArticleItems.vue'
+import NotFound from '@/views/NotFound.vue'
+// 导入路由组件
+Vue.use(VueRouter)
+//VueRouter 插件初始化
+
+//安装路由
+
+//创建了一个路由对象
+const router =new VueRouter({
+    //配置路由规则
+    routes:[
+        {path:'/',redirect:'/LayOut'},
+       {path:'/LayOut',component:LayOut},
+       {path:'/ArticleDetails',component:ArticleDetails},
+       {path:'/ArticleItems',component:ArticleItems},
+       {path:'*',component:NotFound}
+       
+    ]
+})
+export default router
+//有导入就要有导出
+
+~~~
+
+main.js中
+
+~~~C++
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router/index.js'
+//导入index.js里的路由组件
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App),
+  router
+  //注入router
+}).$mount('#app')
+
+~~~
 
 
 
+@ 表示 src文件夹
+
+![image-20241029193720272](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029193720272.png)
+
+![image-20241029193723436](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029193723436.png)
+
+## 二级路由
+
+~~~C++
+routes:[
+        {path:'/',redirect:'/LayOut'},//重定向 
+       {path:'/LayOut',
+        component:LayOut,
+        children:[
+            {path:'/PersonCenter',component:PersonCenter},
+            {path:'/UserLike',component:UserLike}
+        ],
+        //二级路由
+
+       },
+       {path:'/ArticleDetails',component:ArticleDetails},
+       {path:'/ArticleItems',component:ArticleItems},
+       {path:'*',component:NotFound} //404页面
+       
+    ]
+~~~
+
+**children 嵌套**
+
+## 视口在==多级路由==上的不同分配地区
+
+
+
+![image-20241029220257488](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029220257488.png)
+
+![image-20241029220310501](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029220310501.png)
+
+
+
+## 声明式导航 
+
+本质底层就是 a标签
+
+![image-20241029221622803](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029221622803.png)
+
+模式设置
+
+![image-20241029223018693](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223018693.png)
+
+# 通过点击锚点跳转 ==传参数==
+
+## 分为查询参数传参和动态路由传参
+
+
+
+![image-20241029223242043](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223242043.png)
+
+![image-20241029223245278](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223245278.png)
+
+**注意传过去是router 接收时route 单词拼写问题注意**
+
+## 区别所在
+
+![image-20241029223311287](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223311287.png)
+
+# 跳转
+
+## 分为 path跳转 和 name跳转
+
+
+
+
+
+![image-20241029223423561](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223423561.png)
+
+![image-20241029223446130](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223446130.png)
+
+# 通过path/name跳转进行传参
+
+各有两种传参数的方法 动态路由和基本参数 
+
+![image-20241029223730382](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223730382.png)
+
+![image-20241029223734259](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223734259.png)
+
+![image-20241029223815672](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223815672.png)
+
+![image-20241029223821937](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223821937.png)
+
+**一个是query 一个是 params 接收**
+
+## 问题：
+
+**在layout 视口默认显示一个view组件的时候 可以配置二级路由，当path是当前默认页面的时候就跳转到这个二级路由上**
+
+**如果是一级路由的话之前本来有的结构就没了**
+
+==**配置随便配重点是跳转后以及跳转后显示的视口**==
+
+~~~js
+ data() {    
+        return {
+            articleList: [],   //表明是一个空数组
+            car:{} //表明是一个空对象
+            
+        }
+    },
+~~~
+
+当前页
+
+~~~C++
+<template>
+  <div>
+    <div class="articleMain" @click="$router.push(`/ArticleDetails?id=${item.id}`)" v-for="item in articleList" :key="item.id">
+        <div class="title">
+            <h1>{{item.title}}</h1>
+        </div>
+        <div class="time">
+            <p> {{item.date}}</p>
+            <p> {{item.content}}</p>
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import axios from 'axios'
+//使用前要导入 （前提是安装的axios）
+export default {
+    data() {    
+        return {
+            articleList: [],   //表明是一个空数组
+            // car:{} //表明是一个空对象
+            
+        }
+    },
+   async created() {
+        const res=await axios.get('http://localhost:3000/posts')
+        this.articleList=res.data
+       
+
+    },
+    methods: {  
+     
+   
+}
+        
+    
+}
+</script>
+~~~
+
+详情页
+
+~~~C++
+<script>
+import axios from 'axios'
+export default {
+  async  created() {
+    const id=this.$route.query.id// 获取路由参数
+    const res = await axios.get(`http://localhost:3000/posts/${id}`)
+    this.article = res.data 
+  },
+  data() {    
+    return {
+      article: {}
+    }
+  }
+}
+</script>
+~~~
+
+## 注意模板字符串的写法
 
 
 

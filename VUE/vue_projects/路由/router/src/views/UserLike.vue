@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    is your like things
+    <div class="content">
+        is your like things
+    </div>
+   
   </div>
 </template>
 

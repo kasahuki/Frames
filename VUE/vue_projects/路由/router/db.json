@@ -1,0 +1,34 @@
+{
+    "posts": [
+      {
+        "id": 1,
+        "date": "2023-05-15",
+        "title": "Meeting Notes",
+        "content": "Today's team meeting discussed project milestones and upcoming deadlines. Action items include updating the documentation and scheduling follow-up meetings."
+      },
+      {
+        "id": 2,
+        "date": "2023-05-16",
+        "title": "Weekly Report",
+        "content": "Sales increased by 15% compared to last week. Customer feedback has been positive, with particular praise for the new features implemented."
+      },
+      {
+        "id": 3,
+        "date": "2023-05-17",
+        "title": "Project Update",
+        "content": "Phase one of the development project is complete. Testing phase will begin next week. Team morale remains high."
+      },
+      {
+        "id": 4,
+        "date": "2023-05-18",
+        "title": "Training Schedule",
+        "content": "New employee orientation will be held next Monday. All team leaders are required to attend and prepare relevant materials."
+      },
+      {
+        "id": 5,
+        "date": "2023-05-19",
+        "title": "System Maintenance",
+        "content": "Scheduled maintenance will occur this weekend. All systems will be offline from Saturday 10 PM to Sunday 2 AM."
+      }
+    ]
+  }

@@ -1,6 +1,19 @@
 <template>
   <div class="container">
-    is your personinformation
+    <div class="content">
+        is your personinformation
+        sfs
+        <br>
+        <br>
+        <br>
+
+        sdf
+        sd
+        sdfsdf
+        sdfsdfsdf
+        sdfsdfsd
+    </div>
+   
   </div>
 </template>
 
