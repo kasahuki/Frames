@@ -1104,6 +1104,12 @@ routes:[
 
 ## 分为 path跳转 和 name跳转
 
+![image-20241030222543232](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241030222543232.png)
+
+**上下文！！！**
+
+![image-20241030222551541](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241030222551541.png)
+
 
 
 
@@ -1209,6 +1215,215 @@ export default {
 ~~~
 
 ## 注意模板字符串的写法
+
+**vue-vuex 集中化状态管理**
+
+## **vue-vuex 集中化状态管理**
+
+/src/store/index.js 专门存放vuex
+
+类似 router /src/router/index.js
+
+**然后都导入到main.js 中** 
+
+| 特性     | 普通父子组件传参              | Vuex                                         | Pinia                           |
+| :------- | :---------------------------- | :------------------------------------------- | :------------------------------ |
+| 数据流向 | 单向（props 向下，emit 向上） | 集中式状态管理                               | 集中式状态管理                  |
+| 适用范围 | 简单的父子组件通信            | 中大型复杂应用                               | 中大型复杂应用                  |
+| 复杂度   | 低                            | 高                                           | 中                              |
+| API 设计 | Vue 基本特性                  | 较复杂（state, mutations, actions, getters） | 简洁（state, actions, getters） |
+| 模块化   | 不适用                        | 支持嵌套模块                                 | 扁平化设计，无需嵌套            |
+
+
+
+
+
+## store 的构建使用 
+
+~~~VUE
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router/index.js'
+import store from './store/index.js'
+//导入
+Vue.config.productionTip = false
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
+~~~
+
+~~~vue
+// index.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+Vue.use(Vuex)
+// 安装插件
+const store = new Vuex.Store({  //新建vue实例
+  state: {
+    count: 0,
+    msg: 'hello'
+  }
+})
+export default store
+导出 
+
+~~~
+
+**vue-cli 脚手架** 
+
+**安装过程 （项目集成文件配置s）**
+
+## State
+
+![8694a90cfe0e477646730d24a08e553](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/8694a90cfe0e477646730d24a08e553.jpg)
+
+### 使用辅助函数映射 （简化）
+
+首先现在要使用共享资源的组件中 导入 然后 书写 计算选项（options）
+
+计算选项中 映射 count值
+
+![image-20241030220603049](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241030220603049.png)
+
+![image-20241030220609234](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241030220609234.png)
+
+## Mutation
+
+![f1cb160c2039c5a72cc9d5ea8fc7948](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/f1cb160c2039c5a72cc9d5ea8fc7948.jpg)
+
+###  辅助函数 简化
+
+![image-20241030221550421](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241030221550421.png)
+
+**state 一定要带！！**
+
+![4c688daae99e65684500e0641d254d8](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/4c688daae99e65684500e0641d254d8.jpg)
+
+**导入可以导入多个 import {1,2,3,4,5} from '来自于哪个文件（字符串也要单引号）'**
+
+
+
+## action和getter
+
+
+
+
+
+
+
+
+
+
+
+## 同步和异步（待解决！）
+
+**同步和异步问题总结**
+
+| **问题** | **描述**                               | **应用问题**                                   | **解决方法**                                |
+| :------- | :------------------------------------- | :--------------------------------------------- | :------------------------------------------ |
+| **同步** | 程序执行的顺序是按照代码的顺序执行的   | 数据更新、事件处理、生命周期钩子               | -                                           |
+| **异步** | 程序执行的顺序不是按照代码的顺序执行的 | 数据更新不及时、事件处理不及时、组件状态不一致 | async/await、Promise、Vuex、Vue生命周期钩子 |
+
+**Vue中的异步和同步问题总结**
+
+| **问题**         | **描述**                           | **应用问题** | **解决方法**                          |
+| :--------------- | :--------------------------------- | :----------- | :------------------------------------ |
+| **数据更新**     | 异步数据更新导致DOM更新不及时      | 用户体验不佳 | async/await、Promise、Vuex            |
+| **事件处理**     | 异步事件处理导致事件处理不及时     | 用户体验不佳 | async/await、Promise、Vuex            |
+| **生命周期钩子** | 异步生命周期钩子导致组件状态不一致 | 用户体验不佳 | async/await、Promise、Vue生命周期钩子 |
+
+**解决同步和异步问题的方法总结**
+
+| **方法**            | **描述**                           | **应用场景**                     |
+| :------------------ | :--------------------------------- | :------------------------------- |
+| **async/await**     | 使异步代码看起来像同步代码         | 数据更新、事件处理、生命周期钩子 |
+| **Promise**         | 使异步代码看起来像同步代码         | 数据更新、事件处理、生命周期钩子 |
+| **Vuex**            | 使数据更新和事件处理变得更加可预测 | 数据更新、事件处理               |
+| **Vue生命周期钩子** | 使组件的状态变得更加可预测         | 生命周期钩子                     |
+
+---
+
+
+
+## ==导入==的问题
+
+**所有的（包括以上辅助函数简化的）都是 ：在模板中都是 使用 变量名 调用 然后逻辑中使用 this.变量名来调用**
+
+| **导入类型**         | **书写规则**                              | **说明**               | **例子**                                    |
+| :------------------- | :---------------------------------------- | :--------------------- | :------------------------------------------ |
+| **默认导入**         | `import 名称 from '模块路径'`             | 导入模块的默认导出     | `import Vue from 'vue'`                     |
+| **命名导入**         | `import { 名称 } from '模块路径'`         | 导入模块的命名导出     | `import { createApp } from 'vue'`           |
+| **命名导入（多个）** | `import { 名称1, 名称2 } from '模块路径'` | 导入模块的多个命名导出 | `import { createApp, h } from 'vue'`        |
+| **导入所有**         | `import * as 名称 from '模块路径'`        | 导入模块的所有导出     | `import * as Vue from 'vue'`                |
+| **导入组件**         | `import 名称 from '组件路径'`             | 导入组件               | `import HelloWorld from './HelloWorld.vue'` |
+| **导入插件**         | `import 名称 from '插件路径'`             | 导入插件               | `import axios from 'axios'`                 |
+| **导入样式**         | `import '样式路径'`                       | 导入样式               | `import './styles.css'`                     |
+| **导入图片**         | `import 名称 from '图片路径'`             | 导入图片               | `import logo from './logo.png'`             |
+
+1. **主文件（main.js）**: 将导入语句放在主文件（main.js）中，可以使导入的模块或变量在整个应用中都可用。
+
+
+
+```javascript
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+
+// Vue 和 App 可以在整个应用中使用
+```
+
+1. **组件文件（.vue文件）**: 将导入语句放在组件文件（.vue文件）中，只能在该组件内部使用导入的模块或变量。
+
+
+
+```javascript
+// HelloWorld.vue
+import axios from 'axios'
+
+// axios 只能在 HelloWorld 组件内部使用
+```
+
+1. **模块文件（.js文件）**: 将导入语句放在模块文件（.js文件）中，只能在该模块内部使用导入的模块或变量。
+
+
+
+```javascript
+// myModule.js
+import Vue from 'vue'
+
+// Vue 只能在 myModule.js 内部使用
+```
+
+1. **路由文件（router.js）**: 将导入语句放在路由文件（router.js）中，可以使导入的模块或变量在整个路由系统中都可用。
+
+
+
+```javascript
+// router.js
+import Vue from 'vue'
+import Router from 'vue-router'
+
+// Vue 和 Router 可以在整个路由系统中使用
+```
+
+1. **store文件（store.js）**: 将导入语句放在store文件（store.js）中，可以使导入的模块或变量在整个应用的状态管理系统中都可用。
+
+
+
+```javascript
+// store.js
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+// Vue 和 Vuex 可以在整个应用的状态管理系统中使用
+```
+
+
 
 
 
