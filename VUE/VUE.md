@@ -1216,13 +1216,51 @@ export default {
 
 ## 注意模板字符串的写法
 
-**vue-vuex 集中化状态管理**
+# vue 工程化开发
+
+![image-20241101213500485](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241101213500485.png)
+
+![image-20241101213504114](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241101213504114.png)
+
+## vant组件 注意版本（2，3）的兼容
+
+**安装东西时 注意版本 是否适配当前的环境**
+
+---
+
+
+
+## 利用好类库 文档 （下载 按需导入 注册使用 拓展功能 ）
+
+地址：https://vant-ui.github.io/vant/v2/#/zh-CN/home
+
+![image-20241031164912564](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031164912564.png)
+
+如果vant导入组件都放在main.js 中就会太臃肿 
+
+直接用一个相应的文件 （js文件）
+
+然后直接在main.js 中 导入使用即可
+
+**（方法论）**
+
+~~~javascript
+import Vue from 'vue'
+import { Button, Tabbar, TabbarItem, Grid, GridItem } from 'vant'
+Vue.use(Button)
+Vue.use(Tabbar)
+Vue.use(TabbarItem)
+Vue.use(Grid)
+Vue.use(GridItem)
+~~~
+
+
 
 ## **vue-vuex 集中化状态管理**
 
-/src/store/index.js 专门存放vuex
+**/src/store/index.js 专门存放vuex**
 
-类似 router /src/router/index.js
+**类似 router /src/router/index.js**
 
 **然后都导入到main.js 中** 
 
@@ -1246,6 +1284,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
 import store from './store/index.js'
+//这里的导入名字可以自定义，比如：import ElementUI from 'element-ui'
 //导入
 Vue.config.productionTip = false
 
@@ -1310,13 +1349,41 @@ export default store
 
 ## action和getter
 
+![image-20241031231339222](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031231339222.png)
+
+---
+
+![image-20241031233025222](C:/Users/33813/AppData/Roaming/Typora/typora-user-images/image-20241031233025222.png)
+
+
+
+---
+
+![image-20241031233001973](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031233001973.png)
 
 
 
 
 
+![image-20241031232934756](C:/Users/33813/AppData/Roaming/Typora/typora-user-images/image-20241031232934756.png)
+
+### 辅助函数 mapaction
+
+![image-20241031233117490](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031233117490.png)
+
+## getter 以及mapGetter 映射（辅助函数）
 
 
+
+![image-20241031233133207](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031233133207.png)
+
+**组件名 一般 大驼峰** 
+
+**变量 函数 为小驼峰**
+
+![image-20241101225300916](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241101225300916.png)
+
+---
 
 
 
@@ -1346,11 +1413,103 @@ export default store
 | **Vuex**            | 使数据更新和事件处理变得更加可预测 | 数据更新、事件处理               |
 | **Vue生命周期钩子** | 使组件的状态变得更加可预测         | 生命周期钩子                     |
 
+
+
+**异步操作和同步操作**
+
+| 特性       | 异步操作                                     | 同步操作                                     |
+| :--------- | :------------------------------------------- | :------------------------------------------- |
+| 执行方式   | 不会阻塞代码执行，任务在后台处理。           | 阻塞代码执行，必须等待任务完成。             |
+| 等待时间   | 可以立即继续执行后续代码，无需等待任务完成。 | 必须等待当前任务完成后才能继续执行后续代码。 |
+| 使用场景   | 网络请求、文件读取、定时器等。               | 简单计算、变量赋值等。                       |
+| 性能       | 提升应用响应速度，避免界面卡顿。             | 可能导致界面卡顿或无响应。                   |
+| 代码复杂度 | 需要使用回调函数、Promise 或 async/await。   | 代码流程简单，易于理解和调试。               |
+
 ---
 
 
 
 ## ==导入==的问题
+
+**Q&A:**
+
+Q: **import router from './router/index.js**
+**和**
+**import router from './router**
+**有什么区别**
+
+**A; 后者会隐式的导入router文件里的index.js**
+
+
+
+1. 安装插件：
+   当你使用第三方插件来扩展 Vue 的功能时。这些插件通常需要进行一些全局设置。
+
+    
+
+   例如：
+
+   
+
+   ```javascript
+   import VueRouter from 'vue-router'
+   Vue.use(VueRouter)
+   ```
+
+2. 全局注册组件库：
+   当你使用大型 UI 组件库，想要一次性注册多个组件时。
+
+    
+
+   例如：
+
+   
+
+   ```javascript
+   import ElementUI from 'element-ui'
+   Vue.use(ElementUI)
+   ```
+
+3. 自定义全局功能：
+   当你创建自己的插件，想要添加全局方法、指令、混入等时。
+
+    
+
+   例如：
+
+   
+
+   ```javascript
+   const MyPlugin = {
+     install(Vue) {
+       Vue.mixin({ ... })
+       Vue.directive('my-directive', { ... })
+       Vue.prototype.$myMethod = function() { ... }
+     }
+   }
+   Vue.use(MyPlugin)
+   ```
+
+4. 状态管理库：
+
+   使用 Vuex 等状态管理库时。
+
+   **或是路由**
+
+    
+
+   例如：
+
+   
+
+   ```javascript
+   import Vuex from 'vuex'
+   Vue.use(Vuex)
+   ```
+
+---
+
+
 
 **所有的（包括以上辅助函数简化的）都是 ：在模板中都是 使用 变量名 调用 然后逻辑中使用 this.变量名来调用**
 
@@ -1422,6 +1581,104 @@ import Vuex from 'vuex'
 
 // Vue 和 Vuex 可以在整个应用的状态管理系统中使用
 ```
+
+
+
+## ==导出==的问题
+
+
+
+### 导出 实例
+
+`export default store`
+
+1. `default`：
+   - 表示这是模块的默认导出。
+   - 每个模块只能有一个默认导出。
+   - 使用默认导出可以在导入时 不使用花括号 ，并可以给导入的内容任意命名。
+     - 命名导出(==花括号==)可以有多个，而默认导出(default)只能有一个。
+     - **`导入时`花括号里的名称通常需要与`导出时`使用的名称相匹配，而默认导出可以在导入时使用任意名称。**
+
+![image-20241031165622658](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031165622658.png)
+
+![image-20241031165648237](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031165648237.png)
+
+![image-20241031165651518](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241031165651518.png)
+
+# 路由配置组成结构 
+
+**一级路由视口位于根路由，二级路由视口位于一级路由**
+
+
+
+
+
+# 封装axios 
+
+![image-20241101001050620](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241101001050620.png)
+
+
+
+在request.js 模块中封装各种的axios 实例 通过设置实例的参数 （如：基础地址 和 响应拦截器等等 ）
+
+使用时可以直接调用实例！
+
+## 使用api模块封装各种请求的操作
+
+然后直接在逻辑中传参调用即可！
+
+
+
+---
+
+
+
+为什么要有接口文档
+
+**在里面导出各种 函数（方法） 使用request中的axios实例请求数据**
+
+# 验证码
+
+~~~js
+ async getPicCode () {
+      const res = await request.get('/captcha/image')
+      this.picCode = res.data.base64
+      this.key = res.data.key
+    },
+    getmsg () {
+      console.log('获取验证码')
+      if (this.time === this.Totaltime && this.timber === null) {
+        // 只有在倒计时结束时才可以重新发
+        this.timber = setInterval(() => {
+          this.time--
+          if (this.time <= 0) {
+            this.time = this.Totaltime
+            // 恢复状态
+            clearInterval(this.timber)
+          }
+        }, 1000)
+      } else {
+        Toast('请等待' + this.time + '秒后再获取')
+      }
+    },
+    created () {
+      this.getPicCode()
+    }
+~~~
+
+1. **解耦created钩子函数和普通函数** 
+
+2. **防抖机制，防止一直点击获取 只有在某种条件下才会继续执行逻辑**
+
+# Toast 轻提示 使用注意
+
+**复习原型链**
+
+![image-20241102005333878](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241102005333878.png)
+
+组件中逻辑` this.*$toast*('请等待' + this.time + '秒后再获取')`
+
+toast('请等待' + this.time + '秒后再获取') 会报错 **要想使用这个就要在当前中导入**
 
 
 
