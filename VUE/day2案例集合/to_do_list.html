@@ -1,250 +1,340 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        *
-        {
-            box-sizing: border-box;
-            padding: 0;
-            margin: 0;
-        }
-        body
-        {
-            background-color: #f8f8f6;
-       
-        }
-        .container
-        {
-            display: flex;
-            flex-direction: column;
-            width: 500px;
-            min-height: 100px;
-            background-image: linear-gradient(to right top, #eff4ef, #cfedcf, #afe5ad, #8fdc8b, #6cd368, #5ace5a, #45c94b, #27c43b, #23c341, #1fc247, #1bc04c, #17bf51);
-            margin: 50px auto;
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1) ,
-            -10px -10px 10px white ;
-            border-radius: 25px;
-  
+    <!DOCTYPE html>
+    <html lang="en">
 
-        }
-        .header
-        {
-            height: 50px;
-            line-height: 50px;
-            font-size: 30px;
-            text-align: center;
-            font-weight: 700;
-            color: white;
-           
-        }
-        .input
-        {
-            width: 98%;
-            display: flex;
-            height: 50px;
-            margin-top: 5px ;
-            margin: 0 auto;
-          
-            border: 1px solid greenyellow;
-            margin-bottom: 2px;
-            
-            
-          
-        }
-        .input .searcher:hover
-        {
-            background-color: #1bc04c;
-            border: 0px solid #000;
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
 
-        }
-        .input input 
-        {
-            width: 70%;
-            height: 100%;
-            outline: 0;
-            
-            border: 1px solid greenyellow;
-            padding-left:10px ;
-
-
-        }
-        .input .searcher
-        {
-            width: 30%;
-            height: 100%;
-            font-size: 30px;
-            line-height: 50px;
-            font-weight: 700;
-            text-align: center;
-            background-color: greenyellow;
-            cursor: pointer;
-            transition: .5s;
-
-         
-        }
-        ul
-        {
-            padding: 0;
-        }
-        li{
-            position: relative;
-            list-style: none;
-            width: 100%;
-            height: 45px;
-            color: black;
-           
-            margin-bottom:2px ;
-            line-height: 40px;
-            font-size: 20px;
-            padding-left:10px ;
-            transition: .5s;
-            padding-bottom:2px ;
-            border-bottom: 1px solid #faf4f4;
-            cursor: pointer;
-            
-            
-
-        }
-        svg
-        {
-            position: absolute;
-            cursor: pointer;
-            right: 2%;
-            top: 25%;
-            
-            
-        }
-        li:hover
-        {
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1) ;       
-        }
-        button{
-            padding: 5px;
-            border-radius: 20px;
-            transition: .5s;
-            color: white;
-            background-color: black;
-        }
-        button:hover
-        {
-            color: black;
-            background-color: white;
-        }
-        .footer
-        {
-            display: flex;
-            justify-content: space-between; 
-        }
-       .footer span
-        {
-            font-weight: 700;
-            font-size: 20px;
-        }
-        .footer span i
-        {
-            font-size: 25px;
-        }
-        ul li .id
-        {
-            font-size: 25px;
-            font-weight: 700;
-        }
-        ul li
-        {
-            font-size: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="app">
-
-    
-        <div class="container">
-            <div class="header">
-                To-Do-List
-            </div>
-            <div class="input" @keyup.enter="add" >
-                <input type="text" placeholder="请输入任务" v-model.trim="value">
-                <!-- 防止输出 空格 -->
-                <div class="searcher" @click="add">
-                   Add 
-                </div>
-            </div>
-            <ul>
-                <li v-for="(item,index) in list" :key="item.id"><span class="id">{{index+1}}.</span> <span>{{item.name}}</span>
-                    <i @click="del(item.id)"> 
-                        <!-- 函数传参的使用  -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                      </svg>
-                    </i>
-                </li>
-            </ul>
-            <div class="footer">
-                <button @click="clear">清空所有任务</button>
-                <span>sum: <i>{{list.length}}</i></span>
-
-            </div>
-        </div>
-    </div>
-      <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-      <script>
-        const app =new Vue({
-            el:'.app',
-            data:
-            {
-                list:[
-                {id:1,name:"create"},
-                {id:2,name:"your"},
-                {id:3,name:"plan now!"}
-            ],
-            value:'',
-            
-            },
-           
-            methods:
-            {
-                del(id)//函数传参
-                {
-                   this.list= this.list.filter(item => item.id!==id)
-                   //赋值 加上 filter的使用 
-                   setTimeout(() => {
-                    if(this.list.length==0)
-                    alert("Today's plans are already completed")
-                   }, 100);
-                   
-                },
-                add()
-                {
-                    if(this.value.length==0)
-                    alert("Your input is empty")
-                    else
-                    {
-                    this.list.push({id:this.list.length+1,name:this.value})
-                    this.value=""
-                    //清空输入栏
-
-
-                    }
-                },
-                clear()
-                {
-                    if(this.list.length==0)
-                    alert("Current plan list is already empty now")
-                    else
-                    this.list =[]
-                }
+            body {
+                background-color: #f8f8f6;
 
             }
-        })
-      </script>
-      <!-- 待办任务 -->
-      <!-- 优先级  -->
-       <!-- 记录该任务的时间 -->
-</body>
-</html>
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                width: 500px;
+                min-height: 100px;
+                background-image: linear-gradient(to right top, #eff4ef, #cfedcf, #afe5ad, #8fdc8b, #6cd368, #5ace5a, #45c94b, #27c43b, #23c341, #1fc247, #1bc04c, #17bf51);
+                margin: 50px auto;
+                box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+                    -10px -10px 10px white;
+                border-radius: 25px;
+
+
+            }
+
+            .header {
+                height: 50px;
+                line-height: 50px;
+                font-size: 30px;
+                text-align: center;
+                font-weight: 700;
+                color: white;
+
+            }
+
+            .input {
+                width: 98%;
+                display: flex;
+                height: 50px;
+                margin-top: 5px;
+                margin: 0 auto;
+
+                border: 1px solid greenyellow;
+                margin-bottom: 2px;
+
+
+
+            }
+
+            .input .searcher:hover {
+                background-color: #1bc04c;
+                border: 0px solid #000;
+
+            }
+
+            .input input {
+                width: 70%;
+                height: 100%;
+                outline: 0;
+
+                border: 1px solid greenyellow;
+                padding-left: 10px;
+
+
+            }
+
+            .input .searcher {
+                width: 30%;
+                height: 100%;
+                font-size: 30px;
+                line-height: 50px;
+                font-weight: 700;
+                text-align: center;
+                background-color: greenyellow;
+                cursor: pointer;
+                transition: .5s;
+
+
+            }
+
+            ul {
+                padding: 0;
+            }
+
+            li {
+                position: relative;
+                list-style: none;
+                width: 100%;
+                height: 45px;
+                color: black;
+
+                margin-bottom: 2px;
+                line-height: 40px;
+                font-size: 20px;
+                padding-left: 10px;
+                transition: .5s;
+                padding-bottom: 2px;
+                border-bottom: 1px solid #faf4f4;
+                cursor: pointer;
+
+
+
+            }
+
+            svg {
+                position: absolute;
+                cursor: pointer;
+                right: 2%;
+                top: 25%;
+
+
+            }
+
+            li:hover {
+                box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+            }
+
+            button {
+                padding: 5px;
+                border-radius: 20px;
+                transition: .5s;
+                color: white;
+                background-color: black;
+            }
+
+            button:hover {
+                color: black;
+                background-color: white;
+            }
+
+            .footer {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .footer span {
+                font-weight: 700;
+                font-size: 20px;
+            }
+
+            .footer span i {
+                font-size: 25px;
+            }
+
+            ul li .id {
+                font-size: 25px;
+                font-weight: 700;
+            }
+
+            ul li {
+                font-size: 20px;
+            }
+            .app
+            {
+                display: flex;
+            }
+            .colorBar
+            {
+                display: flex;
+                position: absolute;
+                top: 25px;
+                right: 25px;
+                width: 500px;
+                height: 60px; 
+                cursor: pointer;
+
+            }
+            .colorBar .box
+            {
+                flex: 1;
+                height: 100%;
+                background-color: red;
+                margin-right: 5px;
+                cursor: pointer;
+                transition: .5s;
+                border-radius:12px ;
+            }
+            .colorBar .box:hover
+            {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+            }
+            .box:nth-child(1)
+            {
+                background-color: rgb(11, 14, 237);
+            }
+            .box:nth-child(2)
+            {
+                background-color: rgb(45, 247, 19);
+            }
+            .box:nth-child(3)
+            {
+                background-color: rgb(237, 245, 9);
+            }
+            .box:nth-child(4)
+            {
+                background-color: rgb(248, 154, 12);
+            }
+         
+            
+        </style>
+    </head>
+
+    <body>
+        <div class="app">
+            <div class="container">
+                <div class="header">
+                    To-Do-List
+                </div>
+                <div class="input" @keyup.enter="add" >
+                    <input type="text" placeholder="请输入任务" v-model.trim="value" ref="inp">
+                    <!-- 防止输出 空格 -->
+                    <div class="searcher" @click="add">
+                        Add
+                    </div>
+                </div>
+                <ul>
+                    <li  draggable="true"
+                    @dragstart="onDragStart(index)"
+                    @dragover.prevent
+                    @drop="onDrop(index)"v-for="(item,index) in list" :key="item.id"><span class="id">{{index+1}}.</span>
+                        <span>{{item.name}}</span>
+                        <i @click="del(item.id)">
+                            <!-- 函数传参的使用  -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path
+                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+                        </i>
+                    </li>
+                </ul>
+                <div class="footer">
+                    <button @click="clear">清空所有任务</button>
+                    <span>sum: <i>{{list.length}}</i></span>
+
+                </div>
+            </div>
+            <div class="colorBar">
+                <div class="box"> 
+                </div>
+                <div class="box">  
+                </div>
+                <div class="box">     
+                </div>
+                <div class="box">      
+                </div>
+                <div class="box">              
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script>
+        const app = new Vue({
+            el: '.app',
+            data: {
+                list: [
+                    { id: 1, name: "create" },
+                    { id: 2, name: "your" },
+                    { id: 3, name: "plan now!" }
+                ],
+                value: '',
+                draggedIndex: null // Track the index of the dragged item
+            },
+            created() {
+                const storedList = localStorage.getItem('obj');
+                if (storedList) {
+                    this.list = JSON.parse(storedList);
+                }
+            },
+            mounted() {
+                this.$refs.inp.focus();
+            },
+            methods: {
+                updateLocalStorage() {
+                    localStorage.setItem('obj', JSON.stringify(this.list));
+                },
+                del(id) {
+                    this.list = this.list.filter(item => item.id !== id);
+                    this.updateLocalStorage();
+                   
+                    if (this.list.length == 0) {
+                        setTimeout(() => {
+                            alert("Today's plans are already completed");
+                                  this.$refs.inp.focus();
+                        },200)
+                        
+                    }
+                },
+                add() {
+                    if (this.value.length == 0) {
+                        alert("Your input is empty");
+                        this.$refs.inp.focus();
+                        // 重新使用聚焦函数
+                    } else {
+                        this.list.push({ id: this.list.length + 1, name: this.value });
+                        this.updateLocalStorage();
+                        this.value = "";
+                    }
+                },
+                clear() {
+                    if (this.list.length === 0) { 
+                            alert("Current plan list is already empty now");
+                            this.$refs.inp.focus();
+        
+                    } else {
+                        this.list = [];
+                        this.updateLocalStorage();
+                        this.$refs.inp.focus();
+                    }
+                },
+                onDragStart(index) {
+                    this.draggedIndex = index; // Store the index of the item being dragged
+                },
+                onDrop(dropIndex) {
+                    const draggedItem = this.list[this.draggedIndex]; // Get the dragged item
+                    this.list.splice(this.draggedIndex, 1); // Remove the item from the original position
+                    this.list.splice(dropIndex, 0, draggedItem); // Insert the item at the new position
+                    this.updateLocalStorage(); // Update local storage to reflect the new order
+                }
+            }
+        });
+    </script>
+        <!-- 待办任务 -->
+        <!-- 优先级  -->
+        <!-- 记录该任务的时间 -->
+    </body>
+
+    </html>

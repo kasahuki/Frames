@@ -15,10 +15,6 @@ const routes = [
     redirect: '/home'
   },
   {
-    path: '/index',
-    component: index
-  },
-  {
     path: '/telephone',
     component: telephone
   },
@@ -51,7 +47,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  mode: 'history'
 })
 
 export default router

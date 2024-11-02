@@ -13,7 +13,7 @@
   </div>
   <div class="form">
     <van-field
-      v-model="username"
+      v-model="mobile"
       type="text"
       placeholder="请输入手机号"
       clearable
@@ -47,42 +47,64 @@ export default {
     return {
       picCode: '',
       key: '',
-      username: '',
+      mobile: '',
       password: '',
       gracode: '',
       msg: '',
       time: 5,
       Totaltime: 5,
-      timber: null
+      timber: null,
+      cnt: 0
     }
   },
   methods: {
     onClickLeft () {
       this.$router.go(-1)
     },
+    created () {
+      this.getPicCode()
+    },
     async getPicCode () {
       const res = await request.get('/captcha/image')
       this.picCode = res.data.base64
       this.key = res.data.key
     },
+    validMsg () {
+      if (!/^1[3-9]\d{9}$/.test(this.mobile)) {
+        this.$toast('请输入正确的手机号')
+        return false
+      }
+      if (!/^\w{4}$/.test(this.gracode)) {
+        this.$toast('请输入正确的图形验证码')
+        return false
+      }
+      return true
+    },
     getmsg () {
       console.log('获取验证码')
-      if (this.time === this.Totaltime && this.timber === null) {
+      this.cnt++
+      if (this.validMsg()) {
+        if (this.time === this.Totaltime && this.timber === null) {
         // 只有在倒计时结束时才可以重新发
-        this.timber = setInterval(() => {
-          this.time--
-          if (this.time <= 0) {
-            this.time = this.Totaltime
-            // 恢复状态
-            clearInterval(this.timber)
-          }
-        }, 1000)
+          this.timber = setInterval(() => {
+            this.time--
+            if (this.time <= 0) {
+              this.time = this.Totaltime
+              // 恢复状态
+              clearInterval(this.timber)
+            }
+          }, 1000)
+        } else {
+          this.$toast('请等待' + this.time + '秒后再获取')
+        }
       } else {
-        this.$toast('请等待' + this.time + '秒后再获取')
+        if (this.cnt > 3) {
+          this.$toast('请稍后再试')
+          setTimeout(() => {
+            this.cnt = 0
+          }, 2000)
+        }
       }
-    },
-    created () {
-      this.getPicCode()
     }
   }
 }
@@ -103,10 +125,6 @@ export default {
 {
   width: 50%;
   border:0;
-}
-.validator img
-{
-
 }
 .validator span
 {

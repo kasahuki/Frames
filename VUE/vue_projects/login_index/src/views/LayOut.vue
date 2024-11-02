@@ -4,7 +4,7 @@
         <van-tabbar route v-model="active">
   <van-tabbar-item replace to="/home" icon="home-o">home</van-tabbar-item>
   <van-tabbar-item replace to="/about" icon="search">about</van-tabbar-item>
-  <van-tabbar-item replace to="/login" icon="user">center</van-tabbar-item>
+  <van-tabbar-item replace to="/center" icon="user">center</van-tabbar-item>
   <van-tabbar-item replace to="/cart" icon="cart">cart</van-tabbar-item>
   <van-tabbar-item replace to="/contact" icon="contact">contact</van-tabbar-item>
 </van-tabbar>

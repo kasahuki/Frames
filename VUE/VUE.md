@@ -1609,6 +1609,51 @@ import Vuex from 'vuex'
 
 **一级路由视口位于根路由，二级路由视口位于一级路由**
 
+~~~js
+const routes = [
+  {
+    path: '/',
+    redirect: '/home' (path)  --> (/重定向 相当于 /home 变成了 /)
+  },
+  {
+    path: '/telephone',
+    component: telephone
+  },
+  {
+    path: '/LayOut',
+    component: LayOut,
+    children: [
+      {
+        path: '/home', (/Layout/home/)
+        component: HomeView
+      },
+      {
+        path: '/about',
+        component: AboutView
+      },
+      {
+        path: '/contact'
+      },
+      {
+        path: '/login',
+        component: index
+      }
+    ]
+  },
+  {
+    path: '*',
+    name: 'not-found',
+    component: NotFoundView
+  }
+]
+~~~
+
+根路由 ： / （app）
+
+**一级路由 ： layout   telephone** 
+
+**二级路由 : home about contact login**
+
 
 
 
@@ -1619,13 +1664,49 @@ import Vuex from 'vuex'
 
 
 
-在request.js 模块中封装各种的axios 实例 通过设置实例的参数 （如：基础地址 和 响应拦截器等等 ）
+**在request.js 模块中封装各种的axios 实例** 通过设置实例的参数 （如：基础地址 和 响应拦截器等等 ）
 
-使用时可以直接调用实例！
+使用时可以直接**调用实例！**
 
-## 使用api模块封装各种请求的操作
+~~~js
+import axios from 'axios'
+const instance = axios.create({
+  baseURL: 'http://smart-shop.itheima.net/index.php?s=/api',
+  // 配置基址
+  timeout: 5000
+  // 请求的超时时间，单位是毫秒
+})
+// 添加请求拦截器
+instance.interceptors.request.use(function (config) {
+  // 在发送请求之前做些什么
+  return config
+}, function (error) {
+  // 对请求错误做些什么
+  return Promise.reject(error)
+})
 
-然后直接在逻辑中传参调用即可！
+// 添加响应拦截器
+instance.interceptors.response.use(function (response) {
+  // 2xx 范围内的状态码都会触发该函数。
+  // 对响应数据做点什么
+  return response.data
+  // 将请求回来的数据解构一层，返回给调用者
+}, function (error) {
+  // 超出 2xx 范围的状态码都会触发该函数。
+  // 对响应错误做点什么
+  return Promise.reject(error)
+})
+export default instance
+
+~~~
+
+**响应/请求 拦截器 是什么？**
+
+**注意 在响应拦截器这里可以（详情见上注释**）
+
+## 使用api模块封装操作（方法 / 函数）
+
+然后直接在逻辑中**传参调用即可！**
 
 
 
@@ -1635,9 +1716,9 @@ import Vuex from 'vuex'
 
 为什么要有接口文档
 
-**在里面导出各种 函数（方法） 使用request中的axios实例请求数据**
+**在里面导出各种 函数（方法）**
 
-# 验证码
+# 验证码（login组件）
 
 ~~~js
  async getPicCode () {
@@ -1666,9 +1747,9 @@ import Vuex from 'vuex'
     }
 ~~~
 
-1. **解耦created钩子函数和普通函数** 
+1. **解耦created钩子函数和普通函数   -- 为了让点击时可以触发刷新验证码的功能！！！**
 
-2. **防抖机制，防止一直点击获取 只有在某种条件下才会继续执行逻辑**
+2. **防抖机制，防止一直点击获取然后重新（反复地）执行  只有在某种条件下才会重新执行逻辑**
 
 # Toast 轻提示 使用注意
 
@@ -1680,9 +1761,51 @@ import Vuex from 'vuex'
 
 toast('请等待' + this.time + '秒后再获取') 会报错 **要想使用这个就要在当前中导入**
 
+**toast 是一个函数并不是一个样式**
+
+# LoclalStorage
+
+![image-20241102125831844](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241102125831844.png)
+
+## 存储复杂数据类型 
+
+**basic：** 
+
+**localStorage 只能存储字符串类**
+
+**JSON.stringify() 将复杂数据类型 转化为字符串**
+
+**JSON.parse() 将JSON字符串转化为JSON 对象（键值对的形式）  json对象数组就是一堆json对象**
+
+---
 
 
 
+**`to-do-list`**
+
+~~~js
+  //将数据保存到localStorage，但没有在页面加载时从localStorage重新加载数据。因此，每次刷新页面时，数据不会自动恢复
+            created() {
+                const storedList = localStorage.getItem('obj')
+                //获取本地存储中的数据 然后赋值给list
+                if (storedList) {
+                    this.list = JSON.parse(storedList)
+                    // 页面刷新时，将本地存储中的数据 赋值给list
+                    // 通过list渲染页面
+                }
+            },
+~~~
+
+~~~js
+  updateLocalStorage() {
+                    localStorage.setItem('obj', JSON.stringify(this.list));
+                    //重新对obj进行JSON.stringify处理，再存入localStorage
+                },
+~~~
+
+![image-20241102131544506](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241102131544506.png)
+
+**核心 ： 整体对数组进行存储和增删改查**
 
 # <-----**axios 前后端交互**----->
 

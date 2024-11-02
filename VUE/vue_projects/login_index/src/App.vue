@@ -1,7 +1,7 @@
 <template>
   <div id="app">
    <div class="login">
-    <van-button type="primary" @click="$router.push('/index')">Login</van-button>
+    <van-button type="primary" @click="$router.push('/login')">Login</van-button>
    </div>
     <router-view/>
   </div>
