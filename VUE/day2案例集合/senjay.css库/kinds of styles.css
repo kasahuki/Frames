@@ -1,0 +1,12 @@
+.渐变色1
+{
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
+}
+.玻璃表单
+{
+  background-color: rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(10px);
+ 
+  box-shadow: 0 0 10px inset;
+}

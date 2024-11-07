@@ -57,12 +57,12 @@ export default {
       cnt: 0
     }
   },
+  created () {
+    this.getPicCode()
+  },
   methods: {
     onClickLeft () {
       this.$router.go(-1)
-    },
-    created () {
-      this.getPicCode()
     },
     async getPicCode () {
       const res = await request.get('/captcha/image')
@@ -153,6 +153,7 @@ h2
   border-bottom: 1px solid #c5bfbf;
   padding-bottom: 15px;
   margin:25px 0;
+  color: #4CAF50;
 }
 .van-cell
 {

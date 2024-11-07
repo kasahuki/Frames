@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+#confetti-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.confetti {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 10px;
+  height: 20px;
+  opacity: 0;
+}
+</style>
+<body>
+
+  <div id="confetti-container"></div>
+  <button id="celebrate-button">庆祝</button>
+  <script>
+    const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+document.getElementById('confetti-container').appendChild(canvas);
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+const confettis = [];
+
+class Confetti {
+    constructor(angle, type = 'rectangle') {
+        this.x = canvas.width / 2;
+        this.y = canvas.height;
+        this.angle = angle;
+        this.speed = Math.random() * 2 + 1;
+        this.rotation = 0;
+        this.rotationSpeed = (Math.random() * 2 - 1) * 0.1;
+        this.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        this.width = type === 'emoji' ? 32 : Math.random() * 8 + 4;
+        this.height = type === 'emoji' ? 32 : this.width * 3;
+        this.opacity = 1;
+        this.lifespan = 150 + Math.random() * 100;
+        this.type = type;
+        this.emoji = this.getRandomEmoji();
+    }
+
+    getRandomEmoji() {
+        const emojis = ['🎉', '🎊', '✨', '⭐', '🌟', '💫', '🎈'];
+        return emojis[Math.floor(Math.random() * emojis.length)];
+    }
+
+    update() {
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y -= Math.sin(this.angle) * this.speed;
+        this.rotation += this.rotationSpeed;
+        this.lifespan--;
+
+        if (this.lifespan < 75) {
+            this.opacity = this.lifespan / 75;
+        }
+
+        this.angle += (Math.random() - 0.5) * 0.005;
+    }
+
+    draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(this.rotation);
+        ctx.globalAlpha = this.opacity;
+        
+        if (this.type === 'emoji') {
+            ctx.font = "32px serif";
+            ctx.fillStyle = "gold";
+            ctx.textAlign = "center";
+            ctx.fillText(this.emoji, 0, 0);
+        } else if (this.type === 'circle') {
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(0, 0, this.width / 2, 0, Math.PI * 2);
+            ctx.fill();
+        } else if (this.type === 'star') {
+            this.drawStar(0, 0, 5, this.width, this.width/2);
+        } else {
+            ctx.fillStyle = this.color;
+            ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+        }
+        ctx.restore();
+    }
+
+    drawStar(cx, cy, spikes, r, r2) {
+        let x = 0;
+        let y = 0;
+        let angle = Math.PI / 2;
+        let addAngle = Math.PI / spikes;
+        let flip = 1;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy - r);
+        for (let i = 0; i < spikes; i++) {
+            x = cx + Math.cos(angle) * r2;
+            y = cy + Math.sin(angle) * r2;
+            ctx.lineTo(x, y);
+            x = cx + Math.cos(angle + addAngle) * r;
+            y = cy + Math.sin(angle + addAngle) * r;
+            ctx.lineTo(x, y);
+            angle += addAngle;
+        }
+        ctx.lineTo(cx, cy - r);
+        ctx.closePath();
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    }
+}
+
+function createConfettis() {
+    const confettiCount = 300;
+    const types = ['rectangle', 'circle', 'star', 'emoji'];
+    const colors = [
+        '#ff7d7d', // 红色
+        '#ff9f4a', // 橙色
+        '#ffcd4a', // 黄色
+        '#4aff77', // 绿色
+        '#4ab8ff', // 蓝色
+        '#e44aff'  // 紫色
+    ];
+    
+    // 左侧彩带
+    for (let i = 0; i < confettiCount/2; i++) {
+        const angle = (Math.random() * 0.5 + 0.5) * Math.PI; // 扩大角度范围
+        const type = types[Math.floor(Math.random() * types.length)];
+        const confetti = new Confetti(angle, type);
+        confetti.color = colors[Math.floor(Math.random() * colors.length)];
+        confetti.speed = Math.random() * 3 + 2; // 增加速度变化
+        confettis.push(confetti);
+    }
+
+    // 右侧彩带
+    for (let i = 0; i < confettiCount/2; i++) {
+        const angle = Math.random() * 0.4 * Math.PI; // 0度到72度
+        const type = Math.random() > 0.5 ? 'rectangle' : 'circle';
+        confettis.push(new Confetti(angle, type));
+    }
+
+    // 添加表情符号
+    const emojiAngle = Math.random() * Math.PI; // 随机角度
+    confettis.push(new Confetti(emojiAngle, 'emoji'));
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for(let i = confettis.length - 1; i >= 0; i--) {
+        confettis[i].update();
+        confettis[i].draw();
+
+        if (confettis[i].opacity <= 0 || 
+            confettis[i].x < 0 || 
+            confettis[i].x > canvas.width || 
+            confettis[i].y < 0 || 
+            confettis[i].lifespan <= 0) {
+            confettis.splice(i, 1);
+        }
+    }
+
+    if (confettis.length > 0) {
+        requestAnimationFrame(animate);
+    } else {
+        isAnimating = false;
+        confettis.length = 0;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
+let isAnimating = false;
+
+document.getElementById('celebrate-button').addEventListener('click', () => {
+    createConfettis();
+    if (!isAnimating) {
+        isAnimating = true;
+        animate();
+    }
+    playCelebrateSound();
+});
+
+  </script>
+</body>
+</html>

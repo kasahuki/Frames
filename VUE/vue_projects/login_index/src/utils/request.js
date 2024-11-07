@@ -1,9 +1,7 @@
 import axios from 'axios'
 const instance = axios.create({
-  baseURL: 'http://smart-shop.itheima.net/index.php?s=/api',
-  // 配置基址
+  baseURL: 'http://smart-shop.itheima.net/index.php?s=/api/captcha/image',
   timeout: 5000
-  // 请求的超时时间，单位是毫秒
 })
 // 添加请求拦截器
 instance.interceptors.request.use(function (config) {
@@ -25,4 +23,5 @@ instance.interceptors.response.use(function (response) {
   // 对响应错误做点什么
   return Promise.reject(error)
 })
+
 export default instance

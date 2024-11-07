@@ -1809,6 +1809,36 @@ toast('请等待' + this.time + '秒后再获取') 会报错 **要想使用这�
 
 # <-----**axios 前后端交互**----->
 
+![image-20241103104659577](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103104659577.png)
+
+## URL 组成部分
+
+![image-20241103104733674](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103104733674.png)
+
+​	域名 ： 标记服务器在互联网中的位置
+
+![image-20241103105536336](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103105536336.png)‘
+
+## HTTP协议 和请求报文
+
+![image-20241103105748816](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103105748816.png)
+
+
+
+## 响应报文
+
+![image-20241103105839213](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103105839213.png)
+
+![image-20241103105842741](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103105842741.png)
+
+
+
+**axios 常见问题 **
+
+cors 跨域问题
+
+**钩子函数一定不要写在method方法中**
+
 
 
 **端口只有一个 端口里的json文件只此一个，所以一次只能用一个json文件**
@@ -1848,3 +1878,549 @@ toast('请等待' + this.time + '秒后再获取') 会报错 **要想使用这�
 **后面写id**
 
 ​	
+
+# javascript 关于函数的一切
+
+## 普通函数：
+
+~~~js
+function fun() {
+    return 100
+}
+
+const fun = function() {
+    return 100
+}
+
+~~~
+
+```javascript
+// 只有在调用时，函数才会执行
+console.log(fun()); // 输出：200
+```
+
+## 箭头函数
+
+~~~js
+const fun = x => x+10
+const fun = () => 100
+const fun = () => {
+    return 100
+}
+箭头函数 （）中定义参数 如果是只有一个参数可以不写括号
+~~~
+
+### 两者的区别主要在于==函数中==this 的指向
+
+**前者为动态的 后者是定义的时候就已经确定了**
+
+**普通函数 ： 谁调用这个函数this就指向谁**
+
+**箭头函数 ； 绑定到最近一层的普通函数的this**
+
+例子：
+
+~~~js
+const obj = {
+    value: 100,
+    regularFunction: function() {
+        const arrowFunction = () => {
+            return this.value;
+        };
+        return arrowFunction();
+    }
+};
+
+console.log(obj.regularFunction()); // 输出：100
+~~~
+
+
+
+# vue3
+
+`项目构建`
+
+### 什么是 `npm install`？
+
+`npm install` 是 Node Package Manager (npm) 的一个命令，用于安装项目的所有依赖包。它会根据项目根目录下的 `package.json` 文件中的内容，下载并安装所需的依赖包，并将它们存储在 `node_modules` 目录中。
+
+核心变化：
+
+## vue实例
+
+### **什么是 Vue 实例？**
+
+在 Vue 中，**Vue 实例**是应用的核心对象。它是通过 `new Vue()`（Vue 2）或者 `createApp()`（Vue 3）创建的。Vue 实例负责管理整个 Vue 应用的生命周期、数据、事件处理、DOM 渲染、响应式系统等。可以把 Vue 实例理解为一个"控制中心"，它将数据模型和页面的 DOM 元素绑定在一起，当数据发生变化时，Vue 实例会自动更新 DOM 元素。
+
+### **Vue 实例的主要职责**
+
+1. **数据管理**：Vue 实例管理应用的响应式数据，任何数据的变化都会自动更新 DOM。
+2. **模板渲染**：Vue 实例会将定义的模板与数据进行绑定，渲染出页面内容。
+3. **事件处理**：使用 Vue 实例可以处理各种用户交互事件（如点击、输入等）。
+4. **生命周期管理**：Vue 实例提供了一系列钩子函数，允许你在应用不同的生命周期阶段（如创建、挂载、更新、销毁等）执行特定的逻辑。
+5. **组件管理**：Vue 实例可以管理自身的组件树，每个组件也都是一个 Vue 实例。
+
+### **多个 Vue 实例的应用场景**
+
+1. **页面上多个独立的区域**：如果你有多个独立的页面区域，每个区域有自己的数据和逻辑，你可以为每个区域创建独立的 Vue 实例。例如，一个区域是文章内容显示，另一个区域是评论系统，它们可以由不同的 Vue 实例管理。
+2. **渐进式增强**：在已有的传统应用中，你可以为某些特定的页面片段使用 Vue 实例，而不需要重构整个应用。这些 Vue 实例可以嵌入在已有的 HTML 页面中，负责增强该部分的交互逻辑。
+3. **单页应用中的独立模块**：在某些情况下，如果你的应用是一个大型的单页应用（SPA），你可以将不同的模块用不同的 Vue 实例管理
+
+- 每个应用实例负责管理自己的数据和行为，并分别挂载到 `#app1` 和 `#app2` DOM 元素上。
+
+### vue2 和vue3 创建实例的方法
+
+~~~js
+// Vue 2 main.js
+
+// 1. 引入 Vue 库
+import Vue from 'vue'
+
+// 2. 引入根组件 App.vue
+import App from './App.vue'
+
+// 3. 关闭生产环境提示
+Vue.config.productionTip = false
+
+// 4. 创建 Vue 实例并挂载到 DOM 元素上
+new Vue({
+  // 5. 渲染根组件 App.vue
+  render: h => h(App), // 渲染函数，将 App 组件渲染到页面中
+}).$mount('#app') // 挂载到页面中的 #app 节点
+~~~
+
+
+
+---
+
+
+
+~~~js
+// Vue 3 main.js
+
+// 1. 引入 Vue 库中的 createApp 函数
+import { createApp } from 'vue'
+
+// 2. 引入根组件 App.vue
+import App from './App.vue'
+
+// 3. 创建 Vue 应用实例
+const app = createApp(App)
+
+// 4. 挂载到页面中的 #app 节点
+app.mount('#app')
+~~~
+
+**优点： 将创建实例进行了封装 ， 保证每个实例的独立封闭性 （大型项目中更有所体会）**
+
+
+
+## 组合式API
+
+
+
+![image-20241103134754247](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103134754247.png)
+
+~~~js
+<script setup>
+// setup 执行时机比beforeCreate早，获取不到this
+   / **vue3 不太注重使用this**
+    const count = 8
+    const getCount = () => count
+</script>
+~~~
+
+###  **reactive 和 ref 响应式**
+
+## ![image-20241103135414724](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103135414724.png) 
+
+![image-20241103135425234](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103135425234.png)
+
+**const list = ref( [ ] )**
+
+**本质就是将简单数据类型包成复杂数据类型然后 使用reactive 实现响应式**
+
+**注意 ； 脚本中访问数据 需要通过.value 而在 template 中不需要（本质是通过扒了一层也就是解构了一层**）
+
+==ref 可以替换掉 reactive==
+
+
+
+### computed
+
+在 Vue 中，`computed` 计算属性==返回==的是**基于它依赖的响应式数据计算出的值**。这些计算属性通常用于对数据进行**派生**或**处理**，并且具有**缓存**特性，只有当其依赖的数据发生变化时才会重新计算
+
+#### vue2 说明
+
+~~~js
+<div id="app">
+  <p>First Name: <input v-model="firstName"></p>
+  <p>Last Name: <input v-model="lastName"></p>
+  <p>Full Name: {{ fullName }}</p>  <!-- 使用 computed 计算得到 fullName -->
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      firstName: 'John',
+      lastName: 'Doe'
+    },
+    computed: {
+      // 定义一个计算属性 fullName
+      fullName() {
+        // fullName 是基于 firstName 和 lastName 计算出来的
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+  });
+</script>
+~~~
+
+### vue3 说明
+
+~~~JS
+<script setup>
+// setup 执行时机比beforeCreate早，获取不到this
+import { ref } from 'vue'
+import { reactive } from 'vue'
+import { computed } from 'vue'
+    const count = ref(8) 
+    const obj = reactive({
+      name: '张三',
+      age: 20
+    })
+    const getCount = () => count
+    const list = ref([1,2,5,8,6,8,8,9,6])
+    const getEven = computed( () => list.value.filter(item => item % 2 === 0))
+    
+    
+
+</script>
+<template>
+  <div>
+    <ul>
+      <li v-for="item in getEven">{{item}}</li>
+    </ul>
+  </div>
+</template>
+<style scoped>
+
+</style>
+~~~
+
+**注意 ； computed 是只读的 如果想修改 （查看拓展方法 ） （）=> 查看官方文档！！！**
+
+！！first and foremost 看文档最最重要
+
+## WATCH (监听)
+
+![image-20241103141757476](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103141757476.png)`
+
+
+
+![image-20241103142533465](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103142533465.png)`
+
+ 
+
+![image-20241103142638192](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103142638192.png)`
+
+**注意是数组**
+
+#### 配置项 immediate deep 深度监视
+
+原理效果还是一样只是写法不一样了
+
+![image-20241103143359043](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103143359043.png)
+
+**deep写法是为了能够监视到复杂数据类型的变化**（watch默认是==浅层监视==）
+
+但是这个只能监听整体 
+
+**如果要实现监听复杂数据类型中具体的成员呢**
+
+
+
+![image-20241103143907139](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103143907139.png)
+
+![image-20241103144228075](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103144228075.png)
+
+
+
+## 生命周期函数
+
+选项式 vue2 
+
+
+
+![image-20241103144403939](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103144403939.png)
+
+![image-20241103144724912](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103144724912.png)
+
+**生命周期函数可以执行多次，并不会冲突就按照顺序执行**
+
+
+
+## 父子通信
+
+**父传子**
+
+![image-20241103145955084](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103145955084.png)
+
+**带冒号是因为传的是变量**
+
+**子传父**
+
+![image-20241103151506147](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103151506147.png)
+
+**数组中写可以触发的事件**
+
+## 模板引用
+
+![image-20241103151757075](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103151757075.png)
+
+**必须要等dom渲染完才可以绑定上**
+
+**使用生命周期钩子函数**
+
+![image-20241103152739480](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103152739480.png)
+
+**获取模板引用 的时机是等组件挂载完毕**
+
+**拿组件一般就是为了拿里面的属性或是方法**
+
+ 
+
+![image-20241103152535598](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103152535598.png)
+
+**显式暴露出组件内部的属性和方法**
+
+## provide  & inject （用到再看）
+
+  ![image-20241103161628931](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103161628931.png)
+
+
+
+![image-20241103162059521](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103162059521.png)
+
+![image-20241103162115648](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103162115648.png)
+
+**顶层与底层数据交互**
+
+
+
+如果要==修改==变量
+
+![image-20241103162322808](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103162322808.png)
+
+![image-20241103162330105](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103162330105.png)
+
+
+
+# Pinia（最重要）
+
+**替代vuex 状态管理工具**
+
+![image-20241103162644559](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103162644559.png)
+
+* vue2 中 smartShop 管理 vuex
+
+**component 组成部分  组件 成分的**
+
+**main.js 入口文件**
+
+~~~js
+import './assets/main.css'// 导入 main.css 文件
+import { createPinia } from 'pinia' // 导入 createPinia
+import { createApp } from 'vue' // 导入 createApp
+import App from './App.vue' // 导入 App.vue 组件
+const pinia = createPinia() // 创建 pinia 实例
+const app = createApp(App) // 创建 vue 实例
+app.use(pinia).mount('#app') // 挂载到 id 为 app 的元素上
+
+~~~
+
+## pinia 基本语法
+
+**创建各个仓库模块 （本质都是为了更好维护）**
+
+**定义store 有两种 选项式和组合（compositon）式  <=(这个用到的多)**  
+
+---
+
+### 数据的定义和获取
+
+==仓库模块的定义==：
+
+~~~js
+import { defineStore } from 'pinia'
+import { computed, ref } from 'vue'
+
+// defineStore 函数的第一个参数是 store 的名字
+export const useCounterStore = defineStore('counter', () => {
+  -----------------------------------------
+    // 声明数据 state
+  const count = ref(100)
+  const msg = ref('hello pinia')
+  const increment = () => {
+    count.value++
+  }
+  ------------------------------------------
+    // 声明操作数据的方法 aution
+  const decrement = () => {
+    count.value--
+  }
+  ------------------------------------------
+  const double = computed(() => {
+    return count.value * 2
+  })
+    //声明基于数据派生的计算属性 getters
+  ------------------------------------------
+    // 最后 return  一个对象
+    // 要记住暴露出去
+    return {
+      count,
+      msg,
+      increment,
+      decrement,
+      double
+
+    }
+})
+// 仓库返回的是一个函数
+~~~
+
+==仓库模块的导入使用==：
+
+~~~js
+<script setup>
+import { useCounterStore } from './store/counter'
+import test1 from './components/threshold/test1.vue'
+const counter = useCounterStore()
+// 基于函数原理拿到这个仓库对象
+const doubleCount = () => {
+  counter.count=counter.double
+}
+</script>
+<template>
+  <test1>
+    
+  </test1>
+  <h1>{{ counter.count }} - {{ counter.msg }}</h1>
+  <button @click="counter.increment">+</button>
+  <button @click="counter.decrement">-</button>
+  <button @click="doubleCount">Double</button>
+</template>
+<style scoped>
+  button
+{
+  margin-top: 20px;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #42b983;
+  color: #fff;
+  cursor: pointer;
+  
+}
+</style>
+~~~
+
+
+
+**数据的修改 基于方法 ： 详细见上**
+
+==易错==
+
+**注意问题：**
+
+`double` 是一个计算属性，不应该用作事件处理器。请确保您只使用它来显示值，而不将其作为按钮的事件处理器。
+
+~~~js
+js <button @click="counter.double">Double</button>
+//这样是不对的
+~~~
+
+**{{counter.double}} 要这样用**
+
+
+
+## action 异步实现
+
+**key：支持异步的写法注意** 
+
+![image-20241103180150771](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103180150771.png)
+
+![image-20241103180305981](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241103180305981.png)
+
+
+
+### 
+
+
+
+## storeToRefs 方法、
+
+
+
+### `storeToRefs` 的作用
+
+1. **将响应式状态转换为引用**：
+   `storeToRefs` 可以将 Pinia store 中的响应式数据转换为普通的引用（ref），这使得在 `<template>` 中使用它们时更加方便。
+2. **避免解构带来的响应性丢失**：
+   当你直接解构响应式对象的属性时，Vue 会失去对这些属性的响应性，因为解构会创建一个新的非响应式变量。使用 `storeToRefs` 可以避免这种情况，确保在模板中引用的变量仍然是响应式的。
+
+==review 复习es6 解构用法==
+
+
+
+
+
+## pinia 持久化
+
+提供了插件 无需使用==localStorage==
+
+
+
+## 事件冒泡
+
+事件冒泡是指当一个事件在某个元素上触发时，该事件会向上传播到其父元素，直到 document 对象。这个过程允许父元素对子元素的事件做出反应。
+
+### 事件冒泡的影响
+
+在你的代码中，事件冒泡可能导致点击事件在多个元素上触发。例如，如果你在一个列表项的子元素上点击删除按钮，而没有阻止事件冒泡，点击事件可能会传播到列表项本身或其他父元素上，导致意外的行为。
+
+### 如何事件冒泡可能导致问题
+
+多次触发事件：如果父元素也有事件监听器，事件冒泡可能导致这些监听器被意外触发。
+
+2. 意外删除多个任务：如果 del 方法绑定在一个父元素上，而不是直接在删除按钮上，事件冒泡可能导致多个任务被删除。
+
+### 如何防止事件冒泡
+
+你可以使用 event.stopPropagation() 来阻止事件冒泡：
+
+```js
+methods: {
+    del(id, event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        this.list = this.list.filter(item => item.id !== id);
+        this.updateLocalStorage();
+        if (this.list.length === 0) {
+            setTimeout(() => {
+                alert("Today's plans are already completed");
+                this.$refs.inp.focus();
+            }, 200);
+        }
+    }
+}
+```
+
+## positon 
+
+**子绝父相 ： 儿子会去往上找相对定位的父亲 根据它父亲的位置定位自己的位置**
+
+ 
+
