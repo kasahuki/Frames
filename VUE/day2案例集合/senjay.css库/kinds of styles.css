@@ -10,3 +10,13 @@
  
   box-shadow: 0 0 10px inset;
 }
+.背景组合 .图片覆盖一层
+{
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../images/footer.jpg) no-repeat;
+  background-size: cover;
+    /* 主要作用：
+
+使背景图像相对于浏览器视窗固定，不会随页面滚动而移动
+创建视差滚动(parallax scrolling)效果
+背景图会保持在视窗中的固定位置 */
+}

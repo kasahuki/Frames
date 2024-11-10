@@ -17,28 +17,13 @@
 
         body {
 
+            background-image: url(./beauty1.jpg);
             background-repeat: no-repeat;
             background-size: cover;
             background-attachment: fixed;
             /* 可选 */
-            min-height: 1300px;
+            min-height: 1900px;
             position: relative;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            width: 500px;
-            min-height: 100px;
-            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
-            margin: 220px 90px;
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(179, 177, 177);
-            border-radius: 25px;
-            transition: .5s;
-            z-index: 10000;
-
-
         }
 
         .header {
@@ -139,7 +124,7 @@
             border-bottom: 2px solid #45a049;
         }
 
-        .container ul li svg {
+        .luna ul li svg {
             position: absolute;
             cursor: pointer;
             right: 2%;
@@ -165,6 +150,7 @@
             color: black;
             background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
         }
+
 
         .footer {
             display: flex;
@@ -254,7 +240,7 @@
 
         .post {
             display: flex;
-            margin-top: 120px;
+            margin-top: 220px;
             flex-direction: column;
         }
 
@@ -364,21 +350,44 @@
 
 
         }
-
-        .changeBox {
-            width: 100px;
-            height: 40px;
+        .change
+        {
+            display: flex;
+            justify-content: center;
             position: absolute;
             right: 51px;
             top: 500px;
+            border-radius: 20px;
+            
+        }
+        .change span {
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            color: white;
+            font-weight: 700; 
+            color:balck;
+        }
+        .changeBox {
+            width: 90px;
+            height: 40px;
             padding: 5px 10px;
             border-radius: 20px;
+            color: rgb(231, 100, 100);
+            font-weight: 700;
+            background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
             transition: .5s;
-            background-color: black;
+        }
+        .changeBox:hover {
+            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+            color: black;
         }
 
         audio {
-            display: none;
+           opacity: 0;
+           transition: .5s;
 
 
         }
@@ -416,25 +425,58 @@
             /* 覆盖层 */
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./foot.jpg) no-repeat 100%;
             background-size: cover;
-            /* 不会覆盖！！！！ */
-            z-index: -1;
         }
+        /* 绝对定位就脱离了标准流了 所以会导致覆盖 */
 
-        .mirror {
+
+        .luna {
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            min-height: 100px;
+            padding: 0 12px;
+            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
+            margin: 220px 90px;
+            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+                -10px -10px 10px rgb(6, 145, 214);
+            border-radius: 25px;
+           transition: all 0.5s ease;
+            z-index: 10000;
+
+
+        }
+        .lighting {
             display: flex;
             padding: 0 12px;
             flex-direction: column;
             width: 500px;
             min-height: 100px;
             margin: 220px 90px;
-            background-color: rgba(168, 66, 66, 0.559);
+            background-color: rgba(224, 86, 86, 0.559);
             box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(179, 177, 177);
-            transition: .5s;
+                -10px -10px 10px rgb(6, 145, 214);
+                transition: all 0.5s ease;
             z-index: 10000;
             backdrop-filter: blur(10px); /* 背景模糊 */
             border-radius: 15px; /* 圆角 */
             color:pink;
+        }
+        /* 毛玻璃样式 */
+        .sun {
+            display: flex;
+            padding: 0 12px;
+            flex-direction: column;
+            width: 500px;
+            min-height: 100px;
+            margin: 220px 90px;
+            background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
+            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+                -10px -10px 10px rgb(6, 145, 214);
+            transition: all 0.5s ease;
+            z-index: 10000;
+            backdrop-filter: blur(10px); /* 背景模糊 */
+            border-radius: 15px; /* 圆角 */
+            color: blue;
         }
     </style>
 </head>
@@ -460,8 +502,10 @@
 
         <div class="app">
             <button class="putBox btn btn-primary" ref="putBox" @click="show">关闭任务</button>
-            <button class="changeBox btn btn-primary" @click="changeStyle">切换样式</button>
-            <div class="container" ref="container">
+            <div class="change">
+                <span>当前样式</span><button class="changeBox btn btn-primary"  @click="changeStyle">{{style}}</button>
+            </div>
+            <div class="luna" ref="luna">
                 <div class="header">
                     To-Do-List
                 </div>
@@ -480,7 +524,7 @@
                             style="flex-grow: 1;">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
                             @click.stop ref="editInput">
-                        <i @click="del(item.id)">
+                        <i @click.stop="del(item.id, $event)">
                             <!-- 原有的删除图标 -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">
@@ -550,16 +594,16 @@
         let music = document.querySelector('audio')
         let Switch = 0
         let boxswitch = 1
-        let style = "luna"
+      
         btn.addEventListener('click', () => {
             if (Switch === 0) {
                 Switch = 1
-                music.style.display = "block"
+                music.style.opacity = '1'
                 btn.innerHTML = "关闭音乐"
             }
             else {
                 Switch = 0
-                music.style.display = "none"
+                music.style.opacity = '0'
 
                 btn.innerHTML = "弹出音乐"
             }
@@ -610,7 +654,13 @@
                 ],
                 value: '',
                 draggedIndex: null, // Track the index of the dragged item，
-                Switch: 1
+                Switch: 1,
+                style : "luna",
+                styleSet : [
+                    "luna",
+                    "sun",
+                    "lighting"
+                ]
             },
             created() {
                 const storedList = localStorage.getItem('obj');
@@ -634,17 +684,22 @@
                 updateLocalStorage() {
                     localStorage.setItem('obj', JSON.stringify(this.list));
                 },
-                del(id) {
-                    event.stopPropagation(); // 阻止事件冒泡
-                    this.list = this.list.filter(item => item.id !== id);
-                    this.updateLocalStorage();
-
-                    if (this.list.length == 0) {
-                        setTimeout(() => {
-                            alert("Today's plans are already completed");
-                            this.$refs.inp.focus();
-                        }, 200)
-
+                del(id, event) {
+                    if (event) {
+                        event.stopPropagation();
+                    }
+                    
+                    const index = this.list.findIndex(item => item.id === id);
+                    if (index > -1) {
+                        this.list.splice(index, 1);
+                        this.updateLocalStorage();
+                        
+                        if (this.list.length === 0) {
+                            setTimeout(() => {
+                                alert("Today's plans are already completed");
+                                this.$refs.inp.focus();
+                            }, 200);
+                        }
                     }
                 },
                 // ---------------------------------------------------------------
@@ -652,31 +707,32 @@
                     if (this.Switch === 1) {
                         console.log("hide")
                         this.Switch = 0
-                        this.$refs.container.style.transform = "translateY(-200%)"
+                        this.$refs.luna.style.transform = "translateY(-200%)"
                         this.$refs.putBox.innerHTML = "打开任务"
                     }
                     else {
                         console.log("show")
                         this.Switch = 1
-                        this.$refs.container.style.transform = "translateY(0)"
+                        this.$refs.luna.style.transform = "translateY(0)"
                         this.$refs.putBox.innerHTML = "关闭任务"
                     }
 
                 },
                 changeStyle() {
-                    if(style === "luna")
-                {
-                    this.$refs.container.classList.toggle('mirror',true)
-                    this.$refs.container.classList.toggle('container',false)
-                    style = "lighting"
-                }
-                else
-                {
-                    this.$refs.container.classList.toggle('mirror',false)
-                    this.$refs.container.classList.toggle('container',true)
-                    style = "luna"
-                }      
+                    let index = this.styleSet.indexOf(this.style) // 找到当前样式的索引
+                    index = (index + 1) % this.styleSet.length // 防止越界
+                    this.style = this.styleSet[index] // 切换到下一个样式
+                    for(let i=0;i<this.styleSet.length;i++) {
+                        if(this.styleSet[i] === this.style) {
+                            this.$refs.luna.classList.add(this.style) // 添加样式格式是 class="luna" 这样的 字符串形式
+                        }
+                        else {
+                           
+                            this.$refs.luna.classList.remove(this.styleSet[i])
+                        }
+                    }         
                 },
+
                 handleGlobalClick(event) {
                     const editingItem = this.list.find(item => item.editing);
                     if (editingItem) {
@@ -693,7 +749,12 @@
                         this.$refs.inp.focus();
                         // 重新使用聚焦函数
                     } else {
-                        this.list.push({ id: this.list.length + 1, name: this.value, editing: false });
+                        const newId = Date.now() + Math.random().toString(36).substr(2, 9);
+                        this.list.push({ 
+                            id: newId, 
+                            name: this.value, 
+                            editing: false 
+                        });
                         this.updateLocalStorage();
                         this.value = "";
                     }

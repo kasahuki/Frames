@@ -2418,9 +2418,104 @@ methods: {
 }
 ```
 
+# 注意事项
+
 ## positon 
 
-**子绝父相 ： 儿子会去往上找相对定位的父亲 根据它父亲的位置定位自己的位置**
+**子绝父相 ： 儿子会去往上找已经定位（不止是相对定位）的父亲 根据它父亲的位置定位自己的位置**
 
- 
+ 相对定位是相对自己 不会脱离文档流
 
+**绝对定位会脱离文档流**
+
+## to-do-list 项目bug
+
+
+
+![image-20241109134810164](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241109134810164.png)
+
+解决方案：
+~~~js
+add() {
+    if (this.value.length == 0) {
+        alert("Your input is empty");
+        this.$refs.inp.focus();
+    } else {
+        // 使用时间戳 + 随机数生成唯一 ID
+        const newId = Date.now() + Math.random().toString(36).substr(2, 9);
+        this.list.push({ 
+            id: newId, 
+            name: this.value, 
+            editing: false 
+        });
+        this.updateLocalStorage();
+        this.value = "";
+    }
+}
+~~~
+
+~~~js
+del(id, event) {
+    // 阻止事件冒泡
+    if (event) {
+        event.stopPropagation();
+    }
+    
+    // 找到要删除的项的索引
+    const index = this.list.findIndex(item => item.id === id);
+    if (index > -1) {
+        // 只删除找到的那一项
+        this.list.splice(index, 1);
+        this.updateLocalStorage();
+        
+        if (this.list.length === 0) {
+            setTimeout(() => {
+                alert("Today's plans are already completed");
+                this.$refs.inp.focus();
+            }, 200);
+        }
+    }
+}
+~~~
+
+~~~js
+<li v-for="(item,index) in list" :key="item.id">
+    <!-- ... -->
+    <i @click.stop="del(item.id, $event)">
+        <svg><!-- ... --></svg>
+    </i>
+</li>
+~~~
+
+---
+
+
+
+类比java 当事件一旦发生了 就会产生这个事件对象
+
+### `$event` 是什么？
+
+在 Vue.js 中，`$event` 是一个特殊的变量，它代表事件处理函数中被触发的原生 DOM 事件对象。通过将 `$event` 作为参数传递给方法，你可以在方法中访问事件对象的属性和方法，比如鼠标点击的位置、按下的键等
+
+---
+
+
+
+### 为什么需要 `:key`？
+
+1. **提升性能**：当 Vue 通过 `v-for` 渲染一个列表时，如果没有使用 `:key`，Vue 会倾向于用一种简单的方式更新 DOM：比如直接替换整个列表。这可能导致不必要的 DOM 操作，降低性能。
+2. **保持组件状态**：如果列表中的项目是组件，使用 `:key` 可以确保组件在重新排序或改变时保持其内部状态，而不会因为 DOM 节点的替换而丢失状态。
+3. **正确的 DOM 更新**：当列表项发生增删改时，`:key` 可以帮助 Vue 精确地识别哪些元素需要被更新或重用。这对于动画处理和保持用户输入状态特别重要。
+
+---
+
+
+
+1. `this.$refs.container.classList.toggle('mirror', true)`：
+   - 这行代码会在 `this.$refs.container` 所指向的 DOM 元素上添加 `'mirror'` 类。
+   - `classList.toggle` 方法的第二个参数是 `true`，表示无论 `'mirror'` 类是否已经存在，都会确保这个类被添加到元素上。
+2. `this.$refs.container.classList.toggle('container', false)`：
+   - 这行代码会在 `this.$refs.container` 所指向的 DOM 元素上移除 `'container'` 类。
+   - `classList.toggle` 方法的第二个参数是 `false`，表示无论 `'container'` 类是否已经存在，都会确保这个类被从元素上移除。
+
+总结来说，这段代码的作用是：确保 `this.$refs.container` 上有 `'mirror'` 类，并且没有 `'container'` 类。
