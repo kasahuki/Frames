@@ -1938,11 +1938,21 @@ console.log(obj.regularFunction()); // 输出：100
 
 # vue3
 
+相比于vue2 使用了vite的构建工具
+
+要在node.js环境下运行 node -v 检查版本
+
+npm init vue@latest 自动安装vue依赖并运行 create-vue
+
+
+
 `项目构建`
 
 ### 什么是 `npm install`？
 
 `npm install` 是 Node Package Manager (npm) 的一个命令，用于安装项目的所有依赖包。它会根据项目根目录下的 `package.json` 文件中的内容，下载并安装所需的依赖包，并将它们存储在 `node_modules` 目录中。
+
+**Vue.js Devtools 是一个专门为 Vue.js 开发者 提供的浏览器扩展工具，主要用于调试和分析 Vue.js 应用程序。它能够帮助开发者更高效地了解应用的状态、组件层次结构以及数据变化，极大地提升开发效率。**
 
 核心变化：
 
@@ -2518,4 +2528,4 @@ del(id, event) {
    - 这行代码会在 `this.$refs.container` 所指向的 DOM 元素上移除 `'container'` 类。
    - `classList.toggle` 方法的第二个参数是 `false`，表示无论 `'container'` 类是否已经存在，都会确保这个类被从元素上移除。
 
-总结来说，这段代码的作用是：确保 `this.$refs.container` 上有 `'mirror'` 类，并且没有 `'container'` 类。
+总结来说，这段代码的作用是：确保 `this.$refs.container` 上有 `'mirror'` 类，并且没有 `'container'` 类。ai1

@@ -1,0 +1,550 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+
+  background-image: url(./beauty1.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  /* 可选 */
+  min-height: 1900px;
+  position: relative;
+}
+
+.header {
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 700;
+  color: inherit;
+
+}
+
+.input {
+  width: 98%;
+  display: flex;
+  height: 50px;
+  margin-top: 5px;
+  margin: 0 auto;
+
+
+
+  margin-bottom: 2px;
+
+
+
+}
+
+.input .searcher:hover {
+
+  border: 0px solid #000;
+  box-shadow: 0 20px 5px rgba(0, 0, 0, 0.2);
+
+
+}
+
+.input input {
+  width: 70%;
+  height: 100%;
+  outline: 0;
+  background-color: inherit;
+  padding-left: 10px;
+  border: 3px solid rgb(92, 91, 91);
+  /* 保留原有的边框样式 */
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.input .searcher {
+  width: 30%;
+  height: 100%;
+  font-size: 30px;
+  line-height: 50px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: .5s;
+
+
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  height: 45px;
+  color: black;
+  margin-bottom: 2px;
+  line-height: 40px;
+  font-size: 20px;
+  padding-left: 10px;
+  transition: .3s;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #faf4f4;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+li input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #4CAF50;
+  outline: none;
+  font-size: 20px;
+  width: 80%;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  line-height: 40px;
+}
+
+li input:focus {
+  border-bottom: 2px solid #45a049;
+}
+
+.luna ul li svg {
+  position: absolute;
+  cursor: pointer;
+  right: 2%;
+  top: 25%;
+
+
+}
+
+li:hover {
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  padding: 5px;
+  border-radius: 20px;
+  transition: .5s;
+  color: white;
+  background-color: black;
+  border: 0;
+}
+
+button:hover {
+  color: black;
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+}
+
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer span {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.footer span i {
+  font-size: 25px;
+}
+
+ul li .id {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+ul li {
+  font-size: 20px;
+}
+
+.app {
+  width: 500px;
+
+}
+
+.colorBar {
+  display: flex;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  width: 1000px;
+  height: 60px;
+  cursor: pointer;
+
+}
+
+.colorBar .box {
+  flex: 1;
+  height: 100%;
+
+  margin-right: 5px;
+  cursor: pointer;
+  transition: .5s;
+  border-radius: 12px;
+  text-align: center;
+  line-height: 60px;
+  font-weight: 700;
+  transition: 1s;
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 10px inset;
+}
+
+.colorBar .box:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(to left bottom, #0d0d0d, #2f2f30, #545354, #7b7b7b, #a4a4a5, #b9babb, #cfd0d1, #e6e7e7, #eceded, #f1f2f2, #f7f8f8, #fdfefe);
+
+  /* 添加阴影效果 */
+}
+
+/* .box:nth-child(1) {
+  background-color: rgb(208, 17, 246);
+}
+
+.box:nth-child(2) {
+  background-color: rgb(45, 247, 19);
+}
+
+.box:nth-child(3) {
+  background-color: rgb(237, 245, 9);
+}
+
+.box:nth-child(4) {
+  background-color: rgb(248, 154, 12);
+}
+.box:nth-child(5) {
+  background-color: rgb(219, 23, 174);
+} */
+.colorBar .box {
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+
+}
+
+.post {
+  display: flex;
+  margin-top: 220px;
+  flex-direction: column;
+}
+
+.post1 {
+  width: 500px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 20px;
+  background-image: url(./luna.jpg);
+  margin-left: 20px;
+  cursor: pointer;
+  transition: .5s;
+  z-index: 1000;
+
+}
+
+.post2 {
+  width: 500px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 20px;
+  background-image: url(./aranea.jpg);
+  margin-left: 20px;
+  cursor: pointer;
+  transition: .5s;
+  z-index: 1000;
+}
+
+.post3 {
+  width: 500px;
+  height: 50px;
+  background-size: cover;
+  border-radius: 20px;
+  background-image: url(./Myprofile.jpg);
+  margin-left: 20px;
+  cursor: pointer;
+  transition: .5s;
+  z-index: 1000;
+}
+
+.post1:hover {
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(211, 210, 210);
+  height: 600px;
+}
+
+.post2:hover {
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(211, 210, 210);
+  height: 600px;
+}
+
+.post3:hover {
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(211, 210, 210);
+  height: 600px;
+}
+
+.whole {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+}
+
+.musicBar {
+  position: absolute;
+  right: 25px;
+  top: 200px;
+}
+
+.profile {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 50%;
+  background-image: url(./Myprofile.jpg);
+  cursor: pointer;
+  transition: .5s;
+  vertical-align: middle;
+}
+
+.moonlight-text {
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(to bottom,
+          #F4F6F7 0%,
+          #E8EAED 40%,
+          #D1D5DB 70%,
+          #9CA3AF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  /*月光白渐变黑 */
+}
+
+.diybtn {
+  width: 100px;
+  height: 40px;
+  position: absolute;
+  right: 25px;
+  top: 100px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: .5s;
+
+
+}
+
+.putBox {
+  width: 100px;
+  height: 40px;
+  position: absolute;
+  right: 51px;
+  top: 400px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  transition: .5s;
+  background-color: black;
+
+
+}
+
+.change {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: 51px;
+  top: 500px;
+  border-radius: 20px;
+
+}
+
+.change span {
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  color: balck;
+}
+
+.changeBox {
+  width: 90px;
+  height: 40px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: rgb(231, 100, 100);
+  font-weight: 700;
+  background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
+  transition: .5s;
+}
+
+.changeBox:hover {
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+  color: black;
+}
+
+audio {
+  opacity: 0;
+  transition: .5s;
+
+
+}
+
+.navbars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background-color: rgb(50, 48, 48);
+  color: white;
+}
+
+.logo {
+  width: 500px;
+  height: 200px;
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+.logo span {
+  font-size: 37px;
+  display: inline-block;
+  padding-left: 20px;
+}
+
+/* 增加选择器优先级 */
+
+.Mymore {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 580px;
+  /* 覆盖层 */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./foot.jpg) no-repeat 100%;
+  background-size: cover;
+}
+
+/* 绝对定位就脱离了标准流了 所以会导致覆盖 */
+
+
+.luna {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  min-height: 100px;
+  padding: 0 12px;
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
+  margin: 220px 90px;
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(80, 189, 243);
+  border-radius: 25px;
+  transition: all 0.5s ease;
+  z-index: 10000;
+
+
+}
+
+.lighting {
+  display: flex;
+  padding: 0 12px;
+  flex-direction: column;
+  width: 500px;
+  min-height: 100px;
+  margin: 220px 90px;
+  background-color: rgba(224, 86, 86, 0.559);
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(80, 189, 243);
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 25px;
+  /* 圆角 */
+  color: pink;
+}
+
+.lighting button {
+  background-image: linear-gradient(to right top, #e8a5f8, #eaa7f7, #eca9f5, #edabf4, #efadf3, #eeb6f6, #eebef8, #eec6fa, #eed5fe, #f1e4ff, #f6f2ff, #ffffff);
+}
+
+.lighting button:hover {
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+  color: black;
+}
+
+/* 毛玻璃样式 */
+.sun {
+  display: flex;
+  padding: 0 12px;
+  flex-direction: column;
+  width: 500px;
+  min-height: 100px;
+  margin: 220px 90px;
+  background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(80, 189, 243);
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 25px;
+  /* 圆角 */
+  color: rgb(241, 130, 10);
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+}
+
+.sun button {
+  background-image: linear-gradient(to right top, #21e448, #5fe54f, #81e559, #9be665, #b0e672, #b7e876, #beea79, #c5ec7d, #c4f076, #c2f36f, #c0f767, #befb5f);
+}
+
+.sun button:hover {
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+  color: black;
+}
+
+.mirror {
+  display: flex;
+  padding: 0 12px;
+  flex-direction: column;
+  width: 500px;
+  min-height: 100px;
+  margin: 220px 90px;
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(80, 189, 243);
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 25px;
+  /* 圆角 */
+
+}
+
+.mirror button {
+  background-color: rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(10px);
+
+  box-shadow: 0 0 10px inset;
+}
+
+/* -------------------------------喝彩 -----------------------*/
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

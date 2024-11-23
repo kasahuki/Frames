@@ -8,477 +8,8 @@
     <link rel="shortcut icon" href="./to-do-list.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        * {
-            box-sizing: border-box;
-            padding: 0;
-            margin: 0;
-        }
+    <link rel="stylesheet" href="./to_do_list.css">
 
-        body {
-
-            background-image: url(./beauty1.jpg);
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-            /* 可选 */
-            min-height: 1900px;
-            position: relative;
-        }
-
-        .header {
-            height: 50px;
-            line-height: 50px;
-            font-size: 30px;
-            text-align: center;
-            font-weight: 700;
-            color: inherit;
-
-        }
-
-        .input {
-            width: 98%;
-            display: flex;
-            height: 50px;
-            margin-top: 5px;
-            margin: 0 auto;
-
-
-
-            margin-bottom: 2px;
-
-
-
-        }
-
-        .input .searcher:hover {
-
-            border: 0px solid #000;
-            box-shadow: 0 20px 5px rgba(0, 0, 0, 0.2);
-
-
-        }
-
-        .input input {
-            width: 70%;
-            height: 100%;
-            outline: 0;
-            background-color: inherit;
-            padding-left: 10px;
-            border: 3px solid rgb(92, 91, 91);
-            /* 保留原有的边框样式 */
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
-
-        }
-
-        .input .searcher {
-            width: 30%;
-            height: 100%;
-            font-size: 30px;
-            line-height: 50px;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            transition: .5s;
-
-
-        }
-
-        ul {
-            padding: 0;
-        }
-
-        li {
-            position: relative;
-            list-style: none;
-            width: 100%;
-            height: 45px;
-            color: black;
-            margin-bottom: 2px;
-            line-height: 40px;
-            font-size: 20px;
-            padding-left: 10px;
-            transition: .3s;
-            padding-bottom: 2px;
-            border-bottom: 1px solid #faf4f4;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        li input {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #4CAF50;
-            outline: none;
-            font-size: 20px;
-            width: 80%;
-            color: inherit;
-            padding: 0;
-            margin: 0;
-            height: 100%;
-            line-height: 40px;
-        }
-
-        li input:focus {
-            border-bottom: 2px solid #45a049;
-        }
-
-        .luna ul li svg {
-            position: absolute;
-            cursor: pointer;
-            right: 2%;
-            top: 25%;
-
-
-        }
-
-        li:hover {
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        button {
-            padding: 5px;
-            border-radius: 20px;
-            transition: .5s;
-            color: white;
-            background-color: black;
-            border: 0;
-        }
-
-        button:hover {
-            color: black;
-            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
-        }
-
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .footer span {
-            font-weight: 700;
-            font-size: 20px;
-        }
-
-        .footer span i {
-            font-size: 25px;
-        }
-
-        ul li .id {
-            font-size: 25px;
-            font-weight: 700;
-        }
-
-        ul li {
-            font-size: 20px;
-        }
-
-        .app {
-            width: 500px;
-
-        }
-
-        .colorBar {
-            display: flex;
-            position: absolute;
-            top: 25px;
-            right: 25px;
-            width: 1000px;
-            height: 60px;
-            cursor: pointer;
-
-        }
-
-        .colorBar .box {
-            flex: 1;
-            height: 100%;
-
-            margin-right: 5px;
-            cursor: pointer;
-            transition: .5s;
-            border-radius: 12px;
-            text-align: center;
-            line-height: 60px;
-            font-weight: 700;
-            transition: 1s;
-
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 10px inset;
-        }
-
-        .colorBar .box:hover {
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            background-image: linear-gradient(to left bottom, #0d0d0d, #2f2f30, #545354, #7b7b7b, #a4a4a5, #b9babb, #cfd0d1, #e6e7e7, #eceded, #f1f2f2, #f7f8f8, #fdfefe);
-
-            /* 添加阴影效果 */
-        }
-
-        /* .box:nth-child(1) {
-            background-color: rgb(208, 17, 246);
-        }
-
-        .box:nth-child(2) {
-            background-color: rgb(45, 247, 19);
-        }
-
-        .box:nth-child(3) {
-            background-color: rgb(237, 245, 9);
-        }
-
-        .box:nth-child(4) {
-            background-color: rgb(248, 154, 12);
-        }
-        .box:nth-child(5) {
-            background-color: rgb(219, 23, 174);
-        } */
-        .colorBar .box {
-            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
-
-        }
-
-        .post {
-            display: flex;
-            margin-top: 220px;
-            flex-direction: column;
-        }
-
-        .post1 {
-            width: 500px;
-            height: 50px;
-            background-size: cover;
-            border-radius: 20px;
-            background-image: url(./luna.jpg);
-            margin-left: 20px;
-            cursor: pointer;
-            transition: .5s;
-            z-index: 1000;
-
-        }
-
-        .post2 {
-            width: 500px;
-            height: 60px;
-            background-size: cover;
-            border-radius: 20px;
-            background-image: url(./aranea.jpg);
-            margin-left: 20px;
-            cursor: pointer;
-            transition: .5s;
-            z-index: 1000;
-        }
-
-        .post1:hover {
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(211, 210, 210);
-            height: 600px;
-        }
-
-        .post2:hover {
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(211, 210, 210);
-            height: 600px;
-        }
-
-        .whole {
-            display: flex;
-            width: 100%;
-            height: 100%;
-
-        }
-
-        .musicBar {
-            position: absolute;
-            right: 25px;
-            top: 200px;
-        }
-
-        .profile {
-            display: inline-block;
-            width: 60px;
-            height: 60px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            border-radius: 50%;
-            background-image: url(./freya.png);
-            cursor: pointer;
-            transition: .5s;
-            vertical-align: middle;
-        }
-
-        .moonlight-text {
-            font-size: 18px;
-            font-weight: bold;
-            background: linear-gradient(to bottom,
-                    #F4F6F7 0%,
-                    #E8EAED 40%,
-                    #D1D5DB 70%,
-                    #9CA3AF 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            color: transparent;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-            /*月光白渐变黑 */
-        }
-
-        .diybtn {
-            width: 100px;
-            height: 40px;
-            position: absolute;
-            right: 25px;
-            top: 100px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            transition: .5s;
-
-
-        }
-
-        .putBox {
-            width: 100px;
-            height: 40px;
-            position: absolute;
-            right: 51px;
-            top: 400px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            transition: .5s;
-            background-color: black;
-
-
-        }
-        .change
-        {
-            display: flex;
-            justify-content: center;
-            position: absolute;
-            right: 51px;
-            top: 500px;
-            border-radius: 20px;
-            
-        }
-        .change span {
-            display: inline-block;
-            width: 80px;
-            height: 40px;
-            line-height: 40px;
-            text-align: center;
-            color: white;
-            font-weight: 700; 
-            color:balck;
-        }
-        .changeBox {
-            width: 90px;
-            height: 40px;
-            padding: 5px 10px;
-            border-radius: 20px;
-            color: rgb(231, 100, 100);
-            font-weight: 700;
-            background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
-            transition: .5s;
-        }
-        .changeBox:hover {
-            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
-            color: black;
-        }
-
-        audio {
-           opacity: 0;
-           transition: .5s;
-
-
-        }
-
-        .navbars {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background-color: rgb(50, 48, 48);
-            color: white;
-        }
-
-        .logo {
-            width: 500px;
-            height: 200px;
-            margin-top: 10px;
-            margin-left: 50px;
-        }
-
-        .logo span {
-            font-size: 37px;
-            display: inline-block;
-            padding-left: 20px;
-        }
-
-        /* 增加选择器优先级 */
-
-        .Mymore {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 580px;
-            /* 覆盖层 */
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(./foot.jpg) no-repeat 100%;
-            background-size: cover;
-        }
-        /* 绝对定位就脱离了标准流了 所以会导致覆盖 */
-
-
-        .luna {
-            display: flex;
-            flex-direction: column;
-            width: 500px;
-            min-height: 100px;
-            padding: 0 12px;
-            background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
-            margin: 220px 90px;
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(6, 145, 214);
-            border-radius: 25px;
-           transition: all 0.5s ease;
-            z-index: 10000;
-
-
-        }
-        .lighting {
-            display: flex;
-            padding: 0 12px;
-            flex-direction: column;
-            width: 500px;
-            min-height: 100px;
-            margin: 220px 90px;
-            background-color: rgba(224, 86, 86, 0.559);
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(6, 145, 214);
-                transition: all 0.5s ease;
-            z-index: 10000;
-            backdrop-filter: blur(10px); /* 背景模糊 */
-            border-radius: 15px; /* 圆角 */
-            color:pink;
-        }
-        /* 毛玻璃样式 */
-        .sun {
-            display: flex;
-            padding: 0 12px;
-            flex-direction: column;
-            width: 500px;
-            min-height: 100px;
-            margin: 220px 90px;
-            background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
-            box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-                -10px -10px 10px rgb(6, 145, 214);
-            transition: all 0.5s ease;
-            z-index: 10000;
-            backdrop-filter: blur(10px); /* 背景模糊 */
-            border-radius: 15px; /* 圆角 */
-            color: blue;
-        }
-    </style>
 </head>
 
 <body>
@@ -498,12 +29,15 @@
             </div>
             <div class="post2">
             </div>
+            <div class="post3">
+
+            </div>
         </div>
 
         <div class="app">
             <button class="putBox btn btn-primary" ref="putBox" @click="show">关闭任务</button>
             <div class="change">
-                <span>当前样式</span><button class="changeBox btn btn-primary"  @click="changeStyle">{{style}}</button>
+                <span>当前样式</span><button class="changeBox btn btn-primary" @click="changeStyle">{{style}}</button>
             </div>
             <div class="luna" ref="luna">
                 <div class="header">
@@ -521,7 +55,7 @@
                         v-for="(item,index) in list" :key="item.id">
                         <span class="id">{{index+1}}.</span>
                         <span v-if="!item.editing" @dblclick="startEdit(item)"
-                            style="flex-grow: 1;">{{item.name}}</span>
+                            style="flex-grow: 1">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
                             @click.stop ref="editInput">
                         <i @click.stop="del(item.id, $event)">
@@ -586,15 +120,18 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./to_do_list.js"></script>
+    <!-- 引入喝彩js -->
     <script>
         let img = document.querySelector('.post1')
         let img2 = document.querySelector('.post2')
-        let flag1 = 0
+        let img3 = document.querySelector('.post3')
+   
         let btn = document.querySelector('.diybtn')
         let music = document.querySelector('audio')
         let Switch = 0
         let boxswitch = 1
-      
+
         btn.addEventListener('click', () => {
             if (Switch === 0) {
                 Switch = 1
@@ -611,7 +148,7 @@
 
         })
 
-
+     let flag1 = 0
         img.addEventListener('click', () => {
             if (flag1 === 0) {
                 img.style.height = "600px"
@@ -641,6 +178,21 @@
 
 
         })
+        let flag3 = 0
+        img3.addEventListener('click', () => {
+            if (flag3 === 0) {
+                img3.style.height = "500px"
+                flag3 = 1
+            }
+
+            else {
+                img3.style.height = "60px"
+                flag3 = 0
+
+            }
+
+
+        })
 
 
 
@@ -655,50 +207,52 @@
                 value: '',
                 draggedIndex: null, // Track the index of the dragged item，
                 Switch: 1,
-                style : "luna",
-                styleSet : [
+                style: "luna",
+                styleSet: [
                     "luna",
                     "sun",
-                    "lighting"
+                    "lighting",
+                    "mirror"
                 ]
             },
             created() {
-                const storedList = localStorage.getItem('obj');
+                const storedList = localStorage.getItem('obj')
                 if (storedList) {
                     this.list = JSON.parse(storedList).map(item => ({
                         ...item,
                         editing: false
-                    }));
+                    }))
                 }
             },
             mounted() {
-                this.$refs.inp.focus();
-                document.addEventListener('click', this.handleGlobalClick);
+                this.$refs.inp.focus()
+                document.addEventListener('click', this.handleGlobalClick)
 
             },
             beforeDestroy() {
-                document.removeEventListener('click', this.handleGlobalClick);
+                document.removeEventListener('click', this.handleGlobalClick)
 
             },
             methods: {
                 updateLocalStorage() {
-                    localStorage.setItem('obj', JSON.stringify(this.list));
+                    localStorage.setItem('obj', JSON.stringify(this.list))
                 },
                 del(id, event) {
                     if (event) {
-                        event.stopPropagation();
+                        event.stopPropagation()
                     }
-                    
-                    const index = this.list.findIndex(item => item.id === id);
+
+                    const index = this.list.findIndex(item => item.id === id)
                     if (index > -1) {
-                        this.list.splice(index, 1);
-                        this.updateLocalStorage();
-                        
+                        this.list.splice(index, 1)
+                        this.updateLocalStorage()
+
                         if (this.list.length === 0) {
                             setTimeout(() => {
-                                alert("Today's plans are already completed");
-                                this.$refs.inp.focus();
-                            }, 200);
+                                // alert("Today's plans are already completed")
+                                celebrate()
+                                this.$refs.inp.focus()
+                            }, 200)
                         }
                     }
                 },
@@ -722,81 +276,82 @@
                     let index = this.styleSet.indexOf(this.style) // 找到当前样式的索引
                     index = (index + 1) % this.styleSet.length // 防止越界
                     this.style = this.styleSet[index] // 切换到下一个样式
-                    for(let i=0;i<this.styleSet.length;i++) {
-                        if(this.styleSet[i] === this.style) {
+                    for (let i = 0 ;i < this.styleSet.length; i++) {
+                        if (this.styleSet[i] === this.style) {
                             this.$refs.luna.classList.add(this.style) // 添加样式格式是 class="luna" 这样的 字符串形式
                         }
                         else {
-                           
+
                             this.$refs.luna.classList.remove(this.styleSet[i])
                         }
-                    }         
+                    }
                 },
 
                 handleGlobalClick(event) {
-                    const editingItem = this.list.find(item => item.editing);
+                    const editingItem = this.list.find(item => item.editing)
                     if (editingItem) {
-                        const isClickInsideEditInput = event.target.closest('input[ref="editInput"]');
+                        const isClickInsideEditInput = event.target.closest('input[ref="editInput"]')
                         if (!isClickInsideEditInput) {
-                            this.endEdit(editingItem);
+                            this.endEdit(editingItem)
                         }
                     }
                 },
 
                 add() {
                     if (this.value.length == 0) {
-                        alert("Your input is empty");
-                        this.$refs.inp.focus();
+                        alert("Your input is empty")
+                        this.$refs.inp.focus()
                         // 重新使用聚焦函数
                     } else {
-                        const newId = Date.now() + Math.random().toString(36).substr(2, 9);
-                        this.list.push({ 
-                            id: newId, 
-                            name: this.value, 
-                            editing: false 
-                        });
-                        this.updateLocalStorage();
-                        this.value = "";
+                        const newId = Date.now() + Math.random().toString(36).substr(2, 9)
+                        this.list.push({
+                            id: newId,
+                            name: this.value,
+                            editing: false
+                        })
+                        this.updateLocalStorage()
+                        this.value = ""
                     }
                 },
                 clear() {
                     if (this.list.length === 0) {
-                        alert("Current plan list is already empty now");
-                        this.$refs.inp.focus();
+                        alert("Current plan list is already empty now")
+                        this.$refs.inp.focus()
+                      
 
                     } else {
-                        this.list = [];
-                        this.updateLocalStorage();
-                        this.$refs.inp.focus();
+                        this.list = []
+                        this.updateLocalStorage()
+                        this.$refs.inp.focus()
                     }
                 },
                 onDragStart(index) {
-                    this.draggedIndex = index; // Store the index of the item being dragged
+                    this.draggedIndex = index // Store the index of the item being dragged
                 },
                 startEdit(item) {
-                    this.$set(item, 'editing', true);
-                    this.$set(item, 'editName', item.name);
+                    this.$set(item, 'editing', true)
+                    this.$set(item, 'editName', item.name)
                     this.$nextTick(() => {
-                        const editInput = this.$refs.editInput.find(input => input === document.activeElement);
-                        if (editInput) editInput.focus();
-                    });
+                        const editInput = this.$refs.editInput.find(input => input === document.activeElement)
+                        if (editInput) editInput.focus()
+                    })
                 },
                 endEdit(item) {
-                    item.editing = false;
+                    item.editing = false
                     if (item.editName && item.editName.trim() !== '') {
-                        item.name = item.editName.trim();
-                        this.updateLocalStorage();
+                        item.name = item.editName.trim()
+                        this.updateLocalStorage()
                     }
-                    delete item.editName;
+                    delete item.editName
                 },
                 onDrop(dropIndex) {
-                    const draggedItem = this.list[this.draggedIndex]; // Get the dragged item
-                    this.list.splice(this.draggedIndex, 1); // Remove the item from the original position
-                    this.list.splice(dropIndex, 0, draggedItem); // Insert the item at the new position
-                    this.updateLocalStorage(); // Update local storage to reflect the new order
+                    const draggedItem = this.list[this.draggedIndex] // Get the dragged item
+                    this.list.splice(this.draggedIndex, 1) // Remove the item from the original position
+                    this.list.splice(dropIndex, 0, draggedItem) // Insert the item at the new position
+                    this.updateLocalStorage() // Update local storage to reflect the new order
                 }
             }
-        });
+        })
     </script>
     <!-- 待办任务 -->
     <!-- 优先级  -->
