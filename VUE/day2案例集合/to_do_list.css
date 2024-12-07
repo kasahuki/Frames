@@ -6,6 +6,7 @@
 
 body {
 
+  /* background-image: url(./silent_hill.jpg); */
   background-image: url(./beauty1.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -13,8 +14,11 @@ body {
   /* 可选 */
   min-height: 1900px;
   position: relative;
+  transition: .5s;
 }
-
+.light_model {
+  width: 50%;
+}
 .header {
   height: 50px;
   line-height: 50px;
@@ -31,19 +35,14 @@ body {
   height: 50px;
   margin-top: 5px;
   margin: 0 auto;
-
-
-
   margin-bottom: 2px;
-
-
-
 }
 
 .input .searcher:hover {
 
   border: 0px solid #000;
   box-shadow: 0 20px 5px rgba(0, 0, 0, 0.2);
+  transform: scale(1.2);
 
 
 }
@@ -226,38 +225,57 @@ ul li {
   background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
 
 }
-.think
-{
+
+.think {
   padding: 0 12px;
   width: 500px;
   height: 250px;
-  margin: 40px ;
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(80, 189, 243);
-  transition: all 0.5s ease;
-  z-index: 10000;
-  backdrop-filter: blur(10px);
-  /* 背景模糊 */
+  margin: 40px;
+  transition: .5s;
   border-radius: 25px;
   padding: auto 10px;
+  transform: translateX(-90%);
+  
+
   /* 圆角 */
 }
+
 .think .header {
   font-size: 26px;
   font-weight: 700;
   color: white;
 }
+
 .think .content {
   font-size: 15px;
   font-weight: 700;
-  background: linear-gradient(to right, #ff3366, #ff99cc);
+
+  background: linear-gradient(to right, #edc306 30%, #8B4513 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+}
+
+.other {
+  font-size: 15px;
+  font-weight: 700;
+  background: linear-gradient(to right, #FFF1B5 30%, #FFB6C1 70%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
-think:hover {
-  transform: scale(1.1);
+
+.think:hover {
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.12),
+  0 15px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+
 }
+
 .post {
   display: flex;
   margin-top: 220px;
@@ -267,9 +285,10 @@ think:hover {
 .post1 {
   width: 500px;
   height: 50px;
+  background-position: center;
   background-size: cover;
   border-radius: 20px;
-  background-image: url(./luna.jpg);
+  background-image: url(./mary.jpg);
   margin-left: 20px;
   cursor: pointer;
   transition: .5s;
@@ -281,8 +300,9 @@ think:hover {
   width: 500px;
   height: 50px;
   background-size: cover;
+  background-position: center;
   border-radius: 20px;
-  background-image: url(./aranea.jpg);
+  background-image: url(./james.jpg);
   margin-left: 20px;
   cursor: pointer;
   transition: .5s;
@@ -294,29 +314,30 @@ think:hover {
   height: 50px;
   background-size: cover;
   border-radius: 20px;
-  background-image: url(./Myprofile.jpg);
+  background-image: url(./Laura.jpg);
   margin-left: 20px;
   cursor: pointer;
   transition: .5s;
   z-index: 1000;
+
 }
 
 .post1:hover {
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(211, 210, 210);
-  height: 600px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  height: 400px;
 }
 
 .post2:hover {
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(211, 210, 210);
-  height: 600px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  height: 400px;
 }
 
 .post3:hover {
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(211, 210, 210);
-  height: 600px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  height: 400px;
 }
 
 .whole {
@@ -329,7 +350,94 @@ think:hover {
 .musicBar {
   position: absolute;
   right: 25px;
+  top: 235px;
+}
+
+.musicname {
+  display: flex;
+  justify-content: end;
+  padding-right: 10px;
+  position: absolute;
   top: 200px;
+  left: 0px;
+  width: 200px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 0px 20px 20px 0;
+  transform: translateX(-200%);
+}
+.musicname span {
+  background: linear-gradient(to right, #FFF1B5 30%, #FFB6C1 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inputMusic {
+
+  display: flex;
+  transform: translateX(90%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  right: 0px;
+  top: 160px;
+  text-align: center;
+  width: 350px;
+  height: 150px;
+  margin-left: 150px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 45px 0 0 45px;
+  cursor: pointer;
+}
+
+.inputMusic input {
+  padding-left: 10px;
+  border-radius: 12px;
+
+  /* 毛玻璃效果 */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* 边框效果 */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+  /* 文本颜色 */
+  color: rgb(231, 239, 7);
+
+
+}
+
+/* .inputMusic:hover {
+
+  transform: translatex(0%);
+} */
+
+.inputMusic .box {
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.inputMusic input:focus {
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.47);
 }
 
 .profile {
@@ -349,11 +457,12 @@ think:hover {
 .moonlight-text {
   font-size: 18px;
   font-weight: bold;
+  margin-right: 5px;
   background: linear-gradient(to bottom,
-          #F4F6F7 0%,
-          #E8EAED 40%,
-          #D1D5DB 70%,
-          #9CA3AF 100%);
+      #F4F6F7 0%,
+      #E8EAED 40%,
+      #D1D5DB 70%,
+      #9CA3AF 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -427,10 +536,8 @@ think:hover {
 }
 
 audio {
-  opacity: 0;
+  opacity: 1;
   transition: .5s;
-
-
 }
 
 .navbars {
@@ -460,7 +567,7 @@ audio {
 
 .Mymore {
   position: absolute;
-  bottom: 0;
+  top: 100%;
   width: 100%;
   height: 580px;
   /* 覆盖层 */
@@ -472,6 +579,7 @@ audio {
 
 
 .luna {
+  position: absolute;
   display: flex;
   flex-direction: column;
   width: 500px;
@@ -479,25 +587,35 @@ audio {
   padding: 0 12px;
   background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
   margin: 220px 90px;
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(80, 189, 243);
-  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+     border-radius: 25px;
   transition: all 0.5s ease;
-  z-index: 10000;
+  z-index: 10000; 
+   /* z-index 只有在position非static的情况下才起作用 */
 
 
 }
 
+li:hover {
+  transform: scale(1.1);
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+}
+
+
 .lighting {
   display: flex;
+  position: absolute;
   padding: 0 12px;
   flex-direction: column;
   width: 500px;
   min-height: 100px;
   margin: 220px 90px;
   background-color: rgba(224, 86, 86, 0.559);
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(80, 189, 243);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
   transition: all 0.5s ease;
   z-index: 10000;
   backdrop-filter: blur(10px);
@@ -519,14 +637,15 @@ audio {
 /* 毛玻璃样式 */
 .sun {
   display: flex;
+  position: absolute;
   padding: 0 12px;
   flex-direction: column;
   width: 500px;
   min-height: 100px;
   margin: 220px 90px;
   background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(80, 189, 243);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
   transition: all 0.5s ease;
   z-index: 10000;
   backdrop-filter: blur(10px);
@@ -534,6 +653,29 @@ audio {
   border-radius: 25px;
   /* 圆角 */
   color: rgb(241, 130, 10);
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+}
+
+.maria {
+  display: flex;
+  position: absolute;
+  padding: 0 12px;
+  flex-direction: column;
+  width: 500px;
+  min-height: 100px;
+  margin: 220px 90px;
+  background: linear-gradient(to right, #FFF1B5 30%, #FFB6C1 70%);
+
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 25px;
+  /* 圆角 */
+  color: rgb(44, 26, 26);
   backdrop-filter: blur(10px);
   /* 背景模糊 */
 }
@@ -548,14 +690,16 @@ audio {
 }
 
 .mirror {
+  position: absolute;
   display: flex;
   padding: 0 12px;
   flex-direction: column;
   width: 500px;
   min-height: 100px;
   margin: 220px 90px;
-  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
-      -10px -10px 10px rgb(80, 189, 243);
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
   transition: all 0.5s ease;
   z-index: 10000;
   backdrop-filter: blur(10px);
@@ -564,6 +708,7 @@ audio {
   /* 圆角 */
 
 }
+
 
 .mirror button {
   background-color: rgba(255, 255, 255, 0.05);
