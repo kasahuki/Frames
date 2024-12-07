@@ -226,7 +226,38 @@ ul li {
   background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
 
 }
-
+.think
+{
+  padding: 0 12px;
+  width: 500px;
+  height: 250px;
+  margin: 40px ;
+  box-shadow: 12px 12px 12px rgba(0, 0, 0, 0.1),
+      -10px -10px 10px rgb(80, 189, 243);
+  transition: all 0.5s ease;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  /* 背景模糊 */
+  border-radius: 25px;
+  padding: auto 10px;
+  /* 圆角 */
+}
+.think .header {
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+}
+.think .content {
+  font-size: 15px;
+  font-weight: 700;
+  background: linear-gradient(to right, #ff3366, #ff99cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+think:hover {
+  transform: scale(1.1);
+}
 .post {
   display: flex;
   margin-top: 220px;

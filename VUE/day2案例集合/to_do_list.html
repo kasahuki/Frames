@@ -24,14 +24,31 @@
             </div>
 
         </div>
+        
         <div class="post">
+            <div class="think">
+                <div class="header">
+                    MY Thinking
+                </div>
+                <div class="content">
+                    把自己一闪而过的想法记录在纸上逐一分析树型思考（思考）
+                    <br>
+                    <br>
+                    每天看地图培养方向感
+                    每天计算时间 日期计算感
+                    每天看英语阅读 锻炼速度和专注能力
+                    <br>
+                    <br>
+                    地图 阅读 心算 专注 一切以效率为主 当效率底下且很累时很累懒得想快速的方法只想快点结束就不要搞了，要享受的同时追求效率
+                </div>
+            </div>
             <div class="post1">
             </div>
             <div class="post2">
             </div>
             <div class="post3">
-
             </div>
+
         </div>
 
         <div class="app">
@@ -54,8 +71,7 @@
                     <li draggable="true" @dragstart="onDragStart(index)" @dragover.prevent @drop="onDrop(index)"
                         v-for="(item,index) in list" :key="item.id">
                         <span class="id">{{index+1}}.</span>
-                        <span v-if="!item.editing" @dblclick="startEdit(item)"
-                            style="flex-grow: 1">{{item.name}}</span>
+                        <span v-if="!item.editing" @dblclick="startEdit(item)" style="flex-grow: 1">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
                             @click.stop ref="editInput">
                         <i @click.stop="del(item.id, $event)">
@@ -126,7 +142,7 @@
         let img = document.querySelector('.post1')
         let img2 = document.querySelector('.post2')
         let img3 = document.querySelector('.post3')
-   
+
         let btn = document.querySelector('.diybtn')
         let music = document.querySelector('audio')
         let Switch = 0
@@ -148,7 +164,7 @@
 
         })
 
-     let flag1 = 0
+        let flag1 = 0
         img.addEventListener('click', () => {
             if (flag1 === 0) {
                 img.style.height = "600px"
@@ -261,7 +277,7 @@
                     if (this.Switch === 1) {
                         console.log("hide")
                         this.Switch = 0
-                        this.$refs.luna.style.transform = "translateY(-200%)"
+                        this.$refs.luna.style.transform = "translateY(-400%)"
                         this.$refs.putBox.innerHTML = "打开任务"
                     }
                     else {
@@ -276,7 +292,7 @@
                     let index = this.styleSet.indexOf(this.style) // 找到当前样式的索引
                     index = (index + 1) % this.styleSet.length // 防止越界
                     this.style = this.styleSet[index] // 切换到下一个样式
-                    for (let i = 0 ;i < this.styleSet.length; i++) {
+                    for (let i = 0; i < this.styleSet.length; i++) {
                         if (this.styleSet[i] === this.style) {
                             this.$refs.luna.classList.add(this.style) // 添加样式格式是 class="luna" 这样的 字符串形式
                         }
@@ -317,7 +333,7 @@
                     if (this.list.length === 0) {
                         alert("Current plan list is already empty now")
                         this.$refs.inp.focus()
-                      
+
 
                     } else {
                         this.list = []
