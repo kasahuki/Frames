@@ -24,7 +24,7 @@
             </div>
 
         </div>
-        
+
         <div class="post">
             <div class="think">
                 <div class="header">
@@ -56,21 +56,22 @@
         <div class="app">
             <div class="musicname" ref="mc"><span>{{musicName}}</span></div>
             <button class="putBox btn btn-primary" ref="putBox" @click="show">关闭任务</button>
-            
-            <div class="change"> 
+
+            <div class="change">
                 <span>当前样式</span><button class="changeBox btn btn-primary" @click="changeStyle">{{style}}</button>
             </div>
             <div class="musicBar">
-                <button class="diybtn btn btn-primary" @click="popMusic" >弹出音乐</button>
+                <button class="diybtn btn btn-primary" @click="popMusic">弹出音乐</button>
             </div>
-            <div class="inputMusic" @click = "showBar" ref = "musicBar">
-                <div class="box">  
-                    <input type="text" placeholder="music name" @keydown.enter = "playMusic" ref="musicInput" @click.stop="">  
+            <div class="inputMusic" @click="showBar" ref="musicBar">
+                <div class="box">
+                    <input type="text" placeholder="music name" @keydown.enter="playMusic" ref="musicInput"
+                        @click.stop="">
                     <!-- 防止点击输入框弹出输入法 冒泡 -->
-                    <button @click.stop = 'randomMusic'>随机播放</button>
+                    <button @click.stop='randomMusic'>随机播放</button>
                 </div>
                 <audio :src="`${musicName}.mp3`" controls loop></audio>
-         
+
             </div>
             <div class="luna" ref="luna">
                 <div class="header">
@@ -127,364 +128,657 @@
                 <div class="box">
                     课内 & 英语
                 </div>
-    
+
                 <span class="moonlight-text">
                     <div class="profile">
-    
+
                     </div>Luna Freya
                 </span>
-                <div @click = "changeModel"><svg  t="1733579760461" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6542" width="50" height="50"><path d="M570.1632 0h-103.6288v207.2576h103.6288z m278.1184 115.0976L921.6 188.416l-146.6368 146.6368-73.3184-73.3184 146.6368-146.6368zM0 570.1632v-103.6288h207.2576v103.6288zM115.3024 188.416L188.416 115.0976l146.6368 146.6368-73.3184 73.3184z m219.7504 586.5472l-73.3184-73.3184-146.432 146.6368L188.416 921.6zM696.32 394.8544A213.4016 213.4016 0 0 0 394.8544 696.32z m327.68 78.848a350.0032 350.0032 0 0 0-94.4128-12.9024C755.5072 460.8 614.4 586.9568 614.4 742.4S755.5072 1024 929.5872 1024a350.0032 350.0032 0 0 0 94.4128-12.9024c-128-35.84-220.5696-143.36-220.5696-268.6976S896 509.5424 1024 473.7024z m0 0" :fill="currentColor" p-id="6543"></path></svg></div>
+                <div @click="changeModel"><svg t="1733579760461" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="6542" width="50" height="50">
+                        <path
+                            d="M570.1632 0h-103.6288v207.2576h103.6288z m278.1184 115.0976L921.6 188.416l-146.6368 146.6368-73.3184-73.3184 146.6368-146.6368zM0 570.1632v-103.6288h207.2576v103.6288zM115.3024 188.416L188.416 115.0976l146.6368 146.6368-73.3184 73.3184z m219.7504 586.5472l-73.3184-73.3184-146.432 146.6368L188.416 921.6zM696.32 394.8544A213.4016 213.4016 0 0 0 394.8544 696.32z m327.68 78.848a350.0032 350.0032 0 0 0-94.4128-12.9024C755.5072 460.8 614.4 586.9568 614.4 742.4S755.5072 1024 929.5872 1024a350.0032 350.0032 0 0 0 94.4128-12.9024c-128-35.84-220.5696-143.36-220.5696-268.6976S896 509.5424 1024 473.7024z m0 0"
+                            :fill="currentColor" p-id="6543"></path>
+                    </svg></div>
             </div>
-       
+
+            <div class=" linklib mirror">
+                <div class="header">
+                    Link Lib
+                </div>
+                <div class="input" @keyup.enter="addLink">
+                    <input type="text" placeholder="请输入链接" v-model.trim="linkValue" ref="linkInp">
+                    <!-- 防止输出 空格 -->
+                    <div class="searcher" @click="addLink">
+                        Add
+                    </div>
+                </div>
+                <!-- 链接部分 -->
+                <ul>
+                    <li @dblclick.stop="jumpLink(item)" v-for="(item,index) in linklist" :key="item.id">
+                        <span class="id">{{index+1}}.</span>
+                        <span v-if="!item.editing" style="flex-grow: 1">{{item.name}}</span>
+                        <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
+                            ref="editInput">
+                        <i @click.stop="delLink(item.id, $event)" dblclick.stop>
+                            <!-- 原有的删除图标 -->
+                            <span @click.stop="startEdit(item)" @dblclick.stop>edit</span>
+                            <!-- 防止冒泡不要填值 -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-trash" viewBox="0 0 16 16">
+                                <path
+                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L
+                                    11.882 4zM2.5 3h11V2h-11z" />
+                            </svg>
+
+                        </i>
+                        <input type="text" class="tag" placeholder="tag" @dblclick.stop
+                            @keyup.enter="addTag(item.id,$event)" :value="getTagValue(item.id)"
+                            @input="updateTagValue(item.id, $event)">
+                    </li>
+                </ul>
+                <div class="footer">
+                    <button @click="clearLinks">Clear All</button>
+                    <span>sum: <i>{{linklist.length}}</i></span>
+
+                </div>
+
+
+            </div>
+
+
         </div>
 
 
-    
+
         <div class="Mymore">
+
+            <div class="relateMe">
+
+                <a href="https://github.com/kasahuki" target="_blank">
+                    <div class="mygithub">
+
+                    </div>
+                    <span>Kasahuki</span>
+                </a>
+                <a href="https://linux.do/" target="_blank">
+                    <div class="linuxDo">
+
+                    </div>
+                    <span>LinuxDo</span>
+                </a>
+
+                <a href="https://v2ex.com/" target="_blank">
+                    <div class="v2ex">
+
+                    </div>
+                    <span>V2EX</span>
+                </a>
+                <a href="https://stackoverflow.com/" target="_blank">
+                    <div class="StackOverflow">
+
+                    </div>
+                    <span>SOF</span>
+                </a>
+                <a href="https://www.bilibili.com/" target="_blank">
+                    <div class="youtube">
+
+                    </div>
+                    <span>Study</span>
+                </a>
+
+            </div>
+
+
+            <div class="notes">
+
+                <a href="D:\Desktop\资源Set.md" target="_blank">
+                    <div class="aside">
+
+                    </div>
+                    <div class="resrc">
+                        <span>MY resrc</span>
+                        --------
+                        <br>
+                        --------
+                        <br>
+                        --------
+
+                    </div>
+                </a>
+
+                <a href="D:\Desktop\MDSet\使用说明手册\AIpe.md" target="_blank">
+                    <div class="aside">
+
+                    </div>
+                    <div class="resrc">
+                        <span>AIpe</span>
+                        --------
+                        <br>
+                        --------
+                        <br>
+                        --------
+
+                    </div>
+                </a>
+                <a href="D:\Desktop\Backend\SSM\Mybatis\MyBatis.md" target="_blank">
+                    <div class="aside">
+
+                    </div>
+                    <div class="resrc">
+                        <span>MYBatis</span>
+                        --------
+                        <br>
+                        --------
+                        <br>
+                        --------
+
+                    </div>
+                </a>
+                <a href="D:\Desktop\Backend\JavaSE\函数式编程的优势.md" target="_blank">
+                    <div class="aside">
+
+                    </div>
+                    <div class="resrc">
+                        <span>函数编程</span>
+                        --------
+                        <br>
+                        --------
+                        <br>
+                        --------
+
+                    </div>
+                </a>
+
+                <a href="D:\Desktop\Backend\JavaSE\JavaSe & Frame.md" target="_blank">
+                    <div class="aside">
+
+                    </div>
+                    <div class="resrc">
+                        <span>JavaSE</span>
+                        --------
+                        <br>
+                        --------
+                        <br>
+                        --------
+
+                    </div>
+                </a>
+
+
+
+            </div>
+
+
+            <div class="copyright">
+                <span>© 2024 IDEA FORMOSST. All rights reserved.</span>
+                <p>Designed by Senjay</p>
+
+            </div>
+
         </div>
 
 
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-    <script src="./to_do_list.js"></script>
-    <!-- 引入喝彩js -->
-    <script>
-        let img = document.querySelector('.post1')
-        let img2 = document.querySelector('.post2')
-        let img3 = document.querySelector('.post3')
-
-        let btn = document.querySelector('.diybtn')
-        let boxswitch = 1
-        let flag1 = 0
-
-        img.addEventListener('click', () => {
-            if (flag1 === 0) {
-                img.style.height = "400px"
-                flag1 = 1
-            }
-
-            else {
-                img.style.height = "50px"
-                flag1 = 0
-
-            }
 
 
-        })
-        let flag2 = 0
-        img2.addEventListener('click', () => {
-            if (flag2 === 0) {
-                img2.style.height = "400px"
-                flag2 = 1
-            }
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <script src="./to_do_list.js"></script>
+        <!-- 引入喝彩js -->
+        <script>
+            let img = document.querySelector('.post1')
+            let img2 = document.querySelector('.post2')
+            let img3 = document.querySelector('.post3')
 
-            else {
-                img2.style.height = "60px"
-                flag2 = 0
+            let btn = document.querySelector('.diybtn')
+            let boxswitch = 1
+            let flag1 = 0
 
-            }
+            img.addEventListener('click', () => {
+                if (flag1 === 0) {
+                    img.style.height = "400px"
+                    flag1 = 1
+                }
 
+                else {
+                    img.style.height = "50px"
+                    flag1 = 0
 
-        })
-        let flag3 = 0
-        img3.addEventListener('click', () => {
-            if (flag3 === 0) {
-                img3.style.height = "400px"
-                flag3 = 1
-            }
-
-            else {
-                img3.style.height = "60px"
-                flag3 = 0
-
-            }
+                }
 
 
-        })
-        let isThink = 0
-        let think = document.querySelector('.think')
-        think.addEventListener('click', () => {
-            if(isThink === 0)
-        {
-            isThink = 1
-            think.style.transform = "translateX(0)"
-            tc.style.opcacity = "1"
-        }
-        else
-        {
-            isThink = 0
-            think.style.transform = "translateX(-90%)"
-            tc.style.opcacity = "0"
-        }
-        })
+            })
+            let flag2 = 0
+            img2.addEventListener('click', () => {
+                if (flag2 === 0) {
+                    img2.style.height = "400px"
+                    flag2 = 1
+                }
 
-        let tc = document.querySelector('.think .content')
-        let thinkColor = 1
-        tc.addEventListener('click', () => {
-          if(thinkColor === 1) {
-            thinkColor = 0
-            tc.classList.remove('content')
-            tc.classList.add('other')
-          }
-          else {
-            thinkColor = 1
-            tc.classList.remove('other')
-            tc.classList.add('content')
-          }
+                else {
+                    img2.style.height = "60px"
+                    flag2 = 0
+
+                }
+
+
+            })
+            let flag3 = 0
+            img3.addEventListener('click', () => {
+                if (flag3 === 0) {
+                    img3.style.height = "400px"
+                    flag3 = 1
+                }
+
+                else {
+                    img3.style.height = "60px"
+                    flag3 = 0
+
+                }
+
+
+            })
+            let isThink = 0
+            let think = document.querySelector('.think')
+            think.addEventListener('click', () => {
+                if (isThink === 0) {
+                    isThink = 1
+                    think.style.transform = "translateX(0)"
+                    tc.style.opcacity = "1"
+                }
+                else {
+                    isThink = 0
+                    think.style.transform = "translateX(-90%)"
+                    tc.style.opcacity = "0"
+                }
+            })
+
+            let tc = document.querySelector('.think .content')
+            let thinkColor = 1
+            tc.addEventListener('click', () => {
+                if (thinkColor === 1) {
+                    thinkColor = 0
+                    tc.classList.remove('content')
+                    tc.classList.add('other')
+                }
+                else {
+                    thinkColor = 1
+                    tc.classList.remove('other')
+                    tc.classList.add('content')
+                }
 
             })
 
 
 
-        const app = new Vue({
-            el: '.app',
-            data: {
-                list: [
-                    { id: 1, name: "create", editing: false },
-                    { id: 2, name: "your", editing: false },
-                    { id: 3, name: "plan now!", editing: false }
-                ],
-                value: '',
-                draggedIndex: null, // Track the index of the dragged item，
-                Switch: 1,
-                style: "luna",
-                musicName: "", // 一开始设置空字符串有大用 防止一开始弹出空音乐
-                styleSet: [
-                    "luna",
-                    "sun",
-                    "lighting",
-                    "mirror",
-                    "maria"
-                ],
-                musicSet:[
-                    "theme of laura",
-                    "残雪",
-                    "ff10"
-                ],
-                musicSwitch:0,
-                barSwitch:0,
-                currentColor: "#f4ea2a",
-                moduleSwitch:0,
+            const app = new Vue({
+                el: '.app',
+                data: {
+                    list: [
+                        { id: 1, name: "create", editing: false },
+                        { id: 2, name: "your", editing: false },
+                        { id: 3, name: "plan now!", editing: false }
+                    ],
+                    linklist: [
+                        { id: 1, name: "https://www.baidu.com", editing: false },
+                        { id: 2, name: "https://www.google.com", editing: false },
+                        { id: 3, name: "https://www.bing.com", editing: false }
+                    ],
+                    taglist: [],
+                    linkValue: '',
+                    value: '',
+                    tagValue: '',
+                    draggedIndex: null, // Track the index of the dragged item，
+                    Switch: 1,
+                    style: "luna",
+                    musicName: "", // 一开始设置空字符串有大用 防止一开始弹出空音乐
+                    styleSet: [
+                        "luna",
+                        "sun",
+                        "lighting",
+                        "mirror",
+                        "maria"
+                    ],
+                    musicSet: [
+                        "theme of laura",
+                        "theme of laura_E3",
+                        "残雪",
+                        "ff10",
+                        "Love_Psalm",
+                        "Memory of Lightwaves"
 
-            },
-            created() {
-                const storedList = localStorage.getItem('obj')
-                if (storedList) {
-                    this.list = JSON.parse(storedList).map(item => ({
-                        ...item,
-                        editing: false
-                    }))
-                }
-            },
-            mounted() {
-                this.$refs.inp.focus()
-                document.addEventListener('click', this.handleGlobalClick)
+                    ],
+                    musicSwitch: 0,
+                    barSwitch: 0,
+                    currentColor: "#f4ea2a",
+                    moduleSwitch: 0,
 
-            },
-            beforeDestroy() {
-                document.removeEventListener('click', this.handleGlobalClick)
-
-            },
-            methods: {
-                updateLocalStorage() {
-                    localStorage.setItem('obj', JSON.stringify(this.list))
                 },
-                changeModel() { 
-                    if(this.moduleSwitch === 0)
-                    {
-                        this.moduleSwitch = 1
-                        document.body.style.backgroundImage = "url('./silent_hill.jpg')"
-                        this.currentColor = "#000"
-                       
-                    }
-                    else
-                    {
-                        this.moduleSwitch = 0
-                        document.body.style.backgroundImage = "url('./beauty1.jpg')"
-                        this.currentColor = "#f4ea2a"
-                        
-                    }
-                },
-                del(id, event) {
-                    if (event) {
-                        event.stopPropagation()
-                    }
-
-                    const index = this.list.findIndex(item => item.id === id)
-                    if (index > -1) {
-                        this.list.splice(index, 1)
-                        this.updateLocalStorage()
-
-                        if (this.list.length === 0) {
-                            setTimeout(() => {
-                                // alert("Today's plans are already completed")
-                                celebrate()
-                                this.$refs.inp.focus()
-                            }, 200)
+                created() {
+                    const storedList = localStorage.getItem('obj');
+                    const storedLinklist = localStorage.getItem('linklist');
+                    const storedTag = localStorage.getItem('tag');
+                    
+                    // 初始化taglist为空数组
+                    this.taglist = [];
+                    
+                    if (storedTag) {
+                        try {
+                            const parsedTags = JSON.parse(storedTag);
+                            if (Array.isArray(parsedTags)) {
+                                this.taglist = parsedTags;
+                            }
+                        } catch (e) {
+                            console.error('Failed to parse taglist:', e);
                         }
                     }
-                },
-                // ---------------------------------------------------------------
-                show() {
-                    if (this.Switch === 1) {
-                        console.log("hide")
-                        this.Switch = 0
-                        this.$refs.luna.style.transform = "translateY(-400%)"
-                        this.$refs.putBox.innerHTML = "打开任务"
-                    }
-                    else {
-                        console.log("show")
-                        this.Switch = 1
-                        this.$refs.luna.style.transform = "translateY(0)"
-                        this.$refs.putBox.innerHTML = "关闭任务"
-                    }
                     
+                    if (storedLinklist) {
+                        this.linklist = JSON.parse(storedLinklist).map(item => ({
+                            ...item,
+                            editing: false
+                        }))
+                    }
+                    if (storedList) {
+                        this.list = JSON.parse(storedList).map(item => ({
+                            ...item,
+                            editing: false
+                        }))
+                    }
+                },
+                mounted() {
+                    if (this.$refs.inp) {
+                        this.$refs.inp.focus();
+                    }
+                    document.addEventListener('click', this.handleGlobalClick);
+                },
+                beforeDestroy() {
+                    document.removeEventListener('click', this.handleGlobalClick)
 
                 },
-                showMusic() {
-                    this.$refs.mc.style.transform = "translateX(0%)"
-                    this.musicSwitch =1
-                    console.log(this.musicName)
-                },
-                playMusic() {
-                   for(let i = 0; i < this.musicSet.length; i++)
-                {
-                    if(this.musicSet[i] === this.$refs.musicInput.value)
-                    {
-                        this.musicName = this.$refs.musicInput.value 
-                        this.$refs.musicInput.value = ""
-                        this.showMusic()
-                        return 
-                    }
-                    else if (i+1 == this.$refs.musicInput.value)
-                    {
-                        this.musicName = this.musicSet[i];
-                        this.$refs.musicInput.value = ""
-                       this.showMusic()
-                        return 
-                    }
-                    
-                } 
-                alert("没有找到该音乐")
-                this.$refs.musicInput.value = "" // 清空输入框
-                },
-                randomMusic() {
-                    let index = Math.floor(Math.random() * this.musicSet.length)
-                    this.musicName = this.musicSet[index]
-                    this.showMusic()
+                methods: {
+        
+                    getTagValue(id) {
+                        const tag = this.taglist.find(tag => tag.id === id);
+                        return tag ? tag.tag : '';  // 如果找不到对应的tag，返回空字符串
+                    },
+                    updateTagValue(id, event) {
+                        const value = event.target.value;
+                        const existingTag = this.taglist.find(tag => tag.id === id);
+                        if (existingTag) {
+                            existingTag.tag = value;
+                        } else {
+                            this.taglist.push({ id, tag: value });
+                        }
+                        this.updateLocalStorage();
+                    },
+                    updateLocalStorage() {
+                        localStorage.setItem('obj', JSON.stringify(this.list))
+                        localStorage.setItem('linklist', JSON.stringify(this.linklist))
+                        localStorage.setItem('tag', JSON.stringify(this.taglist))
+                    },
+                    changeModel() {
+                        if (this.moduleSwitch === 0) {
+                            this.moduleSwitch = 1
+                            document.body.style.backgroundImage = "url('./silent_hill.jpg')"
+                            this.currentColor = "#000"
 
-                },
-                popMusic() {
-                    if(this.musicSwitch === 1)
-                    {
-                        this.musicSwitch = 0
-                        this.$refs.mc.style.transform = "translateX(-200%)"
-                    }    
-                    else
-                    {
-                        this.musicSwitch = 1
-                        console.log(this.musicSwitch)
-                        this.$refs.mc.style.transform = "translateX(0%)"
-                    }
-                    
-                },
-                showBar() {
-                    if(this.barSwitch === 1)
-                {
-                    this.barSwitch = 0
-                    this.$refs.musicBar.style.transform = "translateX(90%)"
-                }
-                else 
-                {
-                    this.barSwitch = 1
-                    this.$refs.musicBar.style.transform = "translateX(0%)"
-                }
-                },
-                changeStyle() {
-                    let index = this.styleSet.indexOf(this.style) // 找到当前样式的索引
-                    
-                    
-                    index = (index + 1) % this.styleSet.length // 防止越界
-                    this.style = this.styleSet[index] // 切换到下一个样式
-                    for (let i = 0; i < this.styleSet.length; i++) {
-                        if (this.styleSet[i] === this.style) {
-                            this.$refs.luna.classList.add(this.style) // 添加样式格式是 class="luna" 这样的 字符串形式
                         }
                         else {
-                            this.$refs.luna.classList.remove(this.styleSet[i])          
-                        }
-                    }
-                },
-                handleGlobalClick(event) {
-                    const editingItem = this.list.find(item => item.editing)
-                    if (editingItem) {
-                        const isClickInsideEditInput = event.target.closest('input[ref="editInput"]')
-                        if (!isClickInsideEditInput) {
-                            this.endEdit(editingItem)
-                        }
-                    }
-                },
+                            this.moduleSwitch = 0
+                            document.body.style.backgroundImage = "url('./beauty1.jpg')"
+                            this.currentColor = "#f4ea2a"
 
-                add() {
-                    if (this.value.length == 0) {
-                        alert("Your input is empty")
-                        this.$refs.inp.focus()
-                        // 重新使用聚焦函数
-                    } else {
-                        const newId = Date.now() + Math.random().toString(36).substr(2, 9)
-                        this.list.push({
-                            id: newId,
-                            name: this.value,
-                            editing: false
+                        }
+                    },
+                    del(id, event) {
+                        if (event) {
+                            event.stopPropagation()
+                        }
+
+                        const index = this.list.findIndex(item => item.id === id)
+                        if (index > -1) {
+                            this.list.splice(index, 1)
+                            this.updateLocalStorage()
+
+                            if (this.list.length === 0) {
+                                setTimeout(() => {
+                                    // alert("Today's plans are already completed")
+                                    celebrate()
+                                    this.$refs.inp.focus()
+                                }, 200)
+                            }
+                        }
+                    },
+                    // ---------------------------------------------------------------
+                    show() {
+                        if (this.Switch === 1) {
+                            console.log("hide")
+                            this.Switch = 0
+                            this.$refs.luna.style.transform = "translateY(-400%)"
+                            this.$refs.putBox.innerHTML = "打开任务"
+                        }
+                        else {
+                            console.log("show")
+                            this.Switch = 1
+                            this.$refs.luna.style.transform = "translateY(0)"
+                            this.$refs.putBox.innerHTML = "关闭任务"
+                        }
+
+
+                    },
+                    showMusic() {
+                        this.$refs.mc.style.transform = "translateX(0%)"
+                        this.musicSwitch = 1
+                        console.log(this.musicName)
+                    },
+                    playMusic() {
+                        for (let i = 0; i < this.musicSet.length; i++) {
+                            if (this.musicSet[i] === this.$refs.musicInput.value) {
+                                console.log(this.$refs.musicInput)
+                                if (this.moduleSwitch === 0 && (this.$refs.musicInput.value == this.musicSet[0]))
+                                    this.changeModel()
+                                this.musicName = this.$refs.musicInput.value
+                                this.$refs.musicInput.value = ""
+                                this.showMusic()
+                                return
+                            }
+                            else if (i + 1 == this.$refs.musicInput.value) {
+                                if (this.moduleSwitch === 0 && (this.$refs.musicInput.value === '1'))
+                                    // 注意是双等于号 不写引号的话默认是字符串
+                                    this.changeModel()
+                                this.musicName = this.musicSet[i];
+                                this.$refs.musicInput.value = ""
+                                this.showMusic()
+                                return
+                            }
+
+
+                        }
+                        alert("没有找到该音乐")
+                        this.$refs.musicInput.value = "" // 清空输入框
+                    },
+                    randomMusic() {
+                        let index = Math.floor(Math.random() * this.musicSet.length)
+                        if (index === 0 && this.moduleSwitch === 0)
+                            this.changeModel()
+                        this.musicName = this.musicSet[index]
+                        this.showMusic()
+
+                    },
+                    popMusic() {
+                        if (this.musicSwitch === 1) {
+                            this.musicSwitch = 0
+                            this.$refs.mc.style.transform = "translateX(-200%)"
+                        }
+                        else {
+                            this.musicSwitch = 1
+                            console.log(this.musicSwitch)
+                            this.$refs.mc.style.transform = "translateX(0%)"
+                        }
+
+                    },
+                    showBar() {
+                        if (this.barSwitch === 1) {
+                            this.barSwitch = 0
+                            this.$refs.musicBar.style.transform = "translateX(90%)"
+                        }
+                        else {
+                            this.barSwitch = 1
+                            this.$refs.musicBar.style.transform = "translateX(0%)"
+                        }
+                    },
+                    changeStyle() {
+                        let index = this.styleSet.indexOf(this.style) // 找到当前样式的索引
+
+
+                        index = (index + 1) % this.styleSet.length // 防止越界
+                        this.style = this.styleSet[index] // 切换到下一个样式
+                        for (let i = 0; i < this.styleSet.length; i++) {
+                            if (this.styleSet[i] === this.style) {
+                                this.$refs.luna.classList.add(this.style) // 添加样式格式是 class="luna" 这样的 字符串形式
+                            }
+                            else {
+                                this.$refs.luna.classList.remove(this.styleSet[i])
+                            }
+                        }
+                    },
+                    handleGlobalClick(event) {
+                        const editingItem = this.list.find(item => item.editing)
+                        if (editingItem) {
+                            const isClickInsideEditInput = event.target.closest('input[ref="editInput"]')
+                            if (!isClickInsideEditInput) {
+                                this.endEdit(editingItem)
+                            }
+                        }
+                    },
+                    add() {
+                        if (this.value.length == 0) {
+                            alert("Your input is empty")
+                            this.$refs.inp.focus()
+                            // 重新使用聚焦函数
+                        } else {
+                            const newId = Date.now() + Math.random().toString(36).substr(2, 9)
+                            this.list.push({
+                                id: newId,
+                                name: this.value,
+                                editing: false
+                            })
+                            this.updateLocalStorage()
+                            this.value = ""
+                        }
+                    },
+                    addLink() {
+                        if (this.linkValue.length == 0) {
+                            alert("Your input is empty")
+                            this.$refs.linkInp.focus()
+                            // 重新使用聚焦函数
+                        } else {
+                            // console.log(this.linkValue)
+                            const newId2 = Date.now() + Math.random().toString(36).substr(2, 9)
+                            this.linklist.push({
+                                id: newId2,
+                                name: this.linkValue,
+                                editing: false
+                            })
+                            this.updateLocalStorage()
+                            this.linkValue = ""
+                        }
+                    },
+
+                    addTag(id, event) {
+                        const tagvalue = event.target.value;
+
+                        // 查是否已有该 id 的标签
+                        const existingTag = this.taglist.find(tag => tag.id === id);
+
+                        if (existingTag) {
+                            // 如果存在，更新标签值
+                            existingTag.tag = tagvalue;
+                        } else {
+                            // 如果不存在���添加新标签
+                            this.taglist.push({ id, tag: tagvalue });
+                        }
+
+                        // 更新 localStorage
+                        this.updateLocalStorage();
+
+                        // 移除输入框焦点
+                        event.target.blur();
+                    },
+
+                    // 删除todo 
+                    delLink(id, event) {
+                        if (event) {
+                            event.stopPropagation();
+                        }
+                        const index = this.linklist.findIndex(item => item.id === id);
+                        if (index > -1) {
+                            this.linklist.splice(index, 1);
+                            // 删除对应的tag - 使用filter方法创建新数组
+                            this.taglist = this.taglist.filter(tag => tag.id !== id);
+                            this.updateLocalStorage();
+                        }
+                    },
+                    jumpLink(link) {
+                        window.open(link.name, '_blank')
+                        // 打开新标签页
+
+                    },
+                    clear() {
+                        if (this.list.length === 0) {
+                            alert("Current plan list is already empty now")
+                            this.$refs.inp.focus()
+
+
+                        } else {
+                            this.list = []
+                            this.updateLocalStorage()
+                            this.$refs.inp.focus()
+                        }
+                    },
+                    clearLinks() {
+                        if (this.linklist.length === 0) {
+                            alert("Current link list is already empty now");
+                            this.$refs.linkInp.focus();
+                        } else {
+                            this.linklist = [];
+                            this.taglist = [];  // 清空tag数组
+                            this.updateLocalStorage();
+                            this.$refs.linkInp.focus();
+                        }
+                    },
+                    onDragStart(index) {
+                        this.draggedIndex = index // Store the index of the item being dragged
+                    },
+                    startEdit(item) {
+                        this.$set(item, 'editing', true)
+                        this.$set(item, 'editName', item.name)
+                        this.$nextTick(() => {
+                            const editInput = this.$refs.editInput.find(input => input === document.activeElement)
+                            if (editInput) editInput.focus()
                         })
-                        this.updateLocalStorage()
-                        this.value = ""
+                    },
+                    endEdit(item) {
+                        item.editing = false
+                        if (item.editName && item.editName.trim() !== '') {
+                            item.name = item.editName.trim()
+                            this.updateLocalStorage()
+                        }
+                        delete item.editName
+                    },
+                    onDrop(dropIndex) {
+                        const draggedItem = this.list[this.draggedIndex] // Get the dragged item
+                        this.list.splice(this.draggedIndex, 1) // Remove the item from the original position
+                        this.list.splice(dropIndex, 0, draggedItem) // Insert the item at the new position
+                        this.updateLocalStorage() // Update local storage to reflect the new order
                     }
-                },
-                clear() {
-                    if (this.list.length === 0) {
-                        alert("Current plan list is already empty now")
-                        this.$refs.inp.focus()
-
-
-                    } else {
-                        this.list = []
-                        this.updateLocalStorage()
-                        this.$refs.inp.focus()
-                    }
-                },
-                onDragStart(index) {
-                    this.draggedIndex = index // Store the index of the item being dragged
-                },
-                startEdit(item) {
-                    this.$set(item, 'editing', true)
-                    this.$set(item, 'editName', item.name)
-                    this.$nextTick(() => {
-                        const editInput = this.$refs.editInput.find(input => input === document.activeElement)
-                        if (editInput) editInput.focus()
-                    })
-                },
-                endEdit(item) {
-                    item.editing = false
-                    if (item.editName && item.editName.trim() !== '') {
-                        item.name = item.editName.trim()
-                        this.updateLocalStorage()
-                    }
-                    delete item.editName
-                },
-                onDrop(dropIndex) {
-                    const draggedItem = this.list[this.draggedIndex] // Get the dragged item
-                    this.list.splice(this.draggedIndex, 1) // Remove the item from the original position
-                    this.list.splice(dropIndex, 0, draggedItem) // Insert the item at the new position
-                    this.updateLocalStorage() // Update local storage to reflect the new order
                 }
-            }
-        })
-    </script>
-    <!-- 待办任务 -->
-    <!-- 优先级  -->
-    <!-- 记录该任务的时间 -->
+            })
+        </script>
+        <!-- 待办任务 -->
+        <!-- 优先级  -->
+        <!-- 记录该任务的时间 -->
 </body>
 
 </html>

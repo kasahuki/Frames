@@ -20,3 +20,9 @@
 创建视差滚动(parallax scrolling)效果
 背景图会保持在视窗中的固定位置 */
 }
+
+.现代卡片悬浮效果
+{
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg); /* 轻微浮动并旋转 */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* 增强阴影效果 */
+}

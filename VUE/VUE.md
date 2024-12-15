@@ -672,6 +672,55 @@ export default {
 
 # ref 和 $ref (更精确地获取dom元素)
 
+
+
+## find 找到对象
+
+### 1. 使用 `find` 确定元素
+
+`find` 方法会返回第一个匹配条件的元素。
+
+
+
+```javascript
+let idToFind = 2;
+let element = linklist.find(item => item.id === idToFind);
+
+console.log(element);
+// 输出: { id: 2, name: "https://www.google.com", editing: false }
+```
+
+如果需要修改这个元素的属性：
+
+
+
+```javascript
+let idToFind = 2;
+let element = linklist.find(item => item.id === idToFind);
+
+if (element) {
+  element.editing = true; // 修改该元素的 editing 值
+}
+
+console.log(linklist);
+```
+
+**使用event事件 和 ref注意问题**
+
+
+
+![image-20241215233149393](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215233149393.png)
+
+![image-20241215233255745](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215233255745.png)
+
+防止事件冒泡 @click = ""
+
+![image-20241215233202595](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215233202595.png)
+
+
+
+![image-20241215233206955](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215233206955.png)
+
 `ref` 是一个 Vue 模板中的指令（attribute），用于标识一个 DOM 元素或子组件，允许在 Vue 实例中引用它。通过 `ref`，你可以在 Vue 组件的 JavaScript 部分访问这些元素或组件
 
  ![image-20241027100142918](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241027100142918.png)
@@ -1080,7 +1129,7 @@ routes:[
 
 ![image-20241029221622803](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029221622803.png)
 
-模式设置
+**模式设置**
 
 ![image-20241029223018693](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223018693.png)
 
@@ -1101,6 +1150,40 @@ routes:[
 ![image-20241029223311287](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241029223311287.png)
 
 # 跳转
+
+## Window.location方法
+
+也可用open
+
+![image-20241215223851816](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215223851816.png)
+
+### 1. 获取当前 URL
+
+当你读取 `window.location.href` 时，它会返回当前浏览器地址栏的完整 URL。
+
+```
+javascript复制代码console.log(window.location.href); 
+// 输出当前页面的完整 URL，如 "https://www.example.com/path?query=1"
+```
+
+### 2. 设置新的 URL（跳转）
+
+当你将一个新的 URL 赋值给 `window.location.href` 时，浏览器会自动跳转到该 URL，就像用户在地址栏中输入一个新的网址一样。
+
+```
+javascript复制代码window.location.href = "https://www.example.com"; 
+// 浏览器会跳转到指定的 URL
+```
+
+3. 其他相关的 `window.location` 属性和方法
+
+- **`window.location.pathname`**：获取或设置当前页面的路径部分（不包括协议、域名和查询参数）。
+- **`window.location.search`**：获取当前 URL 中的查询字符串部分（包括 `?`）。
+- **`window.location.hash`**：获取或设置当前 URL 的锚点（即 `#` 后的部分）。
+- **`window.location.replace()`**：与 `href` 类似，但它会替换当前页面在浏览器历史中的记录，这意味着用户无法通过后退按钮返回到当前页面。
+- **`window.location.assign()`**：与 `window.location.href` 类似，但它不会替换历史记录，因此用户可以使用后退按钮返回。
+
+
 
 ## 分为 path跳转 和 name跳转
 
