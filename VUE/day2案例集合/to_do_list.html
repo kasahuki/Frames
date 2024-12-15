@@ -424,7 +424,8 @@
                         { id: 2, name: "https://www.google.com", editing: false },
                         { id: 3, name: "https://www.bing.com", editing: false }
                     ],
-                    taglist: [],
+                    taglist: [
+                    ],
                     linkValue: '',
                     value: '',
                     tagValue: '',
@@ -455,24 +456,19 @@
 
                 },
                 created() {
-                    const storedList = localStorage.getItem('obj');
-                    const storedLinklist = localStorage.getItem('linklist');
+                    const storedList = localStorage.getItem('obj')
+                    const storedLinklist = localStorage.getItem('linklist')
                     const storedTag = localStorage.getItem('tag');
-                    
-                    // 初始化taglist为空数组
-                    this.taglist = [];
-                    
                     if (storedTag) {
                         try {
-                            const parsedTags = JSON.parse(storedTag);
-                            if (Array.isArray(parsedTags)) {
-                                this.taglist = parsedTags;
-                            }
+                            this.taglist = JSON.parse(storedTag);
                         } catch (e) {
-                            console.error('Failed to parse taglist:', e);
+                            console.error('Failed to parse taglist from localStorage', e);
+                            this.taglist = [];
                         }
+                    } else {
+                        this.taglist = [];
                     }
-                    
                     if (storedLinklist) {
                         this.linklist = JSON.parse(storedLinklist).map(item => ({
                             ...item,
@@ -487,28 +483,26 @@
                     }
                 },
                 mounted() {
-                    if (this.$refs.inp) {
-                        this.$refs.inp.focus();
-                    }
-                    document.addEventListener('click', this.handleGlobalClick);
+                    this.$refs.inp.focus()
+                    document.addEventListener('click', this.handleGlobalClick)
+
                 },
                 beforeDestroy() {
                     document.removeEventListener('click', this.handleGlobalClick)
 
                 },
                 methods: {
-        
                     getTagValue(id) {
                         const tag = this.taglist.find(tag => tag.id === id);
-                        return tag ? tag.tag : '';  // 如果找不到对应的tag，返回空字符串
+                        return tag ? tag.tag : ""; // 如果找不到对应的 tag，返回空字符串
                     },
                     updateTagValue(id, event) {
-                        const value = event.target.value;
-                        const existingTag = this.taglist.find(tag => tag.id === id);
-                        if (existingTag) {
-                            existingTag.tag = value;
+                        const tagvalue = event.target.value;
+                        const tag = this.taglist.find(tag => tag.id === id);
+                        if (tag) {
+                            tag.tag = tagvalue;
                         } else {
-                            this.taglist.push({ id, tag: value });
+                            this.taglist.push({ id, tag: tagvalue });
                         }
                         this.updateLocalStorage();
                     },
@@ -689,14 +683,14 @@
                     addTag(id, event) {
                         const tagvalue = event.target.value;
 
-                        // 查是否已有该 id 的标签
+                        // 查找是否已有该 id 的标签
                         const existingTag = this.taglist.find(tag => tag.id === id);
 
                         if (existingTag) {
                             // 如果存在，更新标签值
                             existingTag.tag = tagvalue;
                         } else {
-                            // 如果不存在���添加新标签
+                            // 如果不存在，添加新标签
                             this.taglist.push({ id, tag: tagvalue });
                         }
 
@@ -715,8 +709,9 @@
                         const index = this.linklist.findIndex(item => item.id === id);
                         if (index > -1) {
                             this.linklist.splice(index, 1);
-                            // 删除对应的tag - 使用filter方法创建新数组
-                            this.taglist = this.taglist.filter(tag => tag.id !== id);
+                            // 删除对应的tag - 修改为数组的过滤方法
+                            // this.taglist = this.taglist.filter(tag => tag.id !== id);
+                            // 为什么不用 连带删除tag呢
                             this.updateLocalStorage();
                         }
                     },
@@ -743,7 +738,7 @@
                             this.$refs.linkInp.focus();
                         } else {
                             this.linklist = [];
-                            this.taglist = [];  // 清空tag数组
+                            // this.taglist = [];  // 清空所有tag
                             this.updateLocalStorage();
                             this.$refs.linkInp.focus();
                         }
