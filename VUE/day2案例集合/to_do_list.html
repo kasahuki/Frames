@@ -101,7 +101,8 @@
                                     d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
                             </svg>
                         </i>
-                    </li </ul>
+                    </li 
+                </ul>
                     <div class="footer">
                         <button @click="clear">清空所有任务</button>
                         <span>sum: <i>{{list.length}}</i></span>
@@ -160,7 +161,7 @@
                         <span v-if="!item.editing" style="flex-grow: 1">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
                             ref="editInput">
-                        <i @click.stop="delLink(item.id, $event)" dblclick.stop>
+                        <i @click.stop="delLink(item.id, $event)">
                             <!-- 原有的删除图标 -->
                             <span @click.stop="startEdit(item)" @dblclick.stop>edit</span>
                             <!-- 防止冒泡不要填值 -->
@@ -174,8 +175,8 @@
 
                         </i>
                         <input type="text" class="tag" placeholder="tag" @dblclick.stop
-                            @keyup.enter="addTag(item.id,$event)" :value="getTagValue(item.id)"
-                            @input="updateTagValue(item.id, $event)">
+                            @keyup.enter="addTag(item.id,$event)" :value="getTagValue(item.id)">
+                            <!--  v-model 不能以函数返回值为值 -->
                     </li>
                 </ul>
                 <div class="footer">
@@ -424,8 +425,7 @@
                         { id: 2, name: "https://www.google.com", editing: false },
                         { id: 3, name: "https://www.bing.com", editing: false }
                     ],
-                    taglist: [
-                    ],
+                    taglist: [],
                     linkValue: '',
                     value: '',
                     tagValue: '',
@@ -455,6 +455,7 @@
                     moduleSwitch: 0,
 
                 },
+                       // 持久化核心问题
                 created() {
                     const storedList = localStorage.getItem('obj')
                     const storedLinklist = localStorage.getItem('linklist')
@@ -482,30 +483,18 @@
                         }))
                     }
                 },
+                // 持久化核心问题
                 mounted() {
                     this.$refs.inp.focus()
-                    document.addEventListener('click', this.handleGlobalClick)
-
+    
                 },
-                beforeDestroy() {
-                    document.removeEventListener('click', this.handleGlobalClick)
-
-                },
+        
                 methods: {
                     getTagValue(id) {
                         const tag = this.taglist.find(tag => tag.id === id);
                         return tag ? tag.tag : ""; // 如果找不到对应的 tag，返回空字符串
                     },
-                    updateTagValue(id, event) {
-                        const tagvalue = event.target.value;
-                        const tag = this.taglist.find(tag => tag.id === id);
-                        if (tag) {
-                            tag.tag = tagvalue;
-                        } else {
-                            this.taglist.push({ id, tag: tagvalue });
-                        }
-                        this.updateLocalStorage();
-                    },
+                  
                     updateLocalStorage() {
                         localStorage.setItem('obj', JSON.stringify(this.list))
                         localStorage.setItem('linklist', JSON.stringify(this.linklist))
@@ -637,15 +626,7 @@
                             }
                         }
                     },
-                    handleGlobalClick(event) {
-                        const editingItem = this.list.find(item => item.editing)
-                        if (editingItem) {
-                            const isClickInsideEditInput = event.target.closest('input[ref="editInput"]')
-                            if (!isClickInsideEditInput) {
-                                this.endEdit(editingItem)
-                            }
-                        }
-                    },
+         
                     add() {
                         if (this.value.length == 0) {
                             alert("Your input is empty")
@@ -703,15 +684,11 @@
 
                     // 删除todo 
                     delLink(id, event) {
-                        if (event) {
-                            event.stopPropagation();
-                        }
-                        const index = this.linklist.findIndex(item => item.id === id);
-                        if (index > -1) {
+                        const index = this.linklist.findIndex(item => item.id === id)
+                        const tag = this.taglist.find(tag => tag.id === id) // 找到对应的标签
+                         if (index > -1) { // 如果找到了对应的 id
                             this.linklist.splice(index, 1);
-                            // 删除对应的tag - 修改为数组的过滤方法
-                            // this.taglist = this.taglist.filter(tag => tag.id !== id);
-                            // 为什么不用 连带删除tag呢
+                            this.taglist.splice(this.taglist.indexOf(tag,1))
                             this.updateLocalStorage();
                         }
                     },
@@ -738,7 +715,7 @@
                             this.$refs.linkInp.focus();
                         } else {
                             this.linklist = [];
-                            // this.taglist = [];  // 清空所有tag
+                            this.taglist = [];
                             this.updateLocalStorage();
                             this.$refs.linkInp.focus();
                         }

@@ -705,6 +705,12 @@ if (element) {
 console.log(linklist);
 ```
 
+## splice & indexOf
+
+
+
+
+
 **使用event事件 和 ref注意问题**
 
 
@@ -714,6 +720,8 @@ console.log(linklist);
 ![image-20241215233255745](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215233255745.png)
 
 防止事件冒泡 @click = "" 不是这样 不要等于号以及右边的就行
+
+
 
 ![image-20241215233202595](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20241215233202595.png)
 

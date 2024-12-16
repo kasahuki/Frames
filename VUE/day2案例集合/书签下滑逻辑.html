@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Senjay's Bookmark</title>
+  <style>
+    .bookmark-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .bookmark-card {
+      position: relative;
+      min-height: 160px;
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: visible;
+    }
+
+    .bookmark-card:hover {
+      transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-count {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .link-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      transform-origin: top;
+      animation: slideDown 0.3s ease;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      color: #333;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .link-item:hover {
+      background: #f5f5f5;
+      transform: translateX(5px);
+    }
+
+    .link-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 4px;
+    }
+
+    .link-title {
+      font-size: 14px;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: scaleY(0);
+        opacity: 0;
+      }
+
+      to {
+        transform: scaleY(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+
+    <div class="bookmark-container">
+      <div class="bookmark-card" 
+      v-for="(category, index) in bookmarks" 
+      :key="index" 
+      :style="getGradientStyle(index)"
+      @click.stop="toggleCategory(index, $event)">
+
+        <div class="card-content">
+          <div class="card-title">{{category.name}}</div>
+          <div class="card-count">{{category.links.length}} links</div>
+        </div>
+
+        <div class="link-list" v-show="category.isOpen" @click.stop>
+          <a v-for="link in category.links" 
+             :key="link.id" 
+             :href="link.url" 
+             target="_blank" 
+             class="link-item">
+            <img :src="link.icon" class="link-icon">
+            <span class="link-title">{{link.title}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const add = new Vue({
+      el: '.app',
+      data: {
+        // ... 其他已有的 data
+        bookmarks: [
+          {
+            name: 'OJ练习',
+            isOpen: false,
+            links: [
+              {
+                id: 1,
+                title: 'Codeforces',
+                url: 'https://codeforces.com/',
+                icon: 'https://codeforces.org/favicon.ico'
+              },
+              {
+                id: 2,
+                title: 'LeetCode',
+                url: 'https://leetcode.cn/',
+                icon: 'https://leetcode.cn/favicon.ico'
+              }
+            ]
+          },
+          {
+            name: '前端开发',
+            isOpen: false,
+            links: [
+              {
+                id: 3,
+                title: 'MDN',
+                url: 'https://developer.mozilla.org/',
+                icon: 'https://developer.mozilla.org/favicon.ico'
+              }
+            ]
+          }
+          // 可以继续添加更多分类
+        ]
+      },
+    
+      created() {
+        // ... 其他加载
+        const savedBookmarks = localStorage.getItem('bookmarks');
+        if (savedBookmarks) {
+          this.bookmarks = JSON.parse(savedBookmarks);
+        }
+      },
+      mounted() {
+        document.addEventListener('click', this.handleGlobalClick);
+      },
+
+      beforeDestroy() {
+        document.removeEventListener('click', this.handleGlobalClick);
+      },
+      methods: {
+        toggleCategory(index, event) {  // 添加 event 参数
+          if (event) {
+            event.stopPropagation(); // 阻止事件冒泡
+          }
+          this.bookmarks.forEach((cat, i) => {
+            if (i === index) {
+              cat.isOpen = !cat.isOpen;
+            } else {
+              cat.isOpen = false;
+            }
+          });
+        },
+        updateLocalStorage() {
+            localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+        },
+        getGradientStyle(index) {  // 添加这个必需的方法
+            const gradients = [
+                'linear-gradient(45deg, #FF6B6B, #4ECDC4)',
+                'linear-gradient(45deg, #A8E6CF, #FFD3B6)',
+                'linear-gradient(45deg, #3498DB, #2ECC71)',
+                'linear-gradient(45deg, #9B59B6, #3498DB)',
+                'linear-gradient(45deg, #FF758C, #FF7EB3)'
+            ];
+            return {
+                background: gradients[index % gradients.length]
+            };
+        },
+
+        // 添加全局点击处理方法
+        handleGlobalClick() {
+          this.bookmarks.forEach(cat => {
+            cat.isOpen = false;
+          });
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
