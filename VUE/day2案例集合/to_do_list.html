@@ -55,20 +55,20 @@
 
         <div class="app">
             <div class="musicname" ref="mc"><span>{{musicName}}</span></div>
-            <button class="putBox btn btn-primary" ref="putBox" @click="show">关闭任务</button>
+            <button class="putBox" ref="putBox" @click="show">ClosePlan</button>
 
             <div class="change">
-                <span>当前样式</span><button class="changeBox btn btn-primary" @click="changeStyle">{{style}}</button>
+                <span>curStyle</span><button @click="changeStyle">{{style}}</button>
             </div>
             <div class="musicBar">
-                <button class="diybtn btn btn-primary" @click="popMusic">弹出音乐</button>
+                <button class="diybtn" @click="popMusic">Pop</button>
             </div>
             <div class="inputMusic" @click="showBar" ref="musicBar">
                 <div class="box">
                     <input type="text" placeholder="music name" @keydown.enter="playMusic" ref="musicInput"
                         @click.stop="">
                     <!-- 防止点击输入框弹出输入法 冒泡 -->
-                    <button @click.stop='randomMusic'>随机播放</button>
+                    <button @click.stop='randomMusic'>Random</button>
                 </div>
                 <audio :src="`${musicName}.mp3`" controls loop></audio>
 
@@ -78,7 +78,7 @@
                     To-Do-List
                 </div>
                 <div class="input" @keyup.enter="add">
-                    <input type="text" placeholder="请输入任务" v-model.trim="value" ref="inp">
+                    <input type="text" placeholder="plan here" v-model.trim="value" ref="inp">
                     <!-- 防止输出 空格 -->
                     <div class="searcher" @click="add">
                         Add
@@ -104,7 +104,7 @@
                     </li 
                 </ul>
                     <div class="footer">
-                        <button @click="clear">清空所有任务</button>
+                        <button @click="clear" class="clearBtn">Clear All</button>
                         <span>sum: <i>{{list.length}}</i></span>
 
                     </div>
@@ -148,15 +148,15 @@
                     Link Lib
                 </div>
                 <div class="input" @keyup.enter="addLink">
-                    <input type="text" placeholder="请输入链接" v-model.trim="linkValue" ref="linkInp">
+                    <input type="text" placeholder="link here" v-model.trim="linkValue" ref="linkInp">
                     <!-- 防止输出 空格 -->
                     <div class="searcher" @click="addLink">
                         Add
                     </div>
                 </div>
                 <!-- 链接部分 -->
-                <ul>
-                    <li @dblclick.stop="jumpLink(item)" v-for="(item,index) in linklist" :key="item.id">
+                <ul ref="fontColor">
+                    <li @dblclick.stop="jumpLink(item)" v-for="(item,index) in linklist" :key="item.id" >
                         <span class="id">{{index+1}}.</span>
                         <span v-if="!item.editing" style="flex-grow: 1">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
@@ -190,7 +190,6 @@
 
 
         </div>
-
 
 
         <div class="Mymore">
@@ -446,7 +445,8 @@
                         "残雪",
                         "ff10",
                         "Love_Psalm",
-                        "Memory of Lightwaves"
+                        "Memory of Lightwaves",
+                        "END_theme-laura"
 
                     ],
                     musicSwitch: 0,
@@ -455,6 +455,7 @@
                     moduleSwitch: 0,
 
                 },
+                // TODO ： 持久化核心问题
                        // 持久化核心问题
                 created() {
                     const storedList = localStorage.getItem('obj')
@@ -501,16 +502,21 @@
                         localStorage.setItem('tag', JSON.stringify(this.taglist))
                     },
                     changeModel() {
+                        console.log(this.$refs.fontColor.style.color)
                         if (this.moduleSwitch === 0) {
                             this.moduleSwitch = 1
                             document.body.style.backgroundImage = "url('./silent_hill.jpg')"
                             this.currentColor = "#000"
+                            this.$refs.fontColor.style.color = "#f8c6c6"
+                         
 
                         }
                         else {
                             this.moduleSwitch = 0
                             document.body.style.backgroundImage = "url('./beauty1.jpg')"
                             this.currentColor = "#f4ea2a"
+                             this.$refs.fontColor.style.color = "#312671"
+                        
 
                         }
                     },
@@ -539,13 +545,13 @@
                             console.log("hide")
                             this.Switch = 0
                             this.$refs.luna.style.transform = "translateY(-400%)"
-                            this.$refs.putBox.innerHTML = "打开任务"
+                            this.$refs.putBox.innerHTML = "OpenPlan"
                         }
                         else {
                             console.log("show")
                             this.Switch = 1
                             this.$refs.luna.style.transform = "translateY(0)"
-                            this.$refs.putBox.innerHTML = "关闭任务"
+                            this.$refs.putBox.innerHTML = "ClosePlan"
                         }
 
 
@@ -687,8 +693,13 @@
                         const index = this.linklist.findIndex(item => item.id === id)
                         const tag = this.taglist.find(tag => tag.id === id) // 找到对应的标签
                          if (index > -1) { // 如果找到了对应的 id
+                            console.log(tag)
+                            // 指涉判空
+                            if (tag) {
+                                this.taglist.splice(this.taglist.indexOf(tag),1)
+                            }
                             this.linklist.splice(index, 1);
-                            this.taglist.splice(this.taglist.indexOf(tag,1))
+                            
                             this.updateLocalStorage();
                         }
                     },
@@ -704,6 +715,8 @@
 
 
                         } else {
+                            if(!confirm("Are you sure to clear all the plans?"))
+                            return
                             this.list = []
                             this.updateLocalStorage()
                             this.$refs.inp.focus()
@@ -714,6 +727,9 @@
                             alert("Current link list is already empty now");
                             this.$refs.linkInp.focus();
                         } else {
+                            if(!confirm("Are you sure to clear all the plans?"))
+                                return
+                            
                             this.linklist = [];
                             this.taglist = [];
                             this.updateLocalStorage();

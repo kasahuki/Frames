@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .water-surface {
+    position: relative;
+    width: 100%;
+    height: 300px; /* 水面容器高度 */
+    overflow: hidden; /* 超出部分隐藏 */
+    background-color: #8ac6d1; /* 水面颜色 */
+
+    /* 创建水波纹动画效果 */
+    animation: wave 4s infinite linear;
+}
+
+.card {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px; /* 卡片宽度 */
+    height: 150px; /* 卡片高度 */
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(-2deg);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="water-surface">
+       
+    </div>
+    
+    <script>
+
+    </script>
+</body>
+</html>

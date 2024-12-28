@@ -3,6 +3,15 @@
   padding: 0;
   margin: 0;
 }
+.ellipsis {
+  width: 200px; /* 设置固定宽度 */
+  white-space: nowrap; /* 禁止换行 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 显示省略号 */
+  border: 1px solid #ccc; /* 可选，用于查看效果 */
+  padding: 5px; /* 可选，增强可读性 */
+  box-sizing: border-box; /* 包括内边距在宽度内 */
+}
 
 a
 {
@@ -17,7 +26,7 @@ body {
   background-size: cover;
   background-attachment: fixed;
   /* 可选 */
-  min-height: 1900px;
+  min-height: 2500px;
   overflow-x: hidden;
   
  
@@ -88,18 +97,20 @@ li {
   position: relative;
   list-style: none;
   width: 100%;
-  height: 45px;
-  color: black;
+  color:inherit;
   margin-bottom: 2px;
   line-height: 40px;
   font-size: 20px;
   padding-left: 10px;
   transition: .3s;
   padding-bottom: 2px;
+  padding-right: 10px;
   border-bottom: 1px solid #faf4f4;
-  cursor: pointer;
   display: flex;
   align-items: center;
+  font-weight: 700;
+  
+  
 }
 
 li input {
@@ -120,31 +131,30 @@ li input:focus {
   border-bottom: 2px solid #45a049;
 }
 
-.luna ul li svg {
+.luna {
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  min-height: 100px;
+  padding: 0 12px;
+  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
+  margin: 220px 90px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+  rgba(0, 0, 0, 0.22) 0px 15px 12px;
+     border-radius: 25px;
+  transition: all 0.5s ease;
+  z-index: 10000; 
+   /* z-index 只有在position非static的情况下才起作用 */
+}
+
+ ul li svg {
   cursor: pointer;
-  right: 2%;
-  top: 25%;
-
-
-}
-
-
-
-button {
-  padding: 5px;
-  border-radius: 20px;
   transition: .5s;
-  color: white;
-  background-color: black;
-  border: 0;
 }
-
-button:hover {
-  color: black;
-  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
+ li svg:hover {
+  color: #f2085a;
 }
-
 
 .footer {
   display: flex;
@@ -158,6 +168,10 @@ button:hover {
 
 .footer span i {
   font-size: 25px;
+}
+.clearBtn {
+  height: 50px;
+  margin-bottom: 3px;
 }
 
 ul li .id {
@@ -486,8 +500,6 @@ ul li {
   padding: 5px 10px;
   border-radius: 20px;
   transition: .5s;
-
-
 }
 
 .putBox {
@@ -499,7 +511,6 @@ ul li {
   padding: 5px 10px;
   border-radius: 20px;
   transition: .5s;
-  background-color: black;
 
 
 }
@@ -523,22 +534,6 @@ ul li {
   color: white;
   font-weight: 700;
   color: balck;
-}
-
-.changeBox {
-  width: 90px;
-  height: 40px;
-  padding: 5px 10px;
-  border-radius: 20px;
-  color: rgb(231, 100, 100);
-  font-weight: 700;
-  background-image: linear-gradient(to right top, #f2f3d5, #f0f2d3, #edf0d0, #ebefce, #e8eecc, #f0eccc, #f6eace, #fbe8d1, #ffe8dd, #ffeaea, #f9eef2, #f4f2f4);
-  transition: .5s;
-}
-
-.changeBox:hover {
-  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
-  color: black;
 }
 
 audio {
@@ -594,24 +589,6 @@ audio {
 /* 绝对定位就脱离了标准流了 所以会导致覆盖 */
 
 
-.luna {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  min-height: 100px;
-  padding: 0 12px;
-  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799, #706f70, #4a494a, #272727, #000000);
-  margin: 220px 90px;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
-  rgba(0, 0, 0, 0.22) 0px 15px 12px;
-     border-radius: 25px;
-  transition: all 0.5s ease;
-  z-index: 10000; 
-   /* z-index 只有在position非static的情况下才起作用 */
-
-
-}
 
 li:hover {
   box-shadow: 22px 22px 22px rgba(0, 0, 0, 0.1) inset;
@@ -641,14 +618,6 @@ li:hover {
   color: pink;
 }
 
-.lighting button {
-  background-image: linear-gradient(to right top, #e8a5f8, #eaa7f7, #eca9f5, #edabf4, #efadf3, #eeb6f6, #eebef8, #eec6fa, #eed5fe, #f1e4ff, #f6f2ff, #ffffff);
-}
-
-.lighting button:hover {
-  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
-  color: black;
-}
 
 /* 毛玻璃样式 */
 .sun {
@@ -696,14 +665,7 @@ li:hover {
   /* 背景模糊 */
 }
 
-.sun button {
-  background-image: linear-gradient(to right top, #21e448, #5fe54f, #81e559, #9be665, #b0e672, #b7e876, #beea79, #c5ec7d, #c4f076, #c2f36f, #c0f767, #befb5f);
-}
 
-.sun button:hover {
-  background-image: linear-gradient(to right top, #ffffff, #f6f6f7, #ededee, #e4e5e6, #dbdcde, #c4c4c7, #aeadb0, #989799);
-  color: black;
-}
 
 .mirror {
   position: absolute;
@@ -726,14 +688,118 @@ li:hover {
 }
 
 
-.mirror button {
-  background-color: rgba(255, 255, 255, 0.05);
-
-  backdrop-filter: blur(10px);
-
-  box-shadow: 0 0 10px inset;
+/* From Uiverse.io by Yaya12085 */ 
+ button {
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  background-color: #000;
+  color: #fff;
+  font-size: 13px;
+  border: 0.5px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 8px;
+  padding: 12px;
+  border-radius: 15px 15px 12px 12px;
+  cursor: pointer;
+  position: relative;
+  will-change: transform;
+  transition: all .1s ease-in-out 0s;
+  user-select: none;
+  /* Add gradient shading to each side */
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-position: bottom right, bottom right;
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  box-shadow: inset -4px -10px 0px rgba(255, 255, 255, 0.4),
+    inset -4px -8px 0px rgba(0, 0, 0, 0.3),
+    0px 2px 1px rgba(0, 0, 0, 0.3),
+    0px 2px 1px rgba(255, 255, 255, 0.1);
+  transform: perspective(70px) rotateX(5deg) rotateY(0deg);
+  margin-bottom: 15px;
+  margin-left:3px ;
 }
 
+ button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.5));
+  z-index: -1;
+  border-radius: 15px;
+  box-shadow: inset 4px 0px 0px rgba(255, 255, 255, 0.1),
+    inset 4px -8px 0px rgba(0, 0, 0, 0.3);
+  transition: all .1s ease-in-out 0s;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  background-position: bottom right, bottom right;
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: no-repeat;
+  z-index: -1;
+  border-radius: 15px;
+  transition: all .1s ease-in-out 0s;
+}
+
+  button:active {
+  will-change: transform;
+  transform: perspective(80px) rotateX(5deg) rotateY(1deg) translateY(3px) scale(0.96);
+
+  border: 0.25px solid rgba(0, 0, 0, 0.2);
+  box-shadow: inset -4px -8px 0px rgba(255, 255, 255, 0.2),
+    inset -4px -6px 0px rgba(0, 0, 0, 0.8),
+    0px 1px 0px rgba(0, 0, 0, 0.9),
+    0px 1px 0px rgba(255, 255, 255, 0.2);
+  transition: all .1s ease-in-out 0s;
+}
+  button::after:active {
+  background-image: linear-gradient(to bottom,rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.2));
+}
+
+ button:active::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 20%;
+  width: 50%;
+
+  background-color: rgba(255, 255, 255, 0.1);
+  animation: overlay 0.1s ease-in-out 0s;
+  pointer-events: none;
+}
+
+button svg {
+  width: 15px;
+
+}
+
+@keyframes overlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+ button:focus {
+  outline: none;
+}
 /* -------------------------------喝彩 -----------------------*/
 canvas {
   position: absolute;
@@ -987,43 +1053,42 @@ canvas {
 
 .linklib {
   position: absolute;
-  width: 1200px;
+  width: 1400px;
   top: 50%;
-  left: 10%;
+  left: 5%;
 
+
+}
+.linklib ul {
+  color: #312767;
 }
 .linklib input {
   border-radius: 25px;
   border: 0px solid #000;
 }
 .linklib li {
+  cursor: pointer;
+  height: 45px;
   position: relative;
- color: #02275f;
+  color:inherit;
   font-size: 20px;
   font-weight: 700;
+  
+
+ 
 }
 .linklib li i {
   position: absolute;
   right: 2px;
-}
-.linklib .footer button {
-  background-color: #02275f;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 20px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: all .5s ease;
- box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
- 
 
 }
+.linklib li span {
+  overflow: hidden;
+  text-overflow: ellipsis; /* 显示省略号 */
+  white-space: nowrap; /* 禁止换行 */
+}
 
- button:hover {
-  background-color: rgb(107, 6, 6);
-  color: rgb(255, 255, 255);
-  }
+
 .linklib li i span {
 
   margin-right: 20px;
