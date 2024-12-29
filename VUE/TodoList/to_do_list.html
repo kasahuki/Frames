@@ -157,7 +157,7 @@
                 <!-- 链接部分 -->
                 <ul ref="fontColor">
                     <li @dblclick.stop="jumpLink(item)" v-for="(item,index) in linklist" :key="item.id" >
-                        <span class="id">{{index+1}}.</span>
+                        <b class="id">{{index+1}}.</b>
                         <span v-if="!item.editing" style="flex-grow: 1">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
                             ref="editInput">
@@ -290,8 +290,8 @@
 
                     </div>
                 </a>
-
-                <a href="D:\Desktop\Backend\JavaSE\JavaSe & Frame.md" target="_blank">
+                
+                <a href="D:\Desktop\Backend\JavaSE\JavaSe & FrameBasic.md" target="_blank">
                     <div class="aside">
 
                     </div>
