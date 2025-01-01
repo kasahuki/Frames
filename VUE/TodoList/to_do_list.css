@@ -54,6 +54,9 @@ body {
   margin: 0 auto;
   margin-bottom: 2px;
 }
+.input input:focus {
+  color: #005af6;
+}
 
 .input .searcher:hover {
 
@@ -85,7 +88,17 @@ body {
   text-align: center;
   cursor: pointer;
   transition: .5s;
+  
 
+
+}
+.sum ul li input {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: .5s;
+  color: rgb(38, 255, 0);
+  
 
 }
 
@@ -411,7 +424,7 @@ ul li {
   right: 0px;
   top: 160px;
   text-align: center;
-  width: 350px;
+  width: 430px;
   height: 150px;
   margin-left: 150px;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
@@ -439,6 +452,7 @@ ul li {
 
   /* 文本颜色 */
   color: rgb(231, 239, 7);
+  margin-right: 10px;
 
 
 }
@@ -459,6 +473,77 @@ ul li {
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.47);
 }
+
+/* From Uiverse.io by PriyanshuGupta28 */ 
+.pushable {
+  position: relative;
+  background: transparent;
+  padding: 0px;
+  border: none;
+  cursor: pointer;
+  outline-offset: 4px;
+  outline-color: deeppink;
+  transition: filter 250ms;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  user-select: none;
+  /* 用户无法选中文字 */
+}
+
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  background: linear-gradient(
+    to right,
+    hsl(248, 39%, 39%) 0%,
+    hsl(248, 39%, 49%) 8%,
+    hsl(248, 39%, 39%) 92%,
+    hsl(248, 39%, 29%) 100%
+  );
+}
+
+.front {
+  display: block;
+  position: relative;
+  border-radius: 8px;
+  background: hsl(248, 53%, 58%);
+  padding: 12px 25px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+  transform: translateY(-4px);
+  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
+}
+
+.pushable:hover {
+  filter: brightness(110%);
+
+}
+
+.pushable:hover .front {
+  transform: translateY(-6px);
+  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+  
+
+}
+
+
+
+.pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
 
 .profile {
   display: inline-block;
@@ -535,11 +620,22 @@ ul li {
   font-weight: 700;
   color: balck;
 }
-
-audio {
-  opacity: 1;
-  transition: .5s;
+.button-container {
+  display: flex;
 }
+audio {
+ width: 250px;
+ height: 40px;
+ margin: 10px;
+ vertical-align: middle;
+
+
+}
+.button-3d {
+ margin-top: 5px;
+ margin-right: 2px;
+}
+
 
 .navbars {
   position: absolute;
@@ -1126,8 +1222,9 @@ canvas {
   transition: all .5s ease;
   font-weight: 700;
 }
+/* 输入聚焦时样式 */
 .linklib li input:focus {
-  color:  #02275f;
+  color:  #df5f04;
   font-size: 25px;
   outline: none;
   border: 0 solid #000;

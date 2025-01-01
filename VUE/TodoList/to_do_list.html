@@ -68,46 +68,76 @@
                     <input type="text" placeholder="music name" @keydown.enter="playMusic" ref="musicInput"
                         @click.stop="">
                     <!-- 防止点击输入框弹出输入法 冒泡 -->
-                    <button @click.stop='randomMusic'>Random</button>
-                </div>
-                <audio :src="`${musicName}.mp3`" controls loop></audio>
+                    <div class="pushable" @click.stop='randomMusic'>
 
-            </div>
-            <div class="luna" ref="luna">
-                <div class="header">
-                    To-Do-List
-                </div>
-                <div class="input" @keyup.enter="add">
-                    <input type="text" placeholder="plan here" v-model.trim="value" ref="inp">
-                    <!-- 防止输出 空格 -->
-                    <div class="searcher" @click="add">
-                        Add
+                        <span class="edge"></span>
+                        <span class="front"> Random </span>
                     </div>
                 </div>
-                <ul>
-                    <li draggable="true" @dragstart="onDragStart(index)" @dragover.prevent @drop="onDrop(index)"
-                        v-for="(item,index) in list" :key="item.id">
-                        <span class="id">{{index+1}}.</span>
-                        <span v-if="!item.editing" @dblclick="startEdit(item)" style="flex-grow: 1">{{item.name}}</span>
-                        <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
-                            @click.stop ref="editInput">
-                        <i @click.stop="del(item.id, $event)">
-                            <!-- 原有的删除图标 -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
-                                <path
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
-                            </svg>
-                        </i>
-                    </li 
-                </ul>
+                <div class="button-container">
+                    <button class="button-3d" @click.stop="prev">
+                        <div class="button-top">
+                            <span class="material-icons">❮</span>
+                        </div>
+                        <div class="button-bottom"></div>
+                        <div class="button-base"></div>
+                    </button>
+
+
+                    <audio :src="`${musicName}.mp3`" controls loop></audio>
+
+                    <button class="button-3d" @click.stop="next">
+                        <div class="button-top">
+                            <span class="material-icons">❯</span>
+                        </div>
+                        <div class="button-bottom"></div>
+                        <div class="button-base"></div>
+                    </button>
+                </div>
+
+
+            </div>
+            <div class="sum">
+
+
+                <div class="luna" ref="luna">
+                    <div class="header">
+                        To-Do-List
+                    </div>
+                    <div class="input" @keyup.enter="add">
+                        <input type="text" placeholder="plan here" v-model.trim="value" ref="inp">
+                        <!-- 防止输出 空格 -->
+                        <div class="searcher" @click="add">
+                            Add
+                        </div>
+                    </div>
+                    <!-- todo部分 -->
+                    <ul>
+                        <li draggable="true" @dragstart="onDragStart(index)" @dragover.prevent @drop="onDrop(index)"
+                            v-for="(item,index) in list" :key="item.id">
+                            <span class="id">{{index+1}}.</span>
+                            <span v-if="!item.editing" @dblclick="startEdit(item)"
+                                style="flex-grow: 1">{{item.name}}</span>
+                            <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
+                                @click.stop ref="editInput" :autofocus="item.editing">
+                            <i @click.stop="del(item.id, $event)">
+                                <!-- 原有的删除图标 -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                    class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path
+                                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                    <path
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" />
+                                </svg>
+                            </i>
+                        </li>
+                    </ul>
                     <div class="footer">
                         <button @click="clear" class="clearBtn">Clear All</button>
                         <span>sum: <i>{{list.length}}</i></span>
 
                     </div>
+                </div>
             </div>
 
             <div class="colorBar">
@@ -133,7 +163,7 @@
                 <span class="moonlight-text">
                     <div class="profile">
 
-                    </div>Luna Freya
+                    </div> &nbsp Senjay &nbsp
                 </span>
                 <div @click="changeModel"><svg t="1733579760461" class="icon" viewBox="0 0 1024 1024" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" p-id="6542" width="50" height="50">
@@ -156,11 +186,13 @@
                 </div>
                 <!-- 链接部分 -->
                 <ul ref="fontColor">
-                    <li @dblclick.stop="jumpLink(item)" v-for="(item,index) in linklist" :key="item.id" >
+                    <li @dblclick.stop="jumpLink(item)" v-for="(item,index) in linklist" :key="item.id">
                         <b class="id">{{index+1}}.</b>
                         <span v-if="!item.editing" style="flex-grow: 1">{{item.name}}</span>
                         <input v-else v-model="item.editName" @blur="endEdit(item)" @keyup.enter="endEdit(item)"
                             ref="editInput">
+
+                        <!-- TODO: v-if/else 实现点击编辑功能 同时也要 将 editname 赋值给name实现 持久化-->
                         <i @click.stop="delLink(item.id, $event)">
                             <!-- 原有的删除图标 -->
                             <span @click.stop="startEdit(item)" @dblclick.stop>edit</span>
@@ -176,7 +208,7 @@
                         </i>
                         <input type="text" class="tag" placeholder="tag" @dblclick.stop
                             @keyup.enter="addTag(item.id,$event)" :value="getTagValue(item.id)">
-                            <!--  v-model 不能以函数返回值为值 -->
+                        <!--  v-model 不能以函数返回值为值 -->
                     </li>
                 </ul>
                 <div class="footer">
@@ -290,7 +322,7 @@
 
                     </div>
                 </a>
-                
+
                 <a href="D:\Desktop\Backend\JavaSE\JavaSe & FrameBasic.md" target="_blank">
                     <div class="aside">
 
@@ -446,7 +478,10 @@
                         "ff10",
                         "Love_Psalm",
                         "Memory of Lightwaves",
-                        "END_theme-laura"
+                        "END_theme-laura",
+                        "tears of  blood"
+                        //    TODO :能不能创个文件包 然后读取包里的所有音乐的名称 
+
 
                     ],
                     musicSwitch: 0,
@@ -456,7 +491,7 @@
 
                 },
                 // TODO ： 持久化核心问题
-                       // 持久化核心问题
+                // 持久化核心问题
                 created() {
                     const storedList = localStorage.getItem('obj')
                     const storedLinklist = localStorage.getItem('linklist')
@@ -487,15 +522,16 @@
                 // 持久化核心问题
                 mounted() {
                     this.$refs.inp.focus()
-    
+
                 },
-        
+
                 methods: {
                     getTagValue(id) {
                         const tag = this.taglist.find(tag => tag.id === id);
                         return tag ? tag.tag : ""; // 如果找不到对应的 tag，返回空字符串
                     },
-                  
+
+
                     updateLocalStorage() {
                         localStorage.setItem('obj', JSON.stringify(this.list))
                         localStorage.setItem('linklist', JSON.stringify(this.linklist))
@@ -508,15 +544,15 @@
                             document.body.style.backgroundImage = "url('./silent_hill.jpg')"
                             this.currentColor = "#000"
                             this.$refs.fontColor.style.color = "#f8c6c6"
-                         
+
 
                         }
                         else {
                             this.moduleSwitch = 0
                             document.body.style.backgroundImage = "url('./beauty1.jpg')"
                             this.currentColor = "#f4ea2a"
-                             this.$refs.fontColor.style.color = "#312671"
-                        
+                            this.$refs.fontColor.style.color = "#312671"
+
 
                         }
                     },
@@ -595,6 +631,30 @@
                         this.showMusic()
 
                     },
+                    prev() {
+                        if(this.musicName === "")
+                    {
+                        alert("请先选择一首歌")
+                        return
+                    }
+                        if (this.musicSet.indexOf(this.musicName) < 0)
+                    {
+                        alert("已经是第一首歌了")
+                        return
+                    }
+             
+                        this.musicName  = this.musicSet[this.musicSet.indexOf(this.musicName) - 1]
+                    },
+                    next() {
+                        if(this.musicSet.indexOf(this.musicName) === this.musicSet.length - 1)
+                    {
+                        alert("已经是最后一首歌了")
+                        return
+                    }
+                        this.musicName = this.musicSet[this.musicSet.indexOf(this.musicName) + 1]
+                        this.showMusic()
+                    },
+                    
                     popMusic() {
                         if (this.musicSwitch === 1) {
                             this.musicSwitch = 0
@@ -632,7 +692,7 @@
                             }
                         }
                     },
-         
+
                     add() {
                         if (this.value.length == 0) {
                             alert("Your input is empty")
@@ -692,14 +752,14 @@
                     delLink(id, event) {
                         const index = this.linklist.findIndex(item => item.id === id)
                         const tag = this.taglist.find(tag => tag.id === id) // 找到对应的标签
-                         if (index > -1) { // 如果找到了对应的 id
+                        if (index > -1) { // 如果找到了对应的 id
                             console.log(tag)
                             // 指涉判空
                             if (tag) {
-                                this.taglist.splice(this.taglist.indexOf(tag),1)
+                                this.taglist.splice(this.taglist.indexOf(tag), 1)
                             }
                             this.linklist.splice(index, 1);
-                            
+
                             this.updateLocalStorage();
                         }
                     },
@@ -715,8 +775,8 @@
 
 
                         } else {
-                            if(!confirm("Are you sure to clear all the plans?"))
-                            return
+                            if (!confirm("Are you sure to clear all the plans?"))
+                                return
                             this.list = []
                             this.updateLocalStorage()
                             this.$refs.inp.focus()
@@ -727,9 +787,9 @@
                             alert("Current link list is already empty now");
                             this.$refs.linkInp.focus();
                         } else {
-                            if(!confirm("Are you sure to clear all the plans?"))
+                            if (!confirm("Are you sure to clear all the plans?"))
                                 return
-                            
+
                             this.linklist = [];
                             this.taglist = [];
                             this.updateLocalStorage();
@@ -740,10 +800,18 @@
                         this.draggedIndex = index // Store the index of the item being dragged
                     },
                     startEdit(item) {
+
+                        if (item.editing) {
+                            item.editing = false
+
+                            endEdit(item)
+                        }
+
                         this.$set(item, 'editing', true)
                         this.$set(item, 'editName', item.name)
                         this.$nextTick(() => {
-                            const editInput = this.$refs.editInput.find(input => input === document.activeElement)
+                            const editInput = this.$refs.editInput.find(input => input == document.activeElement)
+                            // TODO： 找到具体的输入框
                             if (editInput) editInput.focus()
                         })
                     },
@@ -751,6 +819,7 @@
                         item.editing = false
                         if (item.editName && item.editName.trim() !== '') {
                             item.name = item.editName.trim()
+                            // 更新 name 值
                             this.updateLocalStorage()
                         }
                         delete item.editName
