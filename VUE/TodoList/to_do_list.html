@@ -45,11 +45,13 @@
                 </div>
             </div>
             <div class="post1">
+            
             </div>
             <div class="post2">
             </div>
             <div class="post3">
             </div>
+            
 
         </div>
 
@@ -59,6 +61,7 @@
 
             <div class="change">
                 <span>curStyle</span><button @click="changeStyle">{{style}}</button>
+                <button @click="openTrash">trash</button>
             </div>
             <div class="musicBar">
                 <button class="diybtn" @click="popMusic">Pop</button>
@@ -220,8 +223,24 @@
 
             </div>
 
-
+            <div class="trashContainer" ref="trash">
+                <div class="maria">
+                    <ul>
+                        <div class="emptyPointer" v-if="!trashList.length">The current recycle bin content is empty</div>
+                        <li v-else v-for="(item,index) in trashList" :key="item.id">
+                            <span>{{index+1}}</span>. &nbsp
+                            <span>{{item.name}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="closeTrash" @click="closeTrash">
+                    <span>X</span>
+                    
+                </div>
+            </div>
         </div>
+
+
 
 
         <div class="Mymore">
@@ -474,16 +493,21 @@
                     musicSet: [
                         "theme of laura",
                         "theme of laura_E3",
-                        "残雪",
+                        "なごり雪",
                         "ff10",
                         "Love_Psalm",
                         "Memory of Lightwaves",
                         "END_theme-laura",
-                        "tears of  blood"
+                        "tears of  blood",
+                        "theme of laura reprise",
+                        "Promise",
+                        "theme of laura_new",
+                        "RoseWater memory"
                         //    TODO :能不能创个文件包 然后读取包里的所有音乐的名称 
 
 
                     ],
+                    trashList: [],
                     musicSwitch: 0,
                     barSwitch: 0,
                     currentColor: "#f4ea2a",
@@ -563,6 +587,14 @@
 
                         const index = this.list.findIndex(item => item.id === id)
                         if (index > -1) {
+                       
+                            const item = this.list.find(item => item.id ===id)
+                            this.trashList.push({
+                                id: item.id,
+                                name: item.name,
+                            })
+
+
                             this.list.splice(index, 1)
                             this.updateLocalStorage()
 
@@ -632,29 +664,26 @@
 
                     },
                     prev() {
-                        if(this.musicName === "")
-                    {
-                        alert("请先选择一首歌")
-                        return
-                    }
-                        if (this.musicSet.indexOf(this.musicName) < 0)
-                    {
-                        alert("已经是第一首歌了")
-                        return
-                    }
-             
-                        this.musicName  = this.musicSet[this.musicSet.indexOf(this.musicName) - 1]
+                        if (this.musicName === "") {
+                            alert("请先选择一首歌")
+                            return
+                        }
+                        if (this.musicSet.indexOf(this.musicName) < 0) {
+                            alert("已经是第一首歌了")
+                            return
+                        }
+
+                        this.musicName = this.musicSet[this.musicSet.indexOf(this.musicName) - 1]
                     },
                     next() {
-                        if(this.musicSet.indexOf(this.musicName) === this.musicSet.length - 1)
-                    {
-                        alert("已经是最后一首歌了")
-                        return
-                    }
+                        if (this.musicSet.indexOf(this.musicName) === this.musicSet.length - 1) {
+                            alert("已经是最后一首歌了")
+                            return
+                        }
                         this.musicName = this.musicSet[this.musicSet.indexOf(this.musicName) + 1]
                         this.showMusic()
                     },
-                    
+
                     popMusic() {
                         if (this.musicSwitch === 1) {
                             this.musicSwitch = 0
@@ -692,7 +721,14 @@
                             }
                         }
                     },
+                    openTrash() {
+                        this.$refs.trash.style.transform = "translateY(0)"
 
+                    },
+                    closeTrash() {
+                        
+                        this.$refs.trash.style.transform = "translateY(-200%)"
+                    },
                     add() {
                         if (this.value.length == 0) {
                             alert("Your input is empty")
@@ -777,6 +813,13 @@
                         } else {
                             if (!confirm("Are you sure to clear all the plans?"))
                                 return
+                            for(let i = 0 ; i<this.list.length; i++)
+                        {
+                            this.trashList.push({
+                                id:this.list[i].id,
+                                name:this.list[i].name
+                            })
+                        }
                             this.list = []
                             this.updateLocalStorage()
                             this.$refs.inp.focus()

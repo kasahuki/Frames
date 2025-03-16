@@ -2027,68 +2027,23 @@ console.log(obj.regularFunction()); // 输出：100
 
 
 
-# vue3
+# vue3 前端基本思想
 
-相比于vue2 使用了vite的构建工具
+**趋势：ai 解耦**
 
-要在node.js环境下运行 node -v 检查版本
+html 这种标记语言 是独立于操作系统的 是由浏览器解析的！
 
-npm init vue@latest 自动安装vue依赖并运行 create-vue
+**js(利用事件循环和异步回调实现伪并发)，py是单线程语言**
+
+**回调函数函数里面的参数就是函数**
 
 
 
-`项目构建`
+### **异步的好处**
 
-### 什么是 `npm install`？
+异步编程是一种**非阻塞（Non-blocking）**的编程方式，允许程序在等待某些任务完成的同时继续执行其他代码
 
-`npm install` 是 Node Package Manager (npm) 的一个命令，用于安装项目的所有依赖包。它会根据项目根目录下的 `package.json` 文件中的内容，下载并安装所需的依赖包，并将它们存储在 `node_modules` 目录中。
 
-**Vue.js Devtools 是一个专门为 Vue.js 开发者 提供的浏览器扩展工具，主要用于调试和分析 Vue.js 应用程序。它能够帮助开发者更高效地了解应用的状态、组件层次结构以及数据变化，极大地提升开发效率。**
-
-核心变化：
-
-## vue实例
-
-### **什么是 Vue 实例？**
-
-在 Vue 中，**Vue 实例**是应用的核心对象。它是通过 `new Vue()`（Vue 2）或者 `createApp()`（Vue 3）创建的。Vue 实例负责管理整个 Vue 应用的生命周期、数据、事件处理、DOM 渲染、响应式系统等。可以把 Vue 实例理解为一个"控制中心"，它将数据模型和页面的 DOM 元素绑定在一起，当数据发生变化时，Vue 实例会自动更新 DOM 元素。
-
-### **Vue 实例的主要职责**
-
-1. **数据管理**：Vue 实例管理应用的响应式数据，任何数据的变化都会自动更新 DOM。
-2. **模板渲染**：Vue 实例会将定义的模板与数据进行绑定，渲染出页面内容。
-3. **事件处理**：使用 Vue 实例可以处理各种用户交互事件（如点击、输入等）。
-4. **生命周期管理**：Vue 实例提供了一系列钩子函数，允许你在应用不同的生命周期阶段（如创建、挂载、更新、销毁等）执行特定的逻辑。
-5. **组件管理**：Vue 实例可以管理自身的组件树，每个组件也都是一个 Vue 实例。
-
-### **多个 Vue 实例的应用场景**
-
-1. **页面上多个独立的区域**：如果你有多个独立的页面区域，每个区域有自己的数据和逻辑，你可以为每个区域创建独立的 Vue 实例。例如，一个区域是文章内容显示，另一个区域是评论系统，它们可以由不同的 Vue 实例管理。
-2. **渐进式增强**：在已有的传统应用中，你可以为某些特定的页面片段使用 Vue 实例，而不需要重构整个应用。这些 Vue 实例可以嵌入在已有的 HTML 页面中，负责增强该部分的交互逻辑。
-3. **单页应用中的独立模块**：在某些情况下，如果你的应用是一个大型的单页应用（SPA），你可以将不同的模块用不同的 Vue 实例管理
-
-- 每个应用实例负责管理自己的数据和行为，并分别挂载到 `#app1` 和 `#app2` DOM 元素上。
-
-### vue2 和vue3 创建实例的方法
-
-~~~js
-// Vue 2 main.js
-
-// 1. 引入 Vue 库
-import Vue from 'vue'
-
-// 2. 引入根组件 App.vue
-import App from './App.vue'
-
-// 3. 关闭生产环境提示
-Vue.config.productionTip = false
-
-// 4. 创建 Vue 实例并挂载到 DOM 元素上
-new Vue({
-  // 5. 渲染根组件 App.vue
-  render: h => h(App), // 渲染函数，将 App 组件渲染到页面中
-}).$mount('#app') // 挂载到页面中的 #app 节点
-~~~
 
 
 
@@ -2096,10 +2051,415 @@ new Vue({
 
 
 
-~~~js
-// Vue 3 main.js
+**单独使用vue 不是工程化开发**
 
-// 1. 引入 Vue 库中的 createApp 函数
+![image-20250121202338537](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121202338537.png)
+
+
+
+**工程化开发vue：**
+
+![](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121213332359.png)
+
+![image-20250121213858990](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121213858990.png)
+
+**npm install 下载的模块就在node_modules**
+
+
+
+vue插件自定义提示词快速生成
+
+![image-20250121222012434](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121222012434.png)
+
+## Vue项目开发流程
+
+### 文件之间的联系
+
+![image-20250121214455984](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121214455984.png)
+
+
+
+![image-20250121215427391](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121215427391.png)
+
+## 基本语法补充
+
+**`<ChildComponent></ChildComponent>` 的含义**
+
+- 这是一种 **双标签** 的写法。
+- 它表示一个可能有子内容（即插槽内容）的组件。
+- 这种写法适合在需要向组件传递插槽内容时使用。
+- 
+
+**`<ChildComponent />` 的含义**
+
+- 这是一种 **自闭合标签** 的写法。
+- 它表示一个没有子内容（即没有插槽内容）的组件。
+- 这种写法更加简洁，适合在组件不需要传递任何内容时使用。
+
+---
+
+将axios请求封装成一个**js文件**（在**src**（也就是**@**）目录下单独的**api目录**下））里**提供多个方法**（这些方法要导出export） 要使用就**导入**
+
+![image-20250121224806804](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121224806804.png)
+
+![image-20250121224812993](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250121224812993.png)
+
+**ref 问题 ： 是个对象 具体值要使用value获取**
+
+- **`const`**：
+
+  - 用于声明一个常量，**不能重新赋值**。
+
+  - 但如果是对象或数组，其内部的属性或元素可以被修改。
+
+    ```js
+    const a = 10;
+    a = 20; // 报错：不能重新赋值
+    
+    const obj = { name: "Alice" };
+    obj.name = "Bob"; // 允许：修改对象的属性
+    ```
+
+  
+
+**如果这个变量不会被重新赋值，那么使用 `const` 更符合语义**
+
+---
+
+
+
+**...xxx : 解构语法常用于 ：**
+
+- **扩展语法**：将数组、对象或字符串“展开”为独立的元素。
+- **剩余参数**：将多个参数“收集”到一**个数组或对象**中。 常作为==函数参数==  注意：**剩余参数必须是最后一个参数**
+
+
+
+同 `.vue` 文件中的 `<script>` 标签内的变量是 **相互独立** 的，默认情况下不会冲突。这是因为每个 `.vue` 文件都是一个独立的模块，其作用域是隔离的
+
+**所以这也是ref标记dom元素的优点**
+
+**但是要注意不同.vue 的template 部分标签的id不能有重复的 因为最后都是要拼接起来的**
+
+
+
+vue简单项目快速开始：**npm install 下载依赖** 
+
+**布置文件结构**
+
+在main.js 中书写导入语句
+
+（**前两步和idea中配置后端项目类似**）
+
+![image-20250122191042799](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250122191042799.png)
+
+注意上面的APP **要全大写**
+
+导入import相关 资源管理器坐标和快速开始使用组件/模块的代码实践 
+
+app的使用！
+
+
+
+**有表单一般就需要表单校验**
+
+
+
+![image-20250122204718523](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250122204718523.png)
+
+**所以前后端都需要校验**
+
+
+
+### 路由基本知识
+
+![image-20250123182242496](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250123182242496.png)
+
+**Composition API（Vue 3） 使用路由**
+
+
+
+~~~js
+<template>
+    <div>
+        <h1>首页</h1>
+        <button @click="goToAbout">跳转到关于我们</button>
+    </div>
+</template>
+
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const goToAbout = () => {
+    router.push('/about'); // 跳转到 About 页面
+};
+</script>
+~~~
+
+### 子路由（路由的嵌套）
+
+![image-20250123223316586](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250123223316586.png)
+
+
+
+![image-20250123223436337](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250123223436337.png)
+
+**重定向 redirect**
+
+
+
+![image-20250123230358283](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250123230358283.png)
+
+**注意点：**
+
+1. **vue文件首字母大写**
+2. 组件导入时命名由文件名多加个Vue
+
+![image-20250124195011040](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124195011040.png)
+
+同一个事件触发多个代码逻辑 就是相当于写函数内部的代码而已不过要写分号
+
+
+
+### token 与pinia 的使用
+
+**问题引出 ： 访问一些路由时没有携带token 就会出现401错误 如何处理 某些请求统一携带token 并且统一跳转到登录页面呢**
+
+![image-20250124155512858](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124155512858.png)
+
+注意defineStore返回的是函数
+
+注意接收的变量名取名字是有要求的 ：useTokenStore 以==use开头== ==Store结尾==
+
+**一般都要在main.js 中使用这个模块技术 像router app 或者pinia 都是这样** 
+
+
+
+用户在输入框中输入内容时，浏览器通常会根据用户的历史记录或保存的表单数据，自动显示一个下拉列表，提示之前输入过的内容。`autocomplete="off"` 可以禁用这种行为。
+
+
+
+
+
+
+
+![image-20250124195902764](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124195902764.png)
+
+
+
+**像携带token 这种重复性操作可以放到请求拦截器中 （像一下这样就比较麻烦了）**
+
+响应头也有好多键值对啊 
+
+![image-20250124201131934](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124201131934.png)
+
+~~~java
+//定制请求的实例
+
+//导入axios  npm install axios
+import axios from 'axios';
+//定义一个变量,记录公共的前缀  ,  baseURL
+//const baseURL = 'http://localhost:8080';
+const baseURL = '/api';
+const instance = axios.create({ baseURL })
+
+import {useTokenStore} from '@/stores/token.js'
+//配置请求拦截器
+instance.interceptors.request.use(
+    (config)=>{
+        //请求前的回调
+        //添加token
+        const tokenStore = useTokenStore();
+        //判断有没有token
+        if(tokenStore.token){
+            config.headers.Authorization = tokenStore.token
+        }
+        return config;
+    },
+    (err)=>{
+        //请求错误的回调
+        Promise.reject(err)
+    }
+)
+~~~
+
+在 Axios 中，`config` 是一个 **请求配置对象**，它包含了当前请求的所有配置信息。当你使用 Axios 发送请求时，Axios 会根据 `config` 中的配置来构建 HTTP 请求。
+
+------
+
+#### **`config` 的常见属性**
+
+以下是 `config` 对象中常见的属性：
+
+| 属性名            | 类型      | 说明                                                  |
+| :---------------- | :-------- | :---------------------------------------------------- |
+| `url`             | `string`  | 请求的 URL。                                          |
+| `method`          | `string`  | 请求方法（如 `get`、`post`、`put`、`delete` 等）。    |
+| `headers`         | `object`  | 请求头信息（如 `Content-Type`、`Authorization` 等）。 |
+| `params`          | `object`  | URL 参数（用于 `GET` 请求）。                         |
+| `data`            | `object`  | 请求体数据（用于 `POST`、`PUT` 等请求）。             |
+| `timeout`         | `number`  | 请求超时时间（单位：毫秒）。                          |
+| `withCredentials` | `boolean` |                                                       |
+
+和==响应拦截器==一个原理
+
+#### 响应result 和自己在后端配置的响应体result
+
+
+
+`result` 是 Axios 的完整响应对象，包含了服务器返回的所有信息。它的常见属性如下：
+
+| 属性名       | 类型     | 说明                                                         |
+| :----------- | :------- | :----------------------------------------------------------- |
+| `data`       | `any`    | 服务器返回的响应体数据（通常是 JSON 对象）。                 |
+| `status`     | `number` | HTTP 状态码（如 200、404、500 等）。                         |
+| `statusText` | `string` | HTTP 状态文本（如 "OK"、"Not Found" 等）。                   |
+| `headers`    | `object` | 响应头信息（包含服务器返回的所有 HTTP 头）。                 |
+| `config`     | `object` | Axios 请求的配置信息（如请求方法、URL、请求头等）。          |
+| `request`    | `object` | 生成此响应的 XMLHttpRequest 对象（在浏览器中）或 HTTP 请求对象。 |
+
+### persist插件
+
+![image-20250124203150075](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124203150075.png)
+
+
+
+![image-20250124203132162](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124203132162.png)
+
+## 动态导入相关
+
+**打破循环依赖：** 因为模块的加载时间推迟了，可能避开了模块间的相互依赖问题。 
+
+**循环依赖**指的是两个或多个模块相互依赖，形成一个闭环。例如：
+
+- 模块 A 依赖模块 B。
+- 模块 B 又依赖模块 A。
+
+
+
+## 前后端数据接收问题
+
+![image-20250124214719181](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124214719181.png)
+
+![image-20250124214735894](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124214735894.png)
+
+**后端以对象去接收json字符串**
+
+
+
+
+
+**vue中注意单引号 字符串都要用单引号 养成习惯**
+
+~~~html
+ <el-button type="primary" @click="dialogVisible = true; title='添加分类' ">添加分类</el-button>
+                </div>
+~~~
+
+
+
+### 动态添加响应式对象属性 扩展属性很重要 结合组件
+
+
+
+#### 1. **初始状态**
+
+```js
+const categoryModel = ref({
+  categoryName: '',
+  categoryAlias: ''
+});
+```
+
+- `categoryModel.value` 的初始值是：
+
+  
+
+  ```js
+  {
+    categoryName: '',
+    categoryAlias: ''
+  }
+  ```
+
+- 此时 `categoryModel.value.id` 是 `undefined`。
+
+#### 2. **赋值操作**
+
+如果你给 `categoryModel.value.id` 赋值，JavaScript 会动态添加 `id` 属性：
+
+
+
+```js
+categoryModel.value.id = 123; // 动态添加 id 属性
+console.log(categoryModel.value); // 输出: { categoryName: '', categoryAlias: '', id: 123 }
+```
+
+- 赋值后，`categoryModel.value` 的结构变为：
+
+  
+
+  ```js
+  {
+    categoryName: '',
+    categoryAlias: '',
+    id: 123
+  }
+  ```
+
+
+
+**！！！**
+
+assignment to（赋值） constant variable（const 常量） 
+
+### 数据模型和数据存储对象的关系
+
+**弹层展示响应式数据： **
+
+![image-20250124225939384](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124225939384.png)
+
+**category是从数据库查询到的数据数组 作为数据存储的对象被渲染在页面上**
+
+![image-20250124225911502](https://cdn.jsdelivr.net/gh/kasahuki/os_test@main/img/image-20250124225911502.png)
+
+
+
+
+
+~~~js
+export const deleteCategoryService =(id)=>{
+  return request.delete('/category?id=' + id)
+  // queryString
+}
+// 拼接和模板字符串 js基础语法
+export const deleteCategoryService = (id) => {
+  return request.delete(`/category?id=${id}`);
+};
+~~~
+
+
+
+**通过函数的传参的参数复用函数 实现不同逻辑**
+
+~~~html
+  <el-form-item>
+                    <el-button type="primary" @click="addArticle('已发布')">发布</el-button>
+                    <el-button type="info" @click="addArticle('草稿')">草稿</el-button>
+                    <!-- 简单优化 通过函数传参的方式复用逻辑 -->
+                </el-form-item>
+~~~
+
+
+
+---
+
+​	
+
+~~~js
+ 库中的 createApp 函数
 import { createApp } from 'vue'
 
 // 2. 引入根组件 App.vue
